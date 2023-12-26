@@ -10,9 +10,10 @@ import {
   faArrowRight,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { baseURL } from '../../context/authContext';
 
 const GetRoom = () => {
-  const pictureAddress = "http://localhost:4000/roomsPictures/"
+  const pictureAddress = baseURL + "roomsPictures/"
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
   const [roomToDisplay, setRoomToDisplay] = useState();

@@ -3,9 +3,10 @@ import "./favProperties.css";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
+import { baseURL } from "../../context/authContext";
 
 const FavProperties = () => {
-  const pictureAddress = "http://localhost:4000/hotelsPictures/"
+  const pictureAddress = baseURL + "hotelsPictures/"
   // const [picture, setPicture] = useState();
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);

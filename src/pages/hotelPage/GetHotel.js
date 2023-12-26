@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { useAuthContext } from "../../context/authContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import './getHotel.css'
+import { baseURL } from "../../context/authContext";
 
 const GetHotel = () => {
-  const pictureAddress = "http://localhost:4000/hotelsPictures/"
+  const pictureAddress = baseURL + "hotelsPictures/"
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
   const [hotelToDisplay, setHotelToDisplay] = useState();

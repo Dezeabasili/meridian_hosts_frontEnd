@@ -16,9 +16,10 @@ import { useSearchContext } from "../../context/searchContext";
 import { useAuthContext } from "../../context/authContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import ReserveRoom from "../../components/reserveRoom/ReserveRoom";
+import { baseURL } from "../../context/authContext";
 
 const Hotel = () => {
-  const pictureAddress = "http://localhost:4000/roomsPictures/"
+  const pictureAddress = baseURL + "roomsPictures/"
   const ref2 = useRef([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [slides, setSlides] = useState([]);

@@ -3,9 +3,10 @@ import "./featuredHotels.css";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
+import { baseURL } from "../../context/authContext";
 
 const FeaturedHotels = () => {
-  const pictureAddress = "http://localhost:4000/featuredHotels/"
+  const pictureAddress = baseURL + "featuredHotels/"
   const [picture, setPicture] = useState();
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);

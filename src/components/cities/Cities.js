@@ -7,6 +7,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
+import { baseURL } from "../../context/authContext";
 
 const Cities = () => {
   const [slide1, setSlide1] = useState(0);
@@ -16,7 +17,7 @@ const Cities = () => {
   const [hotelsData, setHotelsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const runOnce = useRef(false)
-  const pictureAddress = "http://localhost:4000/hotel-cities/"
+  const pictureAddress = baseURL + "hotel-cities/"
 
   const screenSize = useWindowSize();
   // console.log('screenSize.width: ', screenSize.width)
