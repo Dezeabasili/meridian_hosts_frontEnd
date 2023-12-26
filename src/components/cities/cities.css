@@ -1,0 +1,54 @@
+.citiesContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* max-width: 1024px; */
+  gap: 10px;
+}
+
+.cities {
+  width: 33%;
+  position: relative;
+  color: black;
+  /* border-radius: 10px; */
+  overflow: hidden;
+  /* height: 270px; */
+}
+
+.cityPicture {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  /* width: 100%; */
+  /* height: auto; */
+  /* object-fit: cover; */
+}
+
+.cityHeader {
+  text-transform: capitalize;
+}
+
+.changeArrow {
+  margin: 100px 0px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+
+@media screen and (max-width: 485px) {
+  .cities {
+    width: 49%;
+    
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .cities {
+    width: 100%;
+    
+  }
+}
+

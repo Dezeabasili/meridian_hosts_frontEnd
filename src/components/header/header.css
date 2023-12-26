@@ -1,0 +1,204 @@
+.header {
+  
+  display: flex;
+  justify-content: center;
+  color: white;
+  /* position: relative; */
+  width: 100%;
+}
+
+.headerContainer {
+  width: 100%;
+  max-width: 1024px;
+  /* margin: 20px 0px 50px 0px; */
+  text-align: center;
+}
+
+.headerTitleDiv {
+  background-color: blue;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.headerSearch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(240, 224, 136, 0.945);
+  border: 4px solid rgba(247, 211, 7, 0.945);
+  height: fit-content;
+  color: black;
+  border-radius: 5px;
+  position: relative;
+  /* bottom: 0px; */
+  /* left: 0px; */
+  width: 100%;
+  max-width: 1024px;
+  min-width: 230px;
+}
+
+.headerSearchItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  /* width: 100%; */
+  flex: 22%;
+  height: 50px;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+}
+
+.hideRoomOptionsFunc {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.headerSearchButton {
+  justify-content: center;
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  /* flex-basis: 60%; */
+}
+
+.headerSearchInput {
+  border: none;
+  outline: none;
+}
+
+.headerSearchItem2,
+.headerSearchItem3,
+.headerSearchButton {
+  cursor: pointer;
+}
+
+.headerSearchDatePicker {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  
+  
+}
+
+
+
+.headerSearchOptions {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.roomOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  gap: 20px;
+}
+
+.roomOptionsDiv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.roomOptionsDivSpan {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.roomOptionsDivMinus:disabled,
+.roomOptionsDivPlus:disabled {
+  cursor: not-allowed;
+}
+
+.hideDateClass {
+  display: none;
+}
+
+@media screen and (max-width: 1030px) {
+  
+}
+
+@media screen and (max-width: 775px) {
+  .headerSearchItem {
+    flex: 44%;
+  }
+}
+@media screen and (max-width: 485px) {
+  .headerSearchItem {
+    flex: 100%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .headerSearchDatePicker {
+    right: -25px;
+  }
+}
+
+/* 
+
+.roomOptionsDivMinus, .roomOptionsDivPlus {
+    width: 30px;
+    height: 30px;
+    border: 1px solid grey;
+    text-align: center;
+
+} */
+
+/* 
+.headerSearchOptions {
+    position: absolute;
+    top: 45px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 30px;
+    gap: 5px;
+    font-weight:600;
+}
+
+.roomOptions {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 70px;
+    
+}
+
+.roomOptionsDiv {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.roomOptionsBtn {
+    border: 1px solid blue;
+    background-color: white;
+    color: blue;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight:600;
+    margin-top: 15px;
+
+} */
