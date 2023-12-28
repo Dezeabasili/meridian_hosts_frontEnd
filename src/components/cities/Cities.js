@@ -59,7 +59,7 @@ const Cities = () => {
 
           
 
-          // console.log('cityPhotos: ', cityPhotos)
+          console.log('cityPhotos: ', cityPhotos)
 
           setPictures([...cityPictures]);
 
