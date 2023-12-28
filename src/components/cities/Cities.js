@@ -1,9 +1,6 @@
 import "./cities.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -16,21 +13,25 @@ const Cities = () => {
   const [pictures, setPictures] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const runOnce = useRef(false)
-  const pictureAddress = baseURL + "hotel-cities/"
+  const runOnce = useRef(false);
+  const pictureAddress = baseURL + "hotel-cities/";
 
   const screenSize = useWindowSize();
   // console.log('screenSize.width: ', screenSize.width)
 
   useEffect(() => {
+    let cityPictures = []
     if (runOnce.current === false) {
+      
       const loadPage = async () => {
         setLoading(true);
         try {
-          const resp = await axios.get("https://meridianhomes-backend.onrender.com/api/v1/hotels/countByCity");
+          const resp = await axios.get(
+            "https://meridianhomes-backend.onrender.com/api/v1/hotels/countByCity"
+          );
           console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
-  
+
           let split1;
           let split2;
           let join1;
@@ -41,24 +42,43 @@ const Cities = () => {
             join1 = split1.join("");
             split2 = join1.split(" ");
             join2 = split2.join("");
-            photoArray.push(join2)
+            photoArray.push(join2);
           });
-  
-          setPictures([...photoArray])
-  
+
+          const promiseList = photoArray.map((city) => {
+            return axios.get(
+              `https://meridianhomes-backend.onrender.com/hotel-cities/${city}`,
+              { responseType: "blob" }
+            );
+          });
+          const cityPhotos = await Promise.all(promiseList);
+
+          cityPictures = cityPhotos.map(picture => {
+            return URL.createObjectURL(picture.data)
+          })
+
+          
+
+          // console.log('cityPhotos: ', cityPhotos)
+
+          setPictures([...cityPictures]);
+
           setLoading(false);
         } catch (err) {
           console.log(err);
         }
       };
-  
+
       loadPage();
     }
 
     return () => {
-      runOnce.current = true
-    }
-    
+      cityPictures.forEach(picture => {
+        URL.revokeObjectURL(picture);
+      })
+      
+      runOnce.current = true;
+    };
   }, []);
 
   const changeSlide = (direction) => {
@@ -111,7 +131,7 @@ const Cities = () => {
 
           <div className="cities">
             <img
-              src={pictureAddress + `${pictures[slide1]}.jpg`}
+              src={`${pictures[slide1]}.jpg`}
               className="cityPicture"
               alt=""
               width="200"
@@ -120,7 +140,10 @@ const Cities = () => {
             <div className="cityDiv">
               <h3 className="cityHeader">{hotelsData[slide1]._id}</h3>
               <h5 className="cityDesc">
-                {hotelsData[slide1].numberOfHotels} {hotelsData[slide1].numberOfHotels == 1 ? 'property' : 'properties'}
+                {hotelsData[slide1].numberOfHotels}{" "}
+                {hotelsData[slide1].numberOfHotels == 1
+                  ? "property"
+                  : "properties"}
               </h5>
             </div>
           </div>
@@ -128,7 +151,7 @@ const Cities = () => {
           {screenSize.width >= 350 && (
             <div className="cities">
               <img
-                src={pictureAddress + `${pictures[slide2]}.jpg`}
+                src={`${pictures[slide2]}.jpg`}
                 className="cityPicture"
                 alt=""
                 width="200"
@@ -137,7 +160,10 @@ const Cities = () => {
               <div className="cityDiv">
                 <h3 className="cityHeader">{hotelsData[slide2]._id}</h3>
                 <h5 className="cityDesc">
-                  {hotelsData[slide2].numberOfHotels} {hotelsData[slide2].numberOfHotels == 1 ? 'property' : 'properties'}
+                  {hotelsData[slide2].numberOfHotels}{" "}
+                  {hotelsData[slide2].numberOfHotels == 1
+                    ? "property"
+                    : "properties"}
                 </h5>
               </div>
             </div>
@@ -146,7 +172,7 @@ const Cities = () => {
           {screenSize.width >= 485 && (
             <div className="cities">
               <img
-                src={pictureAddress + `${pictures[slide3]}.jpg`}
+                src={`${pictures[slide3]}.jpg`}
                 className="cityPicture"
                 alt=""
                 width="200"
@@ -155,7 +181,10 @@ const Cities = () => {
               <div className="cityDiv">
                 <h3 className="cityHeader">{hotelsData[slide3]._id}</h3>
                 <h5 className="cityDesc">
-                  {hotelsData[slide3].numberOfHotels} {hotelsData[slide3].numberOfHotels == 1 ? 'property' : 'properties'}
+                  {hotelsData[slide3].numberOfHotels}{" "}
+                  {hotelsData[slide3].numberOfHotels == 1
+                    ? "property"
+                    : "properties"}
                 </h5>
               </div>
             </div>
