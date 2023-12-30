@@ -47,7 +47,7 @@ const Cities = () => {
 
           const promiseList = photoArray.map((city) => {
             return axios.get(
-              `https://meridianhomes-backend.onrender.com/hotel-cities/${city}`,
+              `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/${city}`,
               { responseType: "blob" }
             );
           });
