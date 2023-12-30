@@ -55,13 +55,15 @@ const Cities = () => {
           // });
           // const cityPhotos = await Promise.all(promiseList);
 
-          let cityPhotosArray = []
-          let cityPhoto
-          photoArray.forEach(async city => {
+          let cityPhotosArray = [];
+          let cityPhoto;
+
+          photoArray.forEach(async (city) => {
             cityPhoto = await axios.get(
               `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/${city}`,
               { responseType: "blob" }
             );
+            console.log('cityPhoto: ', cityPhoto)
             cityPhotosArray.push(cityPhoto.data)
           })
 
