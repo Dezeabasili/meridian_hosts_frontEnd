@@ -6,7 +6,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { baseURL } from "../../context/authContext";
 
 const FeaturedHotels = () => {
-  const pictureAddress = baseURL + "featuredHotels/"
+  const pictureAddress = baseURL + "hotel-types/"
   const [picture, setPicture] = useState();
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);
