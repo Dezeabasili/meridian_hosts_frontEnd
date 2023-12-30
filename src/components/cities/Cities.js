@@ -59,8 +59,7 @@ const Cities = () => {
           let cityPhoto;
 
           cityPhoto = await axios.get(
-            `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/dallas`,
-            { responseType: "blob" }
+            `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/dallas`
           );
 
           console.log('cityPhoto: ', cityPhoto)
