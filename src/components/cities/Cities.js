@@ -45,7 +45,8 @@ const Cities = () => {
             photoArray.push(join2);
           });
 
-          console.log('photoArray: ', photoArray)
+          setPictures([...photoArray])
+          // console.log('photoArray: ', photoArray)
 
           // const promiseList = photoArray.map((city) => {
           //   return axios.get(
@@ -55,14 +56,14 @@ const Cities = () => {
           // });
           // const cityPhotos = await Promise.all(promiseList);
 
-          let cityPhotosArray = [];
-          let cityPhoto;
+          // let cityPhotosArray = [];
+          // let cityPhoto;
 
-          cityPhoto = await axios.get(
-            `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/dallas`
-          );
+          // cityPhoto = await axios.get(
+          //   `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/dallas`
+          // );
 
-          console.log('cityPhoto: ', cityPhoto)
+          // console.log('cityPhoto: ', cityPhoto)
 
           // photoArray.forEach(async (city) => {
           //   cityPhoto = await axios.get(
@@ -75,11 +76,11 @@ const Cities = () => {
 
           // console.log('cityPhotosArray: ', cityPhotosArray)
 
-          cityPictures = cityPhotosArray.map(picture => {
-            return URL.createObjectURL(picture.data)
-          })
+          // cityPictures = cityPhotosArray.map(picture => {
+          //   return URL.createObjectURL(picture.data)
+          // })
 
-          setPictures([...cityPictures]);
+          // setPictures([...cityPictures]);
 
           setLoading(false);
         } catch (err) {
@@ -91,9 +92,9 @@ const Cities = () => {
     }
 
     return () => {
-      cityPictures.forEach(picture => {
-        URL.revokeObjectURL(picture);
-      })
+      // cityPictures.forEach(picture => {
+      //   URL.revokeObjectURL(picture);
+      // })
       
       runOnce.current = true;
     };
@@ -149,7 +150,7 @@ const Cities = () => {
 
           <div className="cities">
             <img
-              src={`${pictures[slide1]}.jpg`}
+              src={`https://meridianhomes-backend.onrender.com/hotel-cities/${pictures[slide1]}.jpg`}
               className="cityPicture"
               alt=""
               width="200"
@@ -169,7 +170,7 @@ const Cities = () => {
           {screenSize.width >= 350 && (
             <div className="cities">
               <img
-                src={`${pictures[slide2]}.jpg`}
+                src={`https://meridianhomes-backend.onrender.com/hotel-cities/${pictures[slide2]}.jpg`}
                 className="cityPicture"
                 alt=""
                 width="200"
@@ -190,7 +191,7 @@ const Cities = () => {
           {screenSize.width >= 485 && (
             <div className="cities">
               <img
-                src={`${pictures[slide3]}.jpg`}
+                src={`https://meridianhomes-backend.onrender.com/hotel-cities/${pictures[slide3]}.jpg`}
                 className="cityPicture"
                 alt=""
                 width="200"
