@@ -47,17 +47,27 @@ const Cities = () => {
 
           console.log('photoArray: ', photoArray)
 
-          const promiseList = photoArray.map((city) => {
-            return axios.get(
+          // const promiseList = photoArray.map((city) => {
+          //   return axios.get(
+          //     `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/${city}`,
+          //     { responseType: "blob" }
+          //   );
+          // });
+          // const cityPhotos = await Promise.all(promiseList);
+
+          let cityPhotosArray = []
+          let cityPhoto
+          photoArray.forEach(async city => {
+            cityPhoto = await axios.get(
               `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/${city}`,
               { responseType: "blob" }
             );
-          });
-          const cityPhotos = await Promise.all(promiseList);
+            cityPhotosArray.push(cityPhoto.data)
+          })
 
-          console.log('cityPhotos: ', cityPhotos)
+          console.log('cityPhotosArray: ', cityPhotosArray)
 
-          cityPictures = cityPhotos.map(picture => {
+          cityPictures = cityPhotosArray.map(picture => {
             return URL.createObjectURL(picture.data)
           })
 
