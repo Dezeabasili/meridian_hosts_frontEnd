@@ -191,8 +191,7 @@ const Cities = () => {
           {screenSize.width >= 485 && (
             <div className="cities">
               <img
-                // src={`https://meridianhomes-backend.onrender.com/hotel-cities/${pictures[slide3]}.jpg`}
-                src='https://meridianhomes-backend.onrender.com/customerPreferredProfilePhoto.jpg'
+                src={`https://meridianhomes-backend.onrender.com/hotel-cities/${pictures[slide3]}.jpg`}
                 className="cityPicture"
                 alt=""
                 width="200"
