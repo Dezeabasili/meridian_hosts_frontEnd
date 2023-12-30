@@ -55,13 +55,11 @@ const Cities = () => {
           });
           const cityPhotos = await Promise.all(promiseList);
 
+          console.log('cityPhotos: ', cityPhotos)
+
           cityPictures = cityPhotos.map(picture => {
             return URL.createObjectURL(picture.data)
           })
-
-          
-
-          console.log('cityPhotos: ', cityPhotos)
 
           setPictures([...cityPictures]);
 
