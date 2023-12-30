@@ -45,6 +45,8 @@ const Cities = () => {
             photoArray.push(join2);
           });
 
+          console.log('photoArray: ', photoArray)
+
           const promiseList = photoArray.map((city) => {
             return axios.get(
               `https://meridianhomes-backend.onrender.com/api/v1/pictures/cities/${city}`,
@@ -120,7 +122,7 @@ const Cities = () => {
   return (
     <div className="citiesContainer">
       {loading ? (
-        <p>Loading data</p>
+        <p>Loading !!!</p>
       ) : (
         <>
           <FontAwesomeIcon
