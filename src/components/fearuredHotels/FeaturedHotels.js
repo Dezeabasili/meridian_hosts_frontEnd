@@ -24,7 +24,7 @@ const FeaturedHotels = () => {
       const loadPage = async () => {
         setLoading(true);
         try {
-          const resp = await axios.get("/hotels/countByType");
+          const resp = await axios.get("https://meridianhomes-backend.onrender.com/api/v1/hotels/countByType");
           // console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
           // setHotelsToDisplay(resp.data.data)
