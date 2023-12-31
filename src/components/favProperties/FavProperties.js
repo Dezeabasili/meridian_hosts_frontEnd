@@ -24,7 +24,7 @@ const FavProperties = () => {
       
         setLoading(true);
       try {
-        const resp = await axios.get("/hotels?sort=-ratingsAverage&limit=4");
+        const resp = await axios.get(baseURL + "api/v1/hotels?sort=-ratingsAverage&limit=4");
         // console.log("resp.data: ", resp.data.data);
         setHotelsData([...resp.data.data]);
         // setHotelsToDisplay(resp.data.data)

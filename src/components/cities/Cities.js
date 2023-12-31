@@ -26,7 +26,7 @@ const Cities = () => {
         setLoading(true);
         try {
           const resp = await axios.get(
-            "https://meridianhomes-backend.onrender.com/api/v1/hotels/countByCity"
+            baseURL + "api/v1/hotels/countByCity"
           );
           console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
