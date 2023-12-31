@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const GetAllBookings = () => {
   const [bookingsList, setBookingsList] = useState();
@@ -22,7 +23,7 @@ const GetAllBookings = () => {
               setBookingsList([...location.state.bookingsToDisplay]);
           
           } else {
-            const resp = await axiosWithInterceptors.get("/bookings");
+            const resp = await axiosWithInterceptors.get(baseURL + "api/v1/bookings");
             console.log("bookings: ", resp.data.data);
             setBookingsList([...resp.data.data]);
           }
