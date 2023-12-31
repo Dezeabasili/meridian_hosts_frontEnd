@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useAuthContext } from '../../context/authContext'
+import { baseURL } from "../../context/authContext";
 
 const Login = () => {
     const location = useLocation()
@@ -17,7 +18,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('/auth/login', { username, password }, { withCredentials: true })
+            const response = await axios.post(baseURL + 'api/v1/auth/login', { username, password }, { withCredentials: true })
 
             // console.log(response)
             const accessToken = response.data.accessToken

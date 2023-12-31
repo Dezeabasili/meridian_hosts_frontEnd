@@ -13,6 +13,7 @@ import { useSearchContext } from "../../context/searchContext";
 import DatePicker from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { baseURL } from "../../context/authContext";
 
 
 const List = () => {
@@ -45,7 +46,7 @@ const List = () => {
     const fetchData = async () => {   
       setLoading(true);
       try {
-        const res = await axios.get(`/hotels?city=${destination}`);
+        const res = await axios.get(baseURL + `api/v1/hotels?city=${destination}`);
         setHotelList([...res.data.data]);
 
         let split1;
@@ -100,7 +101,7 @@ const List = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `/hotels?city=${destination}&min=${min}&max=${max}`
+        baseURL + `api/v1/hotels?city=${destination}&min=${min}&max=${max}`
       );
       setHotelList([...res.data.data]);
 

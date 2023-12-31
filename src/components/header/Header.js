@@ -87,7 +87,7 @@ const Header = ({ type }) => {
       <div className="headerContainer">
         <>
           <div className="headerTitleDiv">
-            <h3 className="headerTitle">Finds deals for any season</h3>
+            <h3 className="headerTitle">Find deals for any season</h3>
             <p className="headerDesc">
               From cozy bed & breakfast to luxury rooms
             </p>
