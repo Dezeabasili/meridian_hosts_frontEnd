@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useAuthContext } from '../context/authContext'
 import { useEffect } from 'react'
+import { baseURL } from "../context/authContext";
 
 const axiosWithInterceptors = axios.create({ withCredentials: true })
 const axios2 = axios.create({ withCredentials: true })
@@ -34,7 +35,7 @@ const useAxiosInterceptors = () => {
                 req.firstTime = true
                 console.log('This is inside the Response Interceptor and above the request for new access token')
                 // request new access token
-                const response = await axios2.get('/auth/renew_access_token')
+                const response = await axios2.get(baseURL + 'api/v1/auth/renew_access_token')
                 const newAccessToken = response.data.accessToken
                 console.log('This is inside the Response Interceptor and above the setAuth')
                 // update auth with new access token
