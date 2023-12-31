@@ -2,7 +2,8 @@ import "./trustDevice.css";
 import { Outlet } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useAuthContext } from "../../context/authContext";
+import { useAuthContext, baseURL } from "../../context/authContext";
+
 
 const TrustDevice = () => {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const TrustDevice = () => {
         setLoading(true);
         try {
           if (trustThisDevice) {
-            const res = await axios.get("/auth/renew_access_token", {
+            const res = await axios.get(baseURL + "api/v1/auth/renew_access_token", {
               withCredentials: true,
             });
             const accessToken = res.data.accessToken;
