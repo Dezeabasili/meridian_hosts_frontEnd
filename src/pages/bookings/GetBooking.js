@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const GetBooking = () => {
   const location = useLocation();
@@ -11,7 +12,7 @@ const GetBooking = () => {
 
   const deleteThisBooking = async () => {
     try {
-      await axiosWithInterceptors.delete(`/bookings/${bookingToDisplay._id}`);
+      await axiosWithInterceptors.delete(baseURL + `api/v1/bookings/${bookingToDisplay._id}`);
       if (location.state.pathname === '/bookings') {
         navigate("/bookings");
       } else if (location.state.pathname === '/mybookings') {
