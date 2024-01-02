@@ -7,7 +7,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
 
 const MyAccount = () => {
-  const pictureAddress = baseURL + "profilePictures/";
+  const pictureAddress = baseURL + "profilePic/";
   const effectRan = useRef(false);
   const runOnce = useRef(false)
   const [openModal, setOpenModal] = useState(false);
@@ -109,7 +109,7 @@ const MyAccount = () => {
           <img
             className="img"
             // src={effectRan.current}
-            src={pictureAddress + `${userPhoto}`}
+            src={pictureAddress + userPhoto}
             alt="Profile"
             width={50}
             height={50}
