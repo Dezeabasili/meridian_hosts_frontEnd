@@ -74,7 +74,7 @@ const UploadMultipleFiles = () => {
         // then there will be only one file in the filesList
         // if (location?.state?.previousPage === '/users/myaccount') {
         if (fileCode === 'profilephoto') {
-            fd.append(`custPPP${fileExt}`, filesList[0])
+            fd.append(`cPPP${fileExt}`, filesList[0])
         } 
         else if (fileCode === 'hotelphoto') {
             fd.append(`hotels_${id}${fileExt}`, filesList[0])

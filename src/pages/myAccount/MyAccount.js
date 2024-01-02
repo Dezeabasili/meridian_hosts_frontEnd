@@ -34,7 +34,7 @@ const MyAccount = () => {
           if (resp.data.data.photo == 'default_profile_pic.png') {
             setUserPhoto('default_profile_pic.png')
           } else {
-            setUserPhoto(`${resp.data.data._id}/custPPP.jpg`)
+            setUserPhoto(`${resp.data.data._id}/${resp.data.data.photo}`)
           }
 
           setLoading(false);
