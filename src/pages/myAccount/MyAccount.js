@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuthContext } from "../../context/authContext";
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { baseURL } from "../../context/authContext";
 
 const MyAccount = () => {
   const effectRan = useRef(false);
@@ -25,11 +26,11 @@ const MyAccount = () => {
       const loadUser = async () => {
         try {
           setLoading(true);
-          const resp = await axiosWithInterceptors.get("/users/myaccount", {
+          const resp = await axiosWithInterceptors.get(baseURL + "api/v1/users/myaccount", {
             withCredentials: true,
           });
           const myPhoto = await axiosWithInterceptors.get(
-            "/users/myaccount/myphoto",
+            baseURL + "api/v1/users/myaccount/myphoto",
             { responseType: "blob" }
           );
           // console.log(resp.data.data)
