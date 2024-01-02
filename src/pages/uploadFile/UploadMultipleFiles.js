@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { baseURL } from "../../context/authContext";
 
 
 const UploadMultipleFiles = () => {
@@ -97,7 +98,7 @@ const UploadMultipleFiles = () => {
             return { ...prev, started: true }
         })
         try {
-            const resp = await axiosWithInterceptors.post('/auth/upload', fd, {
+            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/upload', fd, {
                 withCredentials: true,
                 onUploadProgress: (ProgressEvent) => { setProgress(prev => { return { ...prev, pc: ProgressEvent.progress * 100 } }) }
             })
