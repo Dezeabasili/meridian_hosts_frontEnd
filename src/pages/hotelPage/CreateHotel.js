@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const CreateHotel = () => {
   const [name, setName] = useState();
@@ -37,7 +38,7 @@ const CreateHotel = () => {
         address,
       };
 
-      const resp = await axiosWithInterceptors.post("/hotels", {
+      const resp = await axiosWithInterceptors.post(baseURL + "api/v1/hotels", {
         name,
         city,
         type,

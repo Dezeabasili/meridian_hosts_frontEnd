@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 // import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const GetAllHotels = () => {
   const [hotelsList, setHotelsList] = useState();
@@ -20,7 +21,7 @@ const GetAllHotels = () => {
               setHotelsList(location.state);
           
           } else {
-            const resp = await axiosWithInterceptors.get("/hotels");
+            const resp = await axiosWithInterceptors.get(baseURL + "api/v1/hotels");
             // console.log("hotels: ", resp.data.data);
             setHotelsList([...resp.data.data]);
           }

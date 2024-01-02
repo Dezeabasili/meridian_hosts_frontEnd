@@ -29,12 +29,17 @@ const MyAccount = () => {
           const resp = await axiosWithInterceptors.get(baseURL + "api/v1/users/myaccount", {
             withCredentials: true,
           });
+          setUserInfo({...resp.data.data});
+        } catch (err) {
+          console.log(err);
+        }
+        try {
           const myPhoto = await axiosWithInterceptors.get(
             baseURL + "api/v1/users/myaccount/myphoto",
             { responseType: "blob" }
           );
           // console.log(resp.data.data)
-          setUserInfo({...resp.data.data});
+         
           effectRan.current = URL.createObjectURL(myPhoto.data);
           // setUserPhoto(myPhoto)
           // console.log(myPhoto)

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { baseURL } from "../../context/authContext";
 
 const CountHotelsByCities = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const CountHotelsByCities = () => {
       const displayData = async () => {
         setLoading(true);
         try {
-          const resp = await axios.get("/hotels/countbycity");
+          const resp = await axios.get(baseURL + "api/v1/hotels/countbycity");
           // console.log(resp.data.data);
           setHotelData([...resp.data.data]);
           setLoading(false)

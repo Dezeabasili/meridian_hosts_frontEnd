@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const FindHotel = () => {
   const [name, setName] = useState();
@@ -13,7 +14,7 @@ const FindHotel = () => {
     e.preventDefault();
     try {
       const resp = await axiosWithInterceptors.get(
-        "/hotels",
+        baseURL + "api/v1/hotels",
         { name, city, type }
       );
       console.log(resp.data.data);

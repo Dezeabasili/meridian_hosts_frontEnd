@@ -25,7 +25,7 @@ const GetHotel = () => {
           if (location.state) {
             setHotelToDisplay(location.state);
           } else {
-            const resp = await axiosWithInterceptors.get(`/hotels/${hotel_id}`);
+            const resp = await axiosWithInterceptors.get(baseURL + `api/v1/hotels/${hotel_id}`);
             console.log("resp.data.data: ", resp.data.data);
             setHotelToDisplay(resp.data.data);
           }
@@ -44,7 +44,7 @@ const GetHotel = () => {
 
   const deleteThisHotel = async () => {
     try {
-      await axiosWithInterceptors.delete(`/hotels/${hotelToDisplay._id}`);
+      await axiosWithInterceptors.delete(baseURL + `api/v1/hotels/${hotelToDisplay._id}`);
       navigate("/hotels");
     } catch (err) {
       console.log(err);
