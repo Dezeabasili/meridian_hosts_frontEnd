@@ -36,9 +36,9 @@ const Login = () => {
         }
     }
 
-    useEffect(() => {
-        localStorage.setItem('trustThisDevice', JSON.stringify(trustThisDevice))
-    }, [trustThisDevice])
+    // useEffect(() => {
+    //     localStorage.setItem('trustThisDevice', JSON.stringify(trustThisDevice))
+    // }, [trustThisDevice])
 
     const handleTrustThisDevice = (e) => {
         setTrustThisDevice(e.target.checked)
