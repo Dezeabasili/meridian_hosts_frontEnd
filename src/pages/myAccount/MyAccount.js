@@ -7,6 +7,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
 
 const MyAccount = () => {
+  const pictureAddress = baseURL + "profilePictures/";
   const effectRan = useRef(false);
   const runOnce = useRef(false)
   const [openModal, setOpenModal] = useState(false);
@@ -30,23 +31,30 @@ const MyAccount = () => {
             withCredentials: true,
           });
           setUserInfo({...resp.data.data});
-        } catch (err) {
-          console.log(err);
-        }
-        try {
-          const myPhoto = await axiosWithInterceptors.get(
-            baseURL + "api/v1/users/myaccount/myphoto",
-            { responseType: "blob" }
-          );
-          // console.log(resp.data.data)
-         
-          effectRan.current = URL.createObjectURL(myPhoto.data);
-          // setUserPhoto(myPhoto)
-          // console.log(myPhoto)
+          if (resp.data.data.photo == 'default_profile_pic.png') {
+            setUserPhoto('default_profile_pic.png')
+          } else {
+            setUserPhoto(`${resp.data.data._id}/customerpreferredprofilephoto.jpg`)
+          }
+
           setLoading(false);
         } catch (err) {
           console.log(err);
         }
+        // try {
+        //   const myPhoto = await axiosWithInterceptors.get(
+        //     baseURL + "api/v1/users/myaccount/myphoto",
+        //     { responseType: "blob" }
+        //   );
+        //   // console.log(resp.data.data)
+         
+        //   effectRan.current = URL.createObjectURL(myPhoto.data);
+        //   // setUserPhoto(myPhoto)
+        //   // console.log(myPhoto)
+        //   setLoading(false);
+        // } catch (err) {
+        //   console.log(err);
+        // }
       };
   
       loadUser();
@@ -56,7 +64,7 @@ const MyAccount = () => {
 
     return () => {
       // effectRan.current = true
-      URL.revokeObjectURL(effectRan.current);
+      // URL.revokeObjectURL(effectRan.current);
       runOnce.current = true
     };
   }, []);
@@ -74,8 +82,8 @@ const MyAccount = () => {
   };
 
   const deleteAccount = async () => {
-    await axiosWithInterceptors.delete("/users/deletemyaccount");
-    await axios.get("/auth/logout", { withCredentials: true });
+    await axiosWithInterceptors.delete(baseURL + "api/v1/users/deletemyaccount");
+    await axios.get(baseURL + "api/v1/auth/logout", { withCredentials: true });
     setAuth({});
     localStorage.clear();
     navigate("/");
@@ -100,7 +108,8 @@ const MyAccount = () => {
           <div className="profilePhotoDiv">
           <img
             className="img"
-            src={effectRan.current}
+            // src={effectRan.current}
+            src={pictureAddress + `${userPhoto}`}
             alt="Profile"
             width={50}
             height={50}
