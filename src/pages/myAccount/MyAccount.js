@@ -22,6 +22,8 @@ const MyAccount = () => {
 
   const axiosWithInterceptors = useAxiosInterceptors();
 
+  // Code will be modified to upload image to Cloudinary.
+  // This will not be limited to this file, but to other files where the user uploads images
   useEffect(() => {
     if (runOnce.current === false) {
       const loadUser = async () => {
