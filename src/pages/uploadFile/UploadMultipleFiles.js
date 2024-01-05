@@ -72,14 +72,21 @@ const UploadMultipleFiles = () => {
             return
         }
 
+        const { timestamp, signature} = await generateSignature('profilephotos')
+
         const fd = new FormData()
 
         // check if file is a profile picture. If navigation to this page was from the user's profile page,
         // then there will be only one file in the filesList
 
+        // the following two lines are for making unAuthenticated requests
+        // fd.append('file', filesList[0])
+        // fd.append('upload_preset', 'unprofilephotos')
 
         fd.append('file', filesList[0])
-        fd.append('upload_preset', 'unprofilephotos')
+        fd.append('timestamp', timestamp)
+        fd.append('signature', signature)
+        fd.append('api_key', process.env.REACT_APP_API_KEY)
 
        
         // if (fileCode === 'profilephoto') {
@@ -143,6 +150,17 @@ const UploadMultipleFiles = () => {
             console.log(err)
         }
 
+    }
+
+    const generateSignature = async (folder) => {
+        try {
+            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/generatesignature', {folder}, {
+                withCredentials: true
+            })
+            return resp.data
+        } catch (err) {
+            console.log(err)
+        }
     }
 
 
