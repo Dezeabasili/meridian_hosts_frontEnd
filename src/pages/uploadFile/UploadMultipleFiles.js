@@ -131,7 +131,7 @@ const UploadMultipleFiles = () => {
         
             
     try {
-            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/upload', photoURL, {
+            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/upload', {photoURL}, {
                 withCredentials: true
             })
 
