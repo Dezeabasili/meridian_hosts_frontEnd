@@ -36,7 +36,7 @@ const MyAccount = () => {
           if (resp.data.data.photo == 'default_profile_pic.png') {
             setUserPhoto(`${pictureAddress}default_profile_pic.png`)
           } else {
-            setUserPhoto(updatedProfilePhoto)
+            setUserPhoto(resp.data.data.photo)
           }
 
           setLoading(false);
