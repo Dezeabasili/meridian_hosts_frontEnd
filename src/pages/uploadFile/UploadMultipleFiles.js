@@ -138,7 +138,7 @@ const UploadMultipleFiles = () => {
       let cloudName = process.env.REACT_APP_CLOUD_NAME;
       let api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-      console.log("above 1 ");
+      console.log("above 2 ");
 
       const res = await axios.post(api, fd, {
         onUploadProgress: (ProgressEvent) => {
@@ -148,7 +148,7 @@ const UploadMultipleFiles = () => {
         },
       });
 
-      console.log("below 2 ");
+      console.log("below 1 ");
 
       const { secure_url } = res.data;
       photoURL = secure_url;
