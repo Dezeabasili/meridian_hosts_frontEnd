@@ -25,7 +25,7 @@ const UploadMultipleFiles = () => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    let photoURL;
+
     // check if user selected at least one file
     if (!filesList.length) {
       setMessage("no file selected");
@@ -70,6 +70,7 @@ const UploadMultipleFiles = () => {
       return;
     }
 
+    let photoURL;
     let timestamp;
     let signature;
 
@@ -129,12 +130,15 @@ const UploadMultipleFiles = () => {
     setProgress((prev) => {
       return { ...prev, started: true };
     });
+
+    console.log("above 1 ");
+
     try {
       // https://api.cloudinary.com/v1_1/<cloud name>/<resource_type>/upload
       let cloudName = process.env.REACT_APP_CLOUD_NAME;
       let api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-      console.log('above ')
+      console.log("above 1 ");
 
       const res = await axios.post(api, fd, {
         onUploadProgress: (ProgressEvent) => {
@@ -144,7 +148,7 @@ const UploadMultipleFiles = () => {
         },
       });
 
-      console.log('below 1 ')
+      console.log("below 2 ");
 
       const { secure_url } = res.data;
       photoURL = secure_url;
@@ -164,7 +168,7 @@ const UploadMultipleFiles = () => {
         }
       );
 
-      console.log('below 2 ')
+      console.log("below 2 ");
 
       setUpdatedProfilePhoto(photoURL);
       //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) }
