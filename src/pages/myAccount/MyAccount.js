@@ -15,7 +15,7 @@ const MyAccount = () => {
   const [userPhoto, setUserPhoto] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const { setAuth } = useAuthContext();
+  const { setAuth, updatedProfilePhoto } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
   const previousPage = location.pathname;
@@ -34,9 +34,9 @@ const MyAccount = () => {
           });
           setUserInfo({...resp.data.data});
           if (resp.data.data.photo == 'default_profile_pic.png') {
-            setUserPhoto('default_profile_pic.png')
+            setUserPhoto(`${pictureAddress}default_profile_pic.png`)
           } else {
-            setUserPhoto(`${resp.data.data._id}/${resp.data.data.photo}`)
+            setUserPhoto(updatedProfilePhoto)
           }
 
           setLoading(false);
@@ -111,7 +111,7 @@ const MyAccount = () => {
           <img
             className="img"
             // src={effectRan.current}
-            src={pictureAddress + userPhoto}
+            src={userPhoto}
             alt="Profile"
             width={50}
             height={50}

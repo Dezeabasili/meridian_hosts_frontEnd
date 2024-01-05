@@ -3,13 +3,16 @@ import axios from "axios"
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { baseURL } from "../../context/authContext";
+import { useAuthContext } from '../../context/authContext'
 
 
 const UploadMultipleFiles = () => {
     const [filesList, setFilesList] = useState()
     const [progress, setProgress] = useState({ started: false, pc: 0 })
     const [message, setMessage] = useState()
+    const [imageURL, setImageURL] = useState()
     const axiosWithInterceptors = useAxiosInterceptors()
+    const { updatedProfilePhoto, setUpdatedProfilePhoto } = useAuthContext()
     // const [uploadType, setUpload] = useState('multiple')
     const location = useLocation()
     const navigate = useNavigate()
@@ -24,6 +27,7 @@ const UploadMultipleFiles = () => {
 
     const handleUpload = async (e) => {
         e.preventDefault()
+        let photoURL;
         // check if user selected at least one file
         if (!filesList.length) {
             setMessage('no file selected')
@@ -72,45 +76,74 @@ const UploadMultipleFiles = () => {
 
         // check if file is a profile picture. If navigation to this page was from the user's profile page,
         // then there will be only one file in the filesList
-        // if (location?.state?.previousPage === '/users/myaccount') {
-        if (fileCode === 'profilephoto') {
-            fd.append(`cPPP${fileExt}`, filesList[0])
-        } 
-        else if (fileCode === 'hotelphoto') {
-            fd.append(`hotels_${id}${fileExt}`, filesList[0])
 
-        } else if (fileCode === 'roomphoto') {
-            for (let i = 0; i < 6; i++) {
-                fd.append(`rooms_${id}${i}${fileExt}`, filesList[i])
-                // console.log(filesList[i])
-            }
 
-        } else {
-            for (let i = 0; i < filesList.length; i++) {
-                fd.append(filesList[i].name, filesList[i])
-                // console.log(filesList[i])
-            }
+        fd.append('file', filesList[0])
+        fd.append('upload_preset', 'unprofilephotos')
 
-        }
+       
+        // if (fileCode === 'profilephoto') {
+        //     fd.append(`cPPP${fileExt}`, filesList[0])
+        // } 
+        // else if (fileCode === 'hotelphoto') {
+        //     fd.append(`hotels_${id}${fileExt}`, filesList[0])
+
+        // } else if (fileCode === 'roomphoto') {
+        //     for (let i = 0; i < 6; i++) {
+        //         fd.append(`rooms_${id}${i}${fileExt}`, filesList[i])
+        //         // console.log(filesList[i])
+        //     }
+
+        // } else {
+        //     for (let i = 0; i < filesList.length; i++) {
+        //         fd.append(filesList[i].name, filesList[i])
+        //         // console.log(filesList[i])
+        //     }
+
+        // }
+
+
+
+
 
         setMessage('Uploading...')
         setProgress(prev => {
             return { ...prev, started: true }
         })
         try {
-            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/upload', fd, {
-                withCredentials: true,
+
+            // https://api.cloudinary.com/v1_1/<cloud name>/<resource_type>/upload
+            let cloudName = process.env.REACT_APP_CLOUD_NAME
+            let api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
+
+            const res = await axios.post(api, fd, {
                 onUploadProgress: (ProgressEvent) => { setProgress(prev => { return { ...prev, pc: ProgressEvent.progress * 100 } }) }
             })
-            //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) } 
+
+            const {secure_url} = res.data
+            photoURL = secure_url
             setMessage('Upload successful')
-            // console.log(resp.data)
         } catch (err) {
             setMessage('upload failed')
             console.log(err)
         }
+        
+            
+    try {
+            const resp = await axiosWithInterceptors.post(baseURL + 'api/v1/auth/upload', photoURL, {
+                withCredentials: true
+            })
+
+            setUpdatedProfilePhoto(photoURL)
+            //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) } 
+            
+            // console.log(resp.data)
+        } catch (err) {
+            console.log(err)
+        }
 
     }
+
 
     return (
         <div>
