@@ -17,7 +17,7 @@ const Cities = () => {
   const pictureAddress = baseURL + "hotel-cities/";
 
   const screenSize = useWindowSize();
-  // console.log('screenSize.width: ', screenSize.width)
+  console.log('Don tries .env: ', process.env.REACT_APP_CLOUD_NAME)
 
   useEffect(() => {
     let cityPictures = [];
