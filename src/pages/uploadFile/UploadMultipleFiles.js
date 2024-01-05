@@ -72,7 +72,7 @@ const UploadMultipleFiles = () => {
             return
         }
 
-        const { timestamp, signature} = await generateSignature('profilephotos')
+        const { timestamp, signature} = await generateSignature({folder:'profilephotos'})
 
         const fd = new FormData()
 
