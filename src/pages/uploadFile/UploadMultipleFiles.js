@@ -169,20 +169,20 @@ const UploadMultipleFiles = () => {
     }
   };
 
-//   const generateSignature = async (folder) => {
-//     try {
-//       const resp = await axiosWithInterceptors.get(
-//         baseURL + "api/v1/auth/generatesignature",
-//         { folder },
-//         {
-//           withCredentials: true,
-//         }
-//       );
-//       return resp.data;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  //   const generateSignature = async (folder) => {
+  //     try {
+  //       const resp = await axiosWithInterceptors.get(
+  //         baseURL + "api/v1/auth/generatesignature",
+  //         { folder },
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       return resp.data;
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
   return (
     <div>
