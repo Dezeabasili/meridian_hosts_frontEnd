@@ -72,7 +72,21 @@ const UploadMultipleFiles = () => {
             return
         }
 
-        const { timestamp, signature} = await generateSignature({folder:'profilephotos'})
+        let timestamp;
+        let signature
+
+        try {
+            const resp = await axiosWithInterceptors.get(baseURL + 'api/v1/auth/generatesignature', {folder:'profilephotos'}, {
+                withCredentials: true
+            })
+  
+            timestamp = resp.data.timestamp
+            signature = resp.data.signature
+        } catch (err) {
+            console.log(err)
+        }
+
+        // const { timestamp, signature} = await generateSignature({folder:'profilephotos'})
 
         const fd = new FormData()
 
