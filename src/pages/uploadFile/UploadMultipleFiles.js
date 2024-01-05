@@ -72,7 +72,7 @@ const UploadMultipleFiles = () => {
             return
         }
 
-        const { timestamp, signature} = await generateSignature()
+        const { timestamp, signature} = await generateSignature('profilephotos')
 
         const fd = new FormData()
 
@@ -87,7 +87,7 @@ const UploadMultipleFiles = () => {
         fd.append('timestamp', timestamp)
         fd.append('signature', signature)
         fd.append('api_key', process.env.REACT_APP_API_KEY)
-        // fd.append('folder', 'profilephotos')
+        fd.append('asset_folder', 'profilephotos')
 
        
         // if (fileCode === 'profilephoto') {
@@ -155,7 +155,7 @@ const UploadMultipleFiles = () => {
 
     const generateSignature = async (folder) => {
         try {
-            const resp = await axiosWithInterceptors.get(baseURL + 'api/v1/auth/generatesignature', {
+            const resp = await axiosWithInterceptors.get(baseURL + 'api/v1/auth/generatesignature', {folder}, {
                 withCredentials: true
             })
             return resp.data
