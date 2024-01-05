@@ -87,6 +87,7 @@ const UploadMultipleFiles = () => {
         fd.append('timestamp', timestamp)
         fd.append('signature', signature)
         fd.append('api_key', process.env.REACT_APP_API_KEY)
+        fd.append('folder', 'profilephotos')
 
        
         // if (fileCode === 'profilephoto') {
