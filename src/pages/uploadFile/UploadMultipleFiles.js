@@ -122,6 +122,7 @@ const UploadMultipleFiles = () => {
 
             const {secure_url} = res.data
             photoURL = secure_url
+            console.log('photoURL: ', photoURL)
             setMessage('Upload successful')
         } catch (err) {
             setMessage('upload failed')
