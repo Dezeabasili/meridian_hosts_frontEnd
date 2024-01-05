@@ -76,7 +76,7 @@ const UploadMultipleFiles = () => {
         let signature
 
         try {
-            const resp = await axiosWithInterceptors.get(baseURL + 'api/v1/auth/generatesignature', {folder:'profilephotos'}, {
+            const resp = await axiosWithInterceptors.get(baseURL + 'api/v1/auth/generatesignature', {asset_folder:'profilephotos'}, {
                 withCredentials: true
             })
   
