@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const CreateRoom = () => {
   const [title, setTitle] = useState();
@@ -29,7 +30,7 @@ const CreateRoom = () => {
       console.log(roomNumbers);
 
 
-      const resp = await axiosWithInterceptors.post("/rooms", {
+      const resp = await axiosWithInterceptors.post(baseURL + "api/v1/rooms", {
         title,
         hotel,
         description,
@@ -45,8 +46,6 @@ const CreateRoom = () => {
   };
 
 
-  
-      // Continue tomorrow
   return (
     <div className="register">
       <form className="registerContainer" onSubmit={handleSubmit}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const UpdateHotel = () => {
   const [name, setName] = useState();
@@ -20,7 +21,7 @@ const UpdateHotel = () => {
 
     try {
       const resp = await axiosWithInterceptors.patch(
-        `/hotels/${location.state}`,
+        baseURL + `api/v1/hotels/${location.state}`,
         { name, city, type, address, description, manager, addStaff, removeStaff }
       );
       // console.log(resp.data.data);

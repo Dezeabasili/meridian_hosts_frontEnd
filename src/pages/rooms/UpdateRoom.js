@@ -2,7 +2,7 @@ import "./updateRoom.css";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
-
+import { baseURL } from "../../context/authContext";
 const UpdateRoom = () => {
   const [hotel, setHotel] = useState();
   const [title, setTitle] = useState();
@@ -25,7 +25,7 @@ const UpdateRoom = () => {
     setOpenHotelModal(false);
     try {
       const resp = await axiosWithInterceptors.patch(
-        `/rooms/${location.state}`,
+        baseURL + `api/v1/rooms/${location.state}`,
         { title, price, maxPeople, description, addRooms, hotel, removeRooms }
       );
       // console.log(resp.data.data);
@@ -46,7 +46,7 @@ const UpdateRoom = () => {
     } else {
       try {
         const resp = await axiosWithInterceptors.patch(
-          `/rooms/${location.state}`,
+          baseURL + `api/v1/rooms/${location.state}`,
           { title, price, maxPeople, description, addRooms }
         );
         console.log(resp.data.data);
