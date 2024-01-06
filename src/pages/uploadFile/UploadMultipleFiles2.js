@@ -26,8 +26,6 @@ const UploadMultipleFiles = () => {
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    let urlArray = [];
-    let photoCode;
     // check if user selected at least one file
     if (!filesList.length) {
       setMessage("no file selected");
@@ -72,53 +70,6 @@ const UploadMultipleFiles = () => {
       return;
     }
 
-
-    
-    if (fileCode === 'profilephoto') {
-      photoUpdate("profilephotos", 0, urlArray)
-
-    }
-    else if (fileCode === 'hotelphoto') {
-      photoUpdate("hotelphotos", 0, urlArray)
-
-    } else if (fileCode === 'roomphoto') {
-        for (let i = 0; i < 6; i++) {
-          photoUpdate("roomphotos", i, urlArray)
-        }
-
-    } else {
-        for (let i = 0; i < filesList.length; i++) {
-          photoUpdate("miscphotos", i, urlArray)
-        }
-
-    }
-
-    
-
-    try {
-      const resp = await axiosWithInterceptors.post(
-        baseURL + "api/v1/auth/upload",
-        { urlArray, fileCode },
-        {
-          withCredentials: true,
-        }
-      );
-
-      console.log("below 2 ");
-
-      // setUpdatedProfilePhoto(photoURL);
-      //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) }
-
-      // console.log(resp.data)
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  
-
-  const photoUpdate = async (folderName, index, URLArray) => {
-    // generate signature
     let photoURL;
     let timestamp;
     let signature;
@@ -126,7 +77,7 @@ const UploadMultipleFiles = () => {
     try {
       const resp = await axiosWithInterceptors.post(
         baseURL + "api/v1/auth/generatesignature",
-        { folder: folderName },
+        { folder: "profilephotos" },
         {
           withCredentials: true,
         }
@@ -138,20 +89,43 @@ const UploadMultipleFiles = () => {
       console.log(err);
     }
 
-
-    // populate FormData
+    // const { timestamp, signature} = await generateSignature({folder:'profilephotos'})
 
     const fd = new FormData();
 
-    fd.append("file", filesList[index]);
+    // check if file is a profile picture. If navigation to this page was from the user's profile page,
+    // then there will be only one file in the filesList
+
+    // the following two lines are for making unAuthenticated requests
+    // fd.append('file', filesList[0])
+    // fd.append('upload_preset', 'unprofilephotos')
+
+    fd.append("file", filesList[0]);
     fd.append("timestamp", timestamp);
     fd.append("signature", signature);
     fd.append("api_key", process.env.REACT_APP_API_KEY);
-    fd.append("folder", folderName);
+    fd.append("folder", "profilephotos");
 
-    // upload pictures
+    // if (fileCode === 'profilephoto') {
+    //     fd.append(`cPPP${fileExt}`, filesList[0])
+    // }
+    // else if (fileCode === 'hotelphoto') {
+    //     fd.append(`hotels_${id}${fileExt}`, filesList[0])
 
-    
+    // } else if (fileCode === 'roomphoto') {
+    //     for (let i = 0; i < 6; i++) {
+    //         fd.append(`rooms_${id}${i}${fileExt}`, filesList[i])
+    //         // console.log(filesList[i])
+    //     }
+
+    // } else {
+    //     for (let i = 0; i < filesList.length; i++) {
+    //         fd.append(filesList[i].name, filesList[i])
+    //         // console.log(filesList[i])
+    //     }
+
+    // }
+
     setMessage("Uploading...");
     setProgress((prev) => {
       return { ...prev, started: true };
@@ -177,18 +151,48 @@ const UploadMultipleFiles = () => {
       console.log("below 1 ");
 
       const { secure_url } = res.data;
-      URLArray.push(secure_url)
-      // photoURL = secure_url;
-      // console.log("photoURL: ", photoURL);
+      photoURL = secure_url;
+      console.log("photoURL: ", photoURL);
       setMessage("Upload successful");
     } catch (err) {
       setMessage("upload failed");
       console.log(err);
     }
 
+    try {
+      const resp = await axiosWithInterceptors.post(
+        baseURL + "api/v1/auth/upload",
+        { photoURL },
+        {
+          withCredentials: true,
+        }
+      );
 
-    // send photo urls to backend
-  }
+      console.log("below 2 ");
+
+      setUpdatedProfilePhoto(photoURL);
+      //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) }
+
+      // console.log(resp.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //   const generateSignature = async (folder) => {
+  //     try {
+  //       const resp = await axiosWithInterceptors.get(
+  //         baseURL + "api/v1/auth/generatesignature",
+  //         { folder },
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       return resp.data;
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
   return (
     <div>
