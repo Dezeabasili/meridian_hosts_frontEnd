@@ -181,7 +181,7 @@ const UploadMultipleFiles = () => {
       URLArray.push(secure_url)
       // photoURL = secure_url;
       // console.log("photoURL: ", photoURL);
-      setMessage("Upload successful");
+      setMessage(`Upload successful, ${index + 1} ${index === 1 ? 'file' : 'files'} uploaded`);
     } catch (err) {
       setMessage("upload failed");
       console.log(err);
