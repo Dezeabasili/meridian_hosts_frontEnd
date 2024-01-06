@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
 import { useAuthContext } from "../../context/authContext";
 
-const UploadMultipleFiles = () => {
+const UploadMultipleFiles2 = () => {
   const [filesList, setFilesList] = useState();
   const [progress, setProgress] = useState({ started: false, pc: 0 });
   const [message, setMessage] = useState();
@@ -238,4 +238,4 @@ const UploadMultipleFiles = () => {
   );
 };
 
-export default UploadMultipleFiles;
+export default UploadMultipleFiles2;
