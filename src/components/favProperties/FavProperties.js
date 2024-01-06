@@ -108,7 +108,7 @@ const FavProperties = () => {
               return (
                 <div className="favProperty" key={hotel._id}>
                   <img
-                    src={pictureAddress + `${hotel._id}/${hotel.photos}`}
+                    src={hotel.photos}
                     alt=""
                     className="fPImg"
                     width="150"
