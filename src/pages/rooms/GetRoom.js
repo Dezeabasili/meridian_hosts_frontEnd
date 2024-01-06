@@ -113,9 +113,9 @@ const GetRoom = () => {
         <>
           <div className="getHotelImgContainer">
             <img
-              src={pictureAddress + `${roomToDisplay._id}/${
+              src={
                 roomToDisplay.photos[photo.slide]
-              }`}
+              }
               alt=""
               className='getHotelImg'
               width="200"

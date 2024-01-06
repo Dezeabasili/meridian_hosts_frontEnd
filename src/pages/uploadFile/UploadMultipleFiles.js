@@ -82,6 +82,7 @@ const UploadMultipleFiles = () => {
       await photoUpdate("hotelphotos", 0, urlArray)
 
     } else if (fileCode === 'roomphoto') {
+      
         for (let i = 0; i < 6; i++) {
           await photoUpdate("roomphotos", i, urlArray)
         }
