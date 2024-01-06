@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { baseURL } from "../../context/authContext";
 
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
@@ -22,7 +23,7 @@ const PasswordReset = () => {
         e.preventDefault()
         try {
             //continue tomorrow
-            const response = await axios.post(`/auth/resetpassword/${resettoken}/${user_id}`, { password })
+            const response = await axios.post(baseURL + `api/v1/auth/resetpassword/${resettoken}/${user_id}`, { password })
 
             // console.log(response.data)
             setPassword('')

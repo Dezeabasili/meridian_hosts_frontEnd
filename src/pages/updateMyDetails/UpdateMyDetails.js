@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
+import { baseURL } from "../../context/authContext";
 
 const username_REGEX = /^[a-zA-Z][a-zA-Z0-9_-]{5,20}$/
 
@@ -22,7 +23,7 @@ const UpdateMyDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axiosWithInterceptors.patch('/users/updatemyaccount', { name, username, email })
+            const response = await axiosWithInterceptors.patch(baseURL +'api/v1/users/updatemyaccount', { name, username, email })
 
             // console.log(response.data)
             setName('')

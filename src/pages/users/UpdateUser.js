@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
+import { baseURL } from "../../context/authContext";
 
 const UpdateUser = () => {
     const [roles, setRoles] = useState('')
@@ -14,11 +15,11 @@ const UpdateUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            let resp = await axiosWithInterceptors.patch('/users/updateuser', { roles, active, email })
+            let resp = await axiosWithInterceptors.patch(baseURL + 'api/v1/users/updateuser', { roles, active, email })
 
            
             if (resp.data.data.matchedCount === 1) {
-                 resp = await axiosWithInterceptors.post("/users/finduser", {
+                 resp = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
                     email,
                   });
             }

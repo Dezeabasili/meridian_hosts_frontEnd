@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const FindUser = () => {
   const [email, setEmail] = useState();
@@ -12,7 +13,7 @@ const FindUser = () => {
     e.preventDefault();
     try {
     //   let userArray = [];
-      const resp = await axiosWithInterceptors.post("/users/finduser", {
+      const resp = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
         email,
       });
       console.log(resp.data.data);

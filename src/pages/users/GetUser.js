@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 
 const GetUser = () => {
@@ -33,7 +34,7 @@ const GetUser = () => {
 
   const deleteThisUser = async () => {
     try {
-      await axiosWithInterceptors.delete(`/users/${userToDisplay._id}`);
+      await axiosWithInterceptors.delete(baseURL + `api/v1/users/${userToDisplay._id}`);
       navigate("/users");
     } catch (err) {
       console.log(err);
