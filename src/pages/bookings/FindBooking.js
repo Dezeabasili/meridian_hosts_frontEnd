@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const FindBooking = () => {
   const [email, setEmail] = useState();
@@ -14,7 +15,7 @@ const FindBooking = () => {
     e.preventDefault();
     try {
       const resp = await axiosWithInterceptors.post(
-        "/bookings/findbooking",
+        baseURL + "api/v1/bookings/findbooking",
         { booking_id: bookingRef, email }
       );
       console.log(resp.data.data);
