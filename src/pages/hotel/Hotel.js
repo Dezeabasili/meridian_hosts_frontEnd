@@ -162,6 +162,10 @@ const Hotel = () => {
       }
 
       console.log("ref2.current: ", ref2.current);
+      console.log("selectedRooms: ", selectedRooms);
+      console.log("reservedDates: ", reservedDates);
+
+
 
       // send data to process payment
       const resp = await axiosWithInterceptors.post(
