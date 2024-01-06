@@ -30,7 +30,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(baseURL + 'API/V1/auth/register', { name, username, email, password })
+            const response = await axios.post(baseURL + 'api/v1/auth/register', { name, username, email, password })
 
             // console.log(response.data)
             setName('')
