@@ -75,7 +75,8 @@ const GetHotel = () => {
         <>
           <div className="getHotelImgContainer">
             <img
-              src={pictureAddress + `${hotelToDisplay._id}/${hotelToDisplay.photos}`}
+              // src={pictureAddress + `${hotelToDisplay._id}/${hotelToDisplay.photos}`}
+              src={hotelToDisplay.photos}
               alt=""
               className="getHotelImg"
               width="250"
