@@ -2,6 +2,7 @@ import './register.css'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { baseURL } from "../../context/authContext";
 
 const username_REGEX = /^[a-zA-Z][a-zA-Z0-9_-]{5,20}$/
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
@@ -29,7 +30,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('/auth/register', { name, username, email, password })
+            const response = await axios.post(baseURL + 'API/V1/auth/register', { name, username, email, password })
 
             // console.log(response.data)
             setName('')
