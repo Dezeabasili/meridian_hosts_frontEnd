@@ -75,20 +75,20 @@ const UploadMultipleFiles = () => {
 
     
     if (fileCode === 'profilephoto') {
-      photoUpdate("profilephotos", 0, urlArray)
+      await photoUpdate("profilephotos", 0, urlArray)
 
     }
     else if (fileCode === 'hotelphoto') {
-      photoUpdate("hotelphotos", 0, urlArray)
+      await photoUpdate("hotelphotos", 0, urlArray)
 
     } else if (fileCode === 'roomphoto') {
         for (let i = 0; i < 6; i++) {
-          photoUpdate("roomphotos", i, urlArray)
+          await photoUpdate("roomphotos", i, urlArray)
         }
 
     } else {
         for (let i = 0; i < filesList.length; i++) {
-          photoUpdate("miscphotos", i, urlArray)
+          await photoUpdate("miscphotos", i, urlArray)
         }
 
     }
