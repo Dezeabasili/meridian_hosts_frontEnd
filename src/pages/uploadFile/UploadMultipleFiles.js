@@ -93,7 +93,7 @@ const UploadMultipleFiles = () => {
 
     }
 
-    
+    console.log('urlArray: ', urlArray)
 
     try {
       const resp = await axiosWithInterceptors.post(
