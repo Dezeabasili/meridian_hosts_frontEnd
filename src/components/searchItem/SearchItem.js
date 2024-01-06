@@ -16,7 +16,7 @@ const SearchItem = ({ hotelList, pictures, hideCheckInDate, hideCheckOutDate  })
                 <div className="itemContainer">
                   <div className={hideCheckInDate || hideCheckOutDate ? "pictureAlt" : "picture"}>
                     <img
-                      src={pictureAddress + `${hotel._id}/${hotel.photos}`}
+                      src={hotel.photos}
                       alt=""
                       width={200}
                       height={200}
@@ -61,7 +61,7 @@ const SearchItem = ({ hotelList, pictures, hideCheckInDate, hideCheckOutDate  })
                       </div>
                       <div className= {hideCheckInDate || hideCheckOutDate ? "smallerPictureAlt" : "smallerPicture"} >
                         <img
-                          src={pictureAddress + `${hotel._id}/${hotel.photos}`}
+                          src={hotel.photos}
                           alt=""
                           width={200}
                           height={200}

@@ -274,7 +274,7 @@ const Hotel = () => {
                     >
                       <div className="hotelRoomPicturesWrap">
                         <img                        
-                          src={pictureAddress + `${roomStyle._id}/${roomStyle.photos[slides[index].slideNumber]}`}
+                          src={roomStyle.photos[slides[index].slideNumber]}
                           alt=""
                           width="200"
                           height="220"
