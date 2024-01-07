@@ -43,6 +43,24 @@ const Menu_Admin_Structure = () => {
         <li>
           <NavLink to={"/hotels/countbytype"}>Count hotels by type</NavLink>
         </li>
+        <li>
+          <NavLink to={"/hotels/createcity"}>Create hotel city</NavLink>
+        </li>
+        <li>
+          <NavLink to={"/hotels/createhoteltype"}>Create hotel type</NavLink>
+        </li>
+        <li>
+          <NavLink to={"/hotels/allcityrefs"}>Get all hotel city references</NavLink>
+        </li>
+        <li>
+          <NavLink to={"/hotels/allhoteltyperefs"}>Get all hotel type references</NavLink>
+        </li>
+        <li>
+          <NavLink to={"/hotels/updatecityphoto"}>Update hotel city photo</NavLink>
+        </li>
+        <li>
+          <NavLink to={"/hotels/updatehoteltypephoto"}>Update hotel type photo</NavLink>
+        </li>
         <br />
 
         <li>

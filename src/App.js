@@ -43,6 +43,13 @@ import UpdateUser from "./pages/users/UpdateUser";
 import GetMyBookings from "./pages/bookings/GetMyBookings";
 import ListYourProp from "./components/listYourProp/ListYourProp";
 import MyReviews from "./pages/reviews/MyReviews";
+import CreateHotelCity from "./pages/hotelPage/CreateHotelCity";
+import CreateHotelType from "./pages/hotelPage/CreateHotelType";
+import GetAllHotelCityRefs from "./pages/hotelPage/GetAllHotelCityRefs";
+import GetAllHotelTypesRef from "./pages/hotelPage/GetAllHotelTypesRef";
+import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
+import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
+
 
 function App() {
   return (
@@ -83,6 +90,12 @@ function App() {
               <Route path="createhotel" element={<CreateHotel />} />
               <Route path="createreview" element={<CreateReview />} />                                    
               <Route path="hotels/updatehotel" element={<UpdateHotel />} />
+              <Route path="hotels/createhoteltype" element={<CreateHotelType />} />
+              <Route path="hotels/createcity" element={<CreateHotelCity />} />
+              <Route path="hotels/allcityrefs" element={<GetAllHotelCityRefs />} />
+              <Route path="hotels/allhoteltyperefs" element={<GetAllHotelTypesRef />} />
+              <Route path="hotels/updatecityphoto" element={<UpdateCityPhoto />} />
+              <Route path="hotels/updatehoteltypephoto" element={<UpdateHotelTypePhoto />} />
               <Route path="createroom" element={<CreateRoom />} />                          
               <Route path="rooms/updateroom" element={<UpdateRoom />} />
               <Route path="users" element={<GetAllUsers />} />
