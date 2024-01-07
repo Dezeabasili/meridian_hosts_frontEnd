@@ -26,10 +26,10 @@ const CreateHotelType = () => {
   return (
     <div className="register">
       <form className="registerContainer" onSubmit={handleSubmit}>
-        <h3 className="registerTitle">Provide city name</h3>
+        <h3 className="registerTitle">Provide hotel type</h3>
 
         <div className="registerDiv">
-          <label htmlFor="cityName">City name:</label>
+          <label htmlFor="cityName">Hotel type:</label>
           <input
             id="cityName"
             type="text"

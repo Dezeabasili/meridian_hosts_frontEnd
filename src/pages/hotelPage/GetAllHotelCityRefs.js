@@ -49,9 +49,8 @@ const GetAllHotelCityRefs = () => {
             <>
               {referenceList?.map((city) => (
                 <div key={city._id}>
-                  <p>City reference: {city._id}</p>
                   <p>City name: <span style={{"text-transform": "capitalize"}}>{city.cityName}</span></p>
-                  
+                  <p>City reference: {city._id}</p>                                  
                   <br />
                 </div>
               ))}

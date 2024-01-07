@@ -26,10 +26,10 @@ const UpdateHotelTypePhoto = () => {
   return (
     <div className="register">
       <form className="registerContainer" onSubmit={handleSubmit}>
-        <h3 className="registerTitle">Provide city reference</h3>
+        <h3 className="registerTitle">Provide hotel type reference</h3>
 
         <div className="registerDiv">
-          <label htmlFor="cityName">City reference:</label>
+          <label htmlFor="cityName">Hotel type reference:</label>
           <input
             id="cityName"
             type="text"
