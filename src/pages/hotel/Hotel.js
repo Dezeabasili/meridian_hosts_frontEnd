@@ -84,22 +84,6 @@ const Hotel = () => {
     };
   }, [hotel_id, axiosWithInterceptors]);
 
-  // const { data, error, loading } = useAxios(`/hotels/${hotel_id}`)
-  // if (error) console.log(error)
-  // const hotelInfo = data?.data
-
-
-  // const calculate_totalNights = (startDate, endDate) => {
-  //   const timeDiff_in_milliSec = Math.abs(
-  //     endDate.getTime() - startDate.getTime()
-  //   );
-  //   const timeDiff_in_days = Math.ceil(
-  //     timeDiff_in_milliSec / (24 * 60 * 60 * 1000)
-  //   );
-  //   return timeDiff_in_days;
-  // };
-
-  // const totalNights = calculate_totalNights(date[0].endDate, date[0].startDate);
 
   const handleSlider = (ind) => {
     setOpenSlider(true);
@@ -160,12 +144,6 @@ const Hotel = () => {
       } else {
         setSelectedRooms([...newlySelectedRooms]);
       }
-
-      console.log("ref2.current: ", ref2.current);
-      console.log("selectedRooms: ", selectedRooms);
-      console.log("reservedDates: ", reservedDates);
-
-
 
       // send data to process payment
       const resp = await axiosWithInterceptors.post(

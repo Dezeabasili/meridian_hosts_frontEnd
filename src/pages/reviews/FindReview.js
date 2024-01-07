@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const FindReview = () => {
   const [review_id, setReview_id] = useState();
@@ -13,7 +14,7 @@ const FindReview = () => {
     e.preventDefault();
     try {
       const resp = await axiosWithInterceptors.get(
-        "/reviews",
+        baseURL + "api/v1/reviews",
         { review_id, email }
       );
       console.log(resp.data.data);

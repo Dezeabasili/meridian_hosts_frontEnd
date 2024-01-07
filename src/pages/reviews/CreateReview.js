@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const CreateReview = () => {
   const [hotel, setHotel] = useState();
@@ -15,7 +16,7 @@ const CreateReview = () => {
     e.preventDefault();
     try {
       
-      const resp = await axiosWithInterceptors.post("/reviews", {
+      const resp = await axiosWithInterceptors.post(baseURL + "api/v1/reviews", {
         hotel,
         bookingRef,
         rating,

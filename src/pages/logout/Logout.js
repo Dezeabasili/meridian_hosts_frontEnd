@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../context/authContext";
+import { baseURL } from "../../context/authContext";
 
 const Logout = () => {
   const runOnce = useRef(false);
@@ -16,7 +17,7 @@ const Logout = () => {
           // clear the access token from memory
           setAuth({});
           // clear the cookie
-          await axios.get("/auth/logout", { withCredentials: true });
+          await axios.get(baseURL + "api/v1/auth/logout", { withCredentials: true });
           localStorage.clear();
           setLoading(false);
         } catch (err) {

@@ -23,32 +23,7 @@ const ReserveRoom = ({
   const [hotelRoomsArray, setHotelRoomsArray] = useState([]);
   const axiosWithInterceptors = useAxiosInterceptors();
   const { date } = useSearchContext();
-  //   const { data, error } = useAxios(`/hotels/room/${hotel_id}`);
-  // console.log(data.data)
-  //   const hotelRoomsArray = data.data;
-
-  // useEffect(() => {
-  //   if (runOnce.current === false) {
-  //       const loadPage = async () => {
-  //           try {
-  //               setLoading(true);
-  //               const resp = await axiosWithInterceptors.get(`/hotels/room/${hotel_id}`)
-  //               setHotelRoomsArray([...resp.data.data])
-  //               setLoading(false)
-
-  //           } catch (err) {
-  //               console.log(err)
-  //           }
-  //       }
-
-  //       loadPage()
-  //   }
-
-  //   return () => {
-  //       runOnce.current = true
-  //     }
-
-  // }, [])
+ 
 
   // get the check-in and check-out dates
   let checkinDate = new Date(format(date[0].startDate, "yyyy/MM/dd"));
@@ -129,34 +104,6 @@ const ReserveRoom = ({
     );
   };
 
-  // const reserveRooms = async () => {
-  //   try {
-  //     console.log("selectedRooms:", selectedRooms);
-  //     setSelectedRooms((prev) => {
-  //       let arr = [];
-  //       arr = prev.concat(newlySelectedRooms);
-  //       return [...arr];
-  //     });
-
-  //     // send data to process payment
-  //     const resp = await axiosWithInterceptors.post(
-  //       "/stripe/create-checkout-session",
-  //       { selectedRooms, reservedDates, hotel_id }
-  //     );
-  //     // const resp = await axios.post('/stripe/create-checkout-session', {selectedRooms, reservedDates})
-  //     window.location.href = resp.data.url;
-
-  //     // const promiseArray = selectedRooms.map(room => {
-  //     //     return axios.patch(`/rooms/availability/${room}`, { reservedDates }, { withCredentials: true })
-  //     // })
-  //     // const resArray = await Promise.all(promiseArray)
-  //     // // console.log(resArray)
-
-  //     setOpenHotelRooms(false);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const closeModal = () => {
     setNewlySelectedRooms([]);
@@ -223,14 +170,7 @@ const ReserveRoom = ({
               {/* );
               })} */}
             </div>
-            {/* <button
-              onClick={reserveRooms}
-              disabled={
-                selectedRooms.length === 0 && newlySelectedRooms.length === 0
-              }
-            >
-              Reserve room(s)
-            </button> */}
+
             <button onClick={() => addNewlySelectedRooms()}>
               Continue
             </button>
