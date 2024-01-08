@@ -11,11 +11,14 @@ const Register = () => {
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [validUsername, setValidUsername] = useState()
+    const [usernameFocus, setUsernameFocus] = useState()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState()
+    const [passwordFocus, setPasswordFocus] = useState()
     const [confirmPassword, setConfirmPassword] = useState('')
     const [validConfirmPassword, setValidConfirmPassword] = useState()
+    const [confirmPasswordFocus, setConfirmPasswordFocus] = useState()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -71,10 +74,15 @@ const Register = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         autoComplete='off'
+                        onFocus={() => setUsernameFocus(true)}
+                        onBlur={() => setUsernameFocus(false)}
                     />
-                    {/* <p>Username must start with a letter and contain 5 - 20 characters</p>
-                    <p>The characters can be a combination of the following: </p>
-                    <p>lowercase letters, uppercase letters, numbers, special characters - _</p> */}
+                    <p className={usernameFocus && !validUsername ? 'showInstructions' : 'hideInstructions'}>
+                    Username must begin with a letter.<br/> 
+                    Must contain 5 - 20 characters. <br/>
+                    The following characters are allowed <br/> 
+                    Letters, numbers, hyphens, underscores
+                    </p>
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='email'>e-mail:</label>
@@ -95,10 +103,14 @@ const Register = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
                     />
-                    {/* <p>Password must contain 8 - 24 characters</p>
-                    <p>It must contain the following: </p>
-                    <p>a lowercase letter, an uppercase letter, a number, one of these special characters ! @ # $ % </p> */}
+                    <p className={passwordFocus && !validPassword ? 'showInstructions' : 'hideInstructions'}>
+                    Password must contain 8 - 24 characters. <br/>
+                    It must include the following: <br/>
+                    a lowercase letter, an uppercase letter, a number, one of these special characters ! @ # $ % 
+                    </p>
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='confirmPwd'>Confirm Password:</label>
@@ -108,7 +120,13 @@ const Register = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
+                        onFocus={() => setConfirmPasswordFocus(true)}
+                        onBlur={() => setConfirmPasswordFocus(false)}
                     />
+                    <p className={confirmPasswordFocus && !validConfirmPassword ? 'showInstructions' : 'hideInstructions'}>
+                    Passwords must match
+                    </p>
+
                 </div>
 
                 <button className='signUpButton' disabled={!validUsername || !validPassword || !validConfirmPassword} >Sign Up</button>

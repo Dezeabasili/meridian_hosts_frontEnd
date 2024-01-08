@@ -62,3 +62,12 @@ button {
   width: 180px;
   height: 40px;
 }
+
+.showInstructions {
+  position: relative;
+  bottom: -10px;
+}
+
+.hideInstructions {
+  display: none;
+}
