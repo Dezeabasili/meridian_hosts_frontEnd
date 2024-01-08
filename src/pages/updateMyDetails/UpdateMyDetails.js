@@ -11,6 +11,7 @@ const UpdateMyDetails = () => {
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [validUsername, setValidUsername] = useState()
+    const [usernameFocus, setUsernameFocus] = useState()
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
 
@@ -63,7 +64,15 @@ const UpdateMyDetails = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                         autoComplete='off'
+                        onFocus={() => setUsernameFocus(true)}
+                        onBlur={() => setUsernameFocus(false)}
                     />
+                    <p className={usernameFocus && !validUsername ? 'showInstructions' : 'hideInstructions'}>
+                    Username must begin with a letter.<br/> 
+                    Must contain 5 - 20 characters. <br/>
+                    The following characters are allowed: <br/> 
+                    Letters, numbers, hyphens, underscores
+                    </p>
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='email'>e-mail:</label>

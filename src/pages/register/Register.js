@@ -80,7 +80,7 @@ const Register = () => {
                     <p className={usernameFocus && !validUsername ? 'showInstructions' : 'hideInstructions'}>
                     Username must begin with a letter.<br/> 
                     Must contain 5 - 20 characters. <br/>
-                    The following characters are allowed <br/> 
+                    The following characters are allowed: <br/> 
                     Letters, numbers, hyphens, underscores
                     </p>
                 </div>
@@ -124,7 +124,7 @@ const Register = () => {
                         onBlur={() => setConfirmPasswordFocus(false)}
                     />
                     <p className={confirmPasswordFocus && !validConfirmPassword ? 'showInstructions' : 'hideInstructions'}>
-                    Passwords must match
+                    Passwords must match.
                     </p>
 
                 </div>
