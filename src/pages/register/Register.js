@@ -132,7 +132,7 @@ const Register = () => {
                 <button className='signUpButton' disabled={!validUsername || !validPassword || !validConfirmPassword} >Sign Up</button>
                 <p>Already registered?</p>
                 <Link to={'/login'}>
-                    <p>Sign In</p>
+                    <p><strong>Sign In</strong></p>
                 </Link>
 
             </form>
