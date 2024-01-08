@@ -72,9 +72,9 @@ const Register = () => {
                         required
                         autoComplete='off'
                     />
-                    <p>Username must start with a letter and contain 5 - 20 characters</p>
+                    {/* <p>Username must start with a letter and contain 5 - 20 characters</p>
                     <p>The characters can be a combination of the following: </p>
-                    <p>lowercase letters, uppercase letters, numbers, special characters - _</p>
+                    <p>lowercase letters, uppercase letters, numbers, special characters - _</p> */}
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='email'>e-mail:</label>
@@ -96,9 +96,9 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <p>Password must contain 8 - 24 characters</p>
+                    {/* <p>Password must contain 8 - 24 characters</p>
                     <p>It must contain the following: </p>
-                    <p>a lowercase letter, an uppercase letter, a number, one of these special characters ! @ # $ % </p>
+                    <p>a lowercase letter, an uppercase letter, a number, one of these special characters ! @ # $ % </p> */}
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='confirmPwd'>Confirm Password:</label>
