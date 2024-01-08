@@ -12,8 +12,10 @@ const ChangePassword = () => {
     const [currentPassword, setCurrentPassword] = useState('')
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState()
+    const [passwordFocus, setPasswordFocus] = useState()
     const [confirmPassword, setConfirmPassword] = useState('')
     const [validConfirmPassword, setValidConfirmPassword] = useState()
+    const [confirmPasswordFocus, setConfirmPasswordFocus] = useState()
     const navigate = useNavigate()
     const axiosWithInterceptors = useAxiosInterceptors()
 
@@ -62,7 +64,14 @@ const ChangePassword = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
                     />
+                    <p className={passwordFocus && !validPassword ? 'showInstructions' : 'hideInstructions'}>
+                    Password must contain 8 - 24 characters. <br/>
+                    It must include the following: <br/>
+                    a lowercase letter, an uppercase letter, a number, one of these special characters % ! @ # $
+                    </p>
                 </div>
                 <div className='registerDiv'>
                     <label htmlFor='confirmPwd'>Confirm new password:</label>
@@ -72,7 +81,12 @@ const ChangePassword = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
+                        onFocus={() => setConfirmPasswordFocus(true)}
+                        onBlur={() => setConfirmPasswordFocus(false)}
                     />
+                    <p className={confirmPasswordFocus && !validConfirmPassword ? 'showInstructions' : 'hideInstructions'}>
+                    Passwords must match.
+                    </p>
                 </div>
 
                 <button className='signUpButton' disabled={!currentPassword || !validPassword || !validConfirmPassword} >Submit new password</button>

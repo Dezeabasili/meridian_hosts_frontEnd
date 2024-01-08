@@ -58,7 +58,7 @@ const PasswordReset = () => {
                     <p className={passwordFocus && !validPassword ? 'showInstructions' : 'hideInstructions'}>
                     Password must contain 8 - 24 characters. <br/>
                     It must include the following: <br/>
-                    a lowercase letter, an uppercase letter, a number, one of these special characters ! @ # $ % 
+                    a lowercase letter, an uppercase letter, a number, one of these special characters % ! @ # $ 
                     </p>
                 </div>
                 <div className='registerDiv'>
