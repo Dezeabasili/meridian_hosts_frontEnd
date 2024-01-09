@@ -5,6 +5,7 @@ import { useAuthContext } from "../../context/authContext";
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const MyAccount = () => {
   const pictureAddress = baseURL + "profilePic/";
@@ -94,7 +95,17 @@ const MyAccount = () => {
   return (
     <>
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <div className="myProfileContainer">
           <h3>My account details</h3>

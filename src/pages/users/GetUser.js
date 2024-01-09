@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 
 const GetUser = () => {
@@ -44,7 +45,17 @@ const GetUser = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <>
           <p>User name: <span style={{"text-transform": "capitalize"}}>{userToDisplay.name}</span></p>

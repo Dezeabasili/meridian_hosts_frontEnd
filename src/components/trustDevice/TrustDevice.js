@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useAuthContext, baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 
 const TrustDevice = () => {
@@ -49,7 +50,20 @@ const TrustDevice = () => {
     <>
       {trustThisDevice ? (
         <div className="trustDevice">
-          {loading ? <p>Loading !!!</p> : <Outlet />}
+          {loading ? 
+          <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          /> : 
+          <Outlet />
+          }
         </div>
       ) : (
         <div className="trustDevice">

@@ -4,6 +4,7 @@ import { useAuthContext } from "../../context/authContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import './getHotel.css'
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const GetHotel = () => {
   const pictureAddress = baseURL + "hotelsPictures/"
@@ -70,7 +71,17 @@ const GetHotel = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <>
           <div className="getHotelImgContainer">

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const Cities = () => {
   const [slide1, setSlide1] = useState(0);
@@ -99,7 +100,17 @@ const Cities = () => {
   return (
     <div className="citiesContainer">
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <>
           <FontAwesomeIcon

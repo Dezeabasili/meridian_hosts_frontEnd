@@ -17,6 +17,7 @@ import { useAuthContext } from "../../context/authContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import ReserveRoom from "../../components/reserveRoom/ReserveRoom";
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const Hotel = () => {
   const pictureAddress = baseURL + "roomsPictures/"
@@ -178,7 +179,17 @@ const Hotel = () => {
     <div className="hotelMainContainer">
       <>
         {loading ? (
-          <p>Loading !!!</p>
+          <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          />
         ) : (
           <>
             <div className="hotelRoomContainer">

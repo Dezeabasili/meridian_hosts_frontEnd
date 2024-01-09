@@ -11,6 +11,7 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { baseURL } from '../../context/authContext';
+import {RotatingLines} from 'react-loader-spinner'
 
 const GetRoom = () => {
   const pictureAddress = baseURL + "roomsPictures/"
@@ -108,7 +109,17 @@ const GetRoom = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading !!!</p>
+       <RotatingLines
+       visible={true}
+       height="96"
+       width="96"
+       color="grey"
+       strokeWidth="5"
+       animationDuration="0.75"
+       ariaLabel="rotating-lines-loading"
+       wrapperStyle={{}}
+       wrapperClass=""
+       />
       ) : (
         <>
           <div className="getHotelImgContainer">

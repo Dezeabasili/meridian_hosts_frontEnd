@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 // import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const GetAllRooms = () => {
   const [roomsList, setRoomsList] = useState();
@@ -51,7 +52,17 @@ const GetAllRooms = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <>
           {roomsList.length > 0 ? (

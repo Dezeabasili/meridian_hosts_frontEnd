@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { useAuthContext, baseURL } from "../../context/authContext";
+import {RotatingLines} from 'react-loader-spinner'
 
 const GetMyBookings = () => {
   const runOnce = useRef(false)
@@ -56,7 +57,17 @@ const GetMyBookings = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading !!!</p>
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
       ) : (
         <>
           {bookingsList.length > 0 ? (
