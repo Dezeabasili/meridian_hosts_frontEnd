@@ -100,7 +100,7 @@ const FeaturedHotels = () => {
               return (
                 <div className="hotelType" key={hotel.hotelType}>
                   <img
-                    src={pictureAddress}
+                    src={hotel.photo}
                     alt=""
                     className="hotelImg"
                     width="200"

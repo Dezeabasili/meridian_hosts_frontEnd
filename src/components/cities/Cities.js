@@ -110,7 +110,7 @@ const Cities = () => {
 
           <div className="cities">
             <img
-              src={pictureAddress}
+              src={hotelsData[slide1].photo}
               className="cityPicture"
               alt=""
               width="200"
@@ -130,7 +130,7 @@ const Cities = () => {
           {screenSize.width >= 350 && (
             <div className="cities">
               <img
-                src={pictureAddress}
+                src={hotelsData[slide2].photo}
                 className="cityPicture"
                 alt=""
                 width="200"
@@ -151,7 +151,7 @@ const Cities = () => {
           {screenSize.width >= 485 && (
             <div className="cities">
               <img
-                src={pictureAddress}
+                src={hotelsData[slide3].photo}
                 className="cityPicture"
                 alt=""
                 width="200"
