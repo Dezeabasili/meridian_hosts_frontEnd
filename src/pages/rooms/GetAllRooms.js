@@ -70,8 +70,8 @@ const GetAllRooms = () => {
               {roomsList?.map((room) => (
                 <div key={room._id}>
                   <p>Room reference: {room._id}</p>
-                  <p>Hotel name: <span style={{"text-transform": "capitalize"}}>{room.hotel.name}</span></p>
-                  <p>Room title: <span style={{"text-transform": "capitalize"}}>{room.title}</span></p>
+                  <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{room.hotel.name}</span></p>
+                  <p>Room title: <span style={{"textTransform": "capitalize"}}>{room.title}</span></p>
                   <p>Room price: ${room.price}</p>
                   <p>Room description: {room.description}</p>
                   <p>Maximum number of occupants: {room.maxPeople}</p>

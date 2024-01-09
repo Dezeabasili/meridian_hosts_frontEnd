@@ -73,8 +73,8 @@ const GetAllBookings = () => {
               {bookingsList?.map((booking) => (
                 <div key={booking._id}>
                   <p>Booking reference: {booking._id}</p>
-                  <p>Customer name: <span style={{"text-transform": "capitalize"}}>{booking.user.name}</span></p>          
-                  <p>Hotel name: <span style={{"text-transform": "capitalize"}}>{booking.hotel.name}</span></p>
+                  <p>Customer name: <span style={{"textTransform": "capitalize"}}>{booking.user.name}</span></p>          
+                  <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{booking.hotel.name}</span></p>
                   <p>Booking date: {format(new Date(booking.createdAt), "MMM/dd/yyyy,  hh:mm:ss bbb")}</p>
                   <button onClick={() => showSelectedBooking(booking._id)} style={{marginTop: '5px'}}>
                     Show booking details

@@ -148,8 +148,8 @@ const GetRoom = () => {
             )}
           </div>
           <p>Room reference: {roomToDisplay._id}</p>
-          <p>Hotel name: <span style={{"text-transform": "capitalize"}}>{roomToDisplay.hotel.name}</span></p>
-          <p>Room title: <span style={{"text-transform": "capitalize"}}>{roomToDisplay.title}</span></p>
+          <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{roomToDisplay.hotel.name}</span></p>
+          <p>Room title: <span style={{"textTransform": "capitalize"}}>{roomToDisplay.title}</span></p>
           <p>Room price: ${roomToDisplay.price}</p>
           <p>Room description: {roomToDisplay.description}</p>
           <p>Maximum number of occupants: {roomToDisplay.maxPeople}</p>

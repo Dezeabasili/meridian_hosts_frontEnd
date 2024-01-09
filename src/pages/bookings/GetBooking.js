@@ -27,13 +27,13 @@ const GetBooking = () => {
   return (
     <div>
       <p>Booking reference: {bookingToDisplay._id}</p>
-      <p>Customer name: <span style={{"text-transform": "capitalize"}}>{bookingToDisplay.user.name}</span></p>
-      <p>Hotel name: <span style={{"text-transform": "capitalize"}}>{bookingToDisplay.hotel.name}</span></p>
+      <p>Customer name: <span style={{"textTransform": "capitalize"}}>{bookingToDisplay.user.name}</span></p>
+      <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{bookingToDisplay.hotel.name}</span></p>
       <p>Booking date: {format(new Date(bookingToDisplay.createdAt), "MMM/dd/yyyy,  hh:mm:ss bbb")}</p>
       {bookingToDisplay.bookingDetails.map((roomDetails) => (
         <div key={roomDetails.room_id}>
           <br />
-          <p>Room type: <span style={{"text-transform": "capitalize"}}>{roomDetails.room_type}</span></p>
+          <p>Room type: <span style={{"textTransform": "capitalize"}}>{roomDetails.room_type}</span></p>
           <p>Price per night: ${roomDetails.price_per_night}</p>
           <p>Room number: {roomDetails.roomNumber}</p>
           <p>Check-in date: {format(new Date(roomDetails.checkin_date), "MMM/dd/yyyy")}</p>

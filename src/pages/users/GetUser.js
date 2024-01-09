@@ -58,7 +58,7 @@ const GetUser = () => {
         />
       ) : (
         <>
-          <p>User name: <span style={{"text-transform": "capitalize"}}>{userToDisplay.name}</span></p>
+          <p>User name: <span style={{"textTransform": "capitalize"}}>{userToDisplay.name}</span></p>
           <p>User email: {userToDisplay.email}</p>
           <br />
           <button

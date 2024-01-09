@@ -60,7 +60,7 @@ const GetAllHotelTypesRef = () => {
             <>
               {referenceList?.map((hotelType) => (
                 <div key={hotelType._id}>
-                  <p>Hotel Type: <span style={{"text-transform": "capitalize"}}>{hotelType.hotelType}</span></p>
+                  <p>Hotel Type: <span style={{"textTransform": "capitalize"}}>{hotelType.hotelType}</span></p>
                   <p>Hotel Type reference: {hotelType._id}</p>                 
                   <br />
                 </div>

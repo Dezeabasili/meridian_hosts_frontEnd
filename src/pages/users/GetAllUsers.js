@@ -69,7 +69,7 @@ const GetAllUsers = () => {
             <>
               {usersList?.map((user) => (
                 <div key={user._id}>                
-                  <p>User name: <span style={{"text-transform": "capitalize"}}>{user.name}</span></p>
+                  <p>User name: <span style={{"textTransform": "capitalize"}}>{user.name}</span></p>
                   <p>User email: {user.email}</p>                 
                   <br />
                 </div>
