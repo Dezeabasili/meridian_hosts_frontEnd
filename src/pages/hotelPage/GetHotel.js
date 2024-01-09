@@ -84,24 +84,24 @@ const GetHotel = () => {
             />
           </div>
           <p>Hotel id: {hotelToDisplay._id}</p>
-          <p>Hotel name: <span style={{"text-transform": "capitalize"}}><strong>{hotelToDisplay.name}</strong></span></p>
-          <p>Hotel address: <span style={{"text-transform": "capitalize"}}>{hotelToDisplay.hotelLocation.address}</span></p>
-          <p>Hotel city: <span style={{"text-transform": "capitalize"}}>{hotelToDisplay.city}</span></p>
-          <p>hotel type: <span style={{"text-transform": "capitalize"}}>{hotelToDisplay.type}</span></p>
+          <p>Hotel name: <span style={{"textTransform": "capitalize"}}><strong>{hotelToDisplay.name}</strong></span></p>
+          <p>Hotel address: <span style={{"textTransform": "capitalize"}}>{hotelToDisplay.hotelLocation.address}</span></p>
+          <p>Hotel city: <span style={{"textTransform": "capitalize"}}>{hotelToDisplay.city.cityName}</span></p>
+          <p>hotel type: <span style={{"textTransform": "capitalize"}}>{hotelToDisplay.type.hotelType}</span></p>
           <p>hotel description: {hotelToDisplay.description}</p>
           <p>Ratings: <strong>{hotelToDisplay.ratingsAverage}</strong></p>
           <p>Number of ratings: {hotelToDisplay.numberOfRatings}</p>
-          <p>Hotel Manager: <span style={{"text-transform": "capitalize"}}>{hotelToDisplay.manager?.name}</span></p>
+          <p>Hotel Manager: <span style={{"textTransform": "capitalize"}}>{hotelToDisplay.manager?.name}</span></p>
           {hotelToDisplay.staff?.map((staff) => (
             <div key={staff._id}>
               <br />
-              <p>Staff name: <span style={{"text-transform": "capitalize"}}>{staff.name}</span></p>
+              <p>Staff name: <span style={{"textTransform": "capitalize"}}>{staff.name}</span></p>
             </div>
           ))}
           {hotelToDisplay.room_ids?.map((roomStyle) => (
             <div key={roomStyle._id}>
               <br />
-              <p>Room style: <span style={{"text-transform": "capitalize"}}>{roomStyle.title}</span></p>
+              <p>Room style: <span style={{"textTransform": "capitalize"}}>{roomStyle.title}</span></p>
               <p>Room price: ${roomStyle.price}</p>
               <p>Room description: {roomStyle.description}</p>
             </div>

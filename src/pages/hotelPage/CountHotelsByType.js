@@ -38,8 +38,8 @@ const CountHotelsByTypes = () => {
       ) : (
         <>
           {hotelData.map((hotelType) => (    
-            <div key={hotelType._id}>
-              <h5> <span style={{"text-transform": "capitalize"}}>{hotelType._id}</span></h5>
+            <div key={hotelType.hotelType}>
+              <h5> <span style={{"textTransform": "capitalize"}}>{hotelType.hotelType}</span></h5>
               <p>{hotelType.numberOfHotels} {hotelType.numberOfHotels == 1 ? 'property' : 'properties'}</p>
               <br />
             </div>    

@@ -36,8 +36,8 @@ const CountHotelsByCities = () => {
       ) : (
         <>
           {hotelData.map((city) => (    
-            <div key={city._id}>
-              <h5><span style={{"text-transform": "capitalize"}}>{city._id}</span></h5>
+            <div key={city.cityName}>
+              <h5><span style={{"textTransform": "capitalize"}}>{city.cityName}</span></h5>
               <p>{city.numberOfHotels} {city.numberOfHotels == 1 ? 'property' : 'properties'}</p>
               <br />
             </div>    

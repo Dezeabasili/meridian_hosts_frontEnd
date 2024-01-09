@@ -31,20 +31,20 @@ const Cities = () => {
           console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
 
-          let split1;
-          let split2;
-          let join1;
-          let join2;
-          let photoArray = [];
-          resp.data.data.forEach((city) => {
-            split1 = city._id.split(".");
-            join1 = split1.join("");
-            split2 = join1.split(" ");
-            join2 = split2.join("");
-            photoArray.push(join2);
-          });
+          // let split1;
+          // let split2;
+          // let join1;
+          // let join2;
+          // let photoArray = [];
+          // resp.data.data.forEach((city) => {
+          //   split1 = city._id.split(".");
+          //   join1 = split1.join("");
+          //   split2 = join1.split(" ");
+          //   join2 = split2.join("");
+          //   photoArray.push(join2);
+          // });
 
-          setPictures([...photoArray]);
+          // setPictures([...photoArray]);
 
           setLoading(false);
         } catch (err) {
@@ -110,14 +110,14 @@ const Cities = () => {
 
           <div className="cities">
             <img
-              src={pictureAddress + `${pictures[slide1]}.jpg`}
+              src={pictureAddress}
               className="cityPicture"
               alt=""
               width="200"
               height="200"
             />
             <div className="cityDiv">
-              <h3 className="cityHeader">{hotelsData[slide1]._id}</h3>
+              <h3 className="cityHeader">{hotelsData[slide1].cityName}</h3>
               <h5 className="cityDesc">
                 {hotelsData[slide1].numberOfHotels}{" "}
                 {hotelsData[slide1].numberOfHotels == 1
@@ -130,14 +130,14 @@ const Cities = () => {
           {screenSize.width >= 350 && (
             <div className="cities">
               <img
-                src={pictureAddress + `${pictures[slide2]}.jpg`}
+                src={pictureAddress}
                 className="cityPicture"
                 alt=""
                 width="200"
                 height="200"
               />
               <div className="cityDiv">
-                <h3 className="cityHeader">{hotelsData[slide2]._id}</h3>
+                <h3 className="cityHeader">{hotelsData[slide2].cityName}</h3>
                 <h5 className="cityDesc">
                   {hotelsData[slide2].numberOfHotels}{" "}
                   {hotelsData[slide2].numberOfHotels == 1
@@ -151,14 +151,14 @@ const Cities = () => {
           {screenSize.width >= 485 && (
             <div className="cities">
               <img
-                src={pictureAddress + `${pictures[slide3]}.jpg`}
+                src={pictureAddress}
                 className="cityPicture"
                 alt=""
                 width="200"
                 height="200"
               />
               <div className="cityDiv">
-                <h3 className="cityHeader">{hotelsData[slide3]._id}</h3>
+                <h3 className="cityHeader">{hotelsData[slide3].cityName}</h3>
                 <h5 className="cityDesc">
                   {hotelsData[slide3].numberOfHotels}{" "}
                   {hotelsData[slide3].numberOfHotels == 1

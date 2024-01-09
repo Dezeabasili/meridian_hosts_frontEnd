@@ -44,17 +44,17 @@ const FeaturedHotels = () => {
             });
           } else setHotelsToDisplay([...resp.data.data]);
   
-          let split1;
-          let join1;
-          let hotelTypeArray = [];
+          // let split1;
+          // let join1;
+          // let hotelTypeArray = [];
   
-          resp.data.data.forEach((hotelType) => {
-            split1 = hotelType._id.split("-");
-            join1 = split1.join("");
-            hotelTypeArray.push(join1);
-          });
-          // console.log("hotelTypeArray: ", hotelTypeArray);
-          setPicture([...hotelTypeArray]);
+          // resp.data.data.forEach((hotelType) => {
+          //   split1 = hotelType._id.split("-");
+          //   join1 = split1.join("");
+          //   hotelTypeArray.push(join1);
+          // });
+          // // console.log("hotelTypeArray: ", hotelTypeArray);
+          // setPicture([...hotelTypeArray]);
   
           setLoading(false);
         } catch (err) {
@@ -98,7 +98,7 @@ const FeaturedHotels = () => {
           <div className="hotelList">
             {hotelsToDisplay.map((hotel, index) => {
               return (
-                <div className="hotelType" key={hotel._id}>
+                <div className="hotelType" key={hotel.hotelType}>
                   <img
                     src={pictureAddress + `${picture[index]}.jpg`}
                     alt=""
@@ -106,7 +106,7 @@ const FeaturedHotels = () => {
                     width="200"
                     height="200"
                   />
-                  <h4 className="hotelTypeTitle">{hotel._id}</h4>
+                  <h4 className="hotelTypeTitle">{hotel.hotelType}</h4>
                   <h5 className="hotelTypeNum">
                     {hotel.numberOfHotels} {hotel.numberOfHotels == 1 ? 'property' : 'properties'}
                   </h5>
