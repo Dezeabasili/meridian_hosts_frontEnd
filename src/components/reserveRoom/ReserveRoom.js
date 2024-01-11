@@ -22,12 +22,14 @@ const ReserveRoom = ({
   // const [loading, setLoading] = useState();
   const [hotelRoomsArray, setHotelRoomsArray] = useState([]);
   const axiosWithInterceptors = useAxiosInterceptors();
-  const { date } = useSearchContext();
+  const { checkinDateValue, checkoutDateValue } = useSearchContext();
+
+  console.log('checkinDateValue, checkoutDateValue: ', checkinDateValue, checkoutDateValue )
  
 
   // get the check-in and check-out dates
-  let checkinDate = new Date(format(date[0].startDate, "yyyy/MM/dd"));
-  let checkoutDate = new Date(format(date[0].endDate, "yyyy/MM/dd"));
+  let checkinDate = new Date(format(checkinDateValue, "yyyy/MM/dd"));
+  let checkoutDate = new Date(format(checkoutDateValue, "yyyy/MM/dd"));
 
   // check if the check-in date and the check-out date are the same
   // by comparing the year, month and day

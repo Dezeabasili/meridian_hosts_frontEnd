@@ -10,9 +10,8 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import SearchItem from "../../components/searchItem/SearchItem";
 import axios from "axios";
 import { useSearchContext } from "../../context/searchContext";
-import DatePicker from 'react-date-picker'
-import 'react-date-picker/dist/DatePicker.css';
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { baseURL } from "../../context/authContext";
 
 
@@ -40,7 +39,17 @@ const List = () => {
     setDestination,
     roomOptions,
     setRoomOptions,
+    checkinDateValue,
+    setCheckinDateValue,
+    checkoutDateValue,
+    setCheckoutDateValue,
+    validateCheckoutDateValue,
+    validateCheckinDateValue,
   } = useSearchContext();
+
+  
+  console.log('checkinDateValue, checkoutDateValue: ', checkinDateValue, checkoutDateValue )
+  console.log('date[0].startDate, date[0].endDate: ', date[0].startDate, date[0].endDate )
 
   useEffect(() => {
     const fetchData = async () => {   
@@ -101,7 +110,7 @@ const List = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        baseURL + `api/v1/hotels?city=${destination}&min=${min}&max=${max}`
+        baseURL + `api/v1/hotels/price?city=${destination}&min=${min}&max=${max}`
       );
       setHotelList([...res.data.data]);
 
@@ -130,7 +139,7 @@ const List = () => {
   return (
     <>
       {location.state ? (
-        <>  
+        <>
           {
             !loading && (
               // <div>
@@ -147,40 +156,33 @@ const List = () => {
                         onChange={(e) => setDestination(e.target.value)}
                       />
                     </div>
-                    <div className="listItem" >
+                    <div className="listItem">
                       <label>Check-in date:</label>
-                      <span
-                      
-                        onClick={() => setHideCheckInDate((prev) => !prev)}
-                      >{`${format(date[0]?.startDate, "MM/dd/yyyy")}`}</span>
-                      <div className="calendar" ref={refDate1}>
-                      {hideCheckInDate && (
-                        <DateRange
-                          onChange={(item) => setDate([item.selection])}
-                          ranges={date}
-                          minDate={new Date()}                        
-                        />
-                      )}
-                      </div>
+                      <DatePicker
+                        selected={checkinDateValue}
+                        onChange={(date) => validateCheckinDateValue(date)}
+                        placeholderText="Select a date"
+                        dateFormat="dd/MMM/yyyy"
+                        minDate={new Date()}
+                        wrapperClassName="datepicker"
+                        className="red-border"
+                      />
                     </div>
-                    <div className="listItem" >
+                    <div className="listItem">
                       <label>Check-out date:</label>
-                      <span
-                        onClick={() => setHideCheckOutDate((prev) => !prev)}
-                      >{`${format(date[0]?.endDate, "MM/dd/yyyy")}`}</span>
-                      <div className="calendar" ref={refDate2}>
-                      {hideCheckOutDate && (
-                        <DateRange
-                          onChange={(item) => setDate([item.selection])}
-                          ranges={date}
-                          minDate={new Date()}                       
-                        />
-                      )}
-                      </div>
+                      <DatePicker
+                        selected={checkoutDateValue}
+                        onChange={(date) => validateCheckoutDateValue(date)}
+                        placeholderText="Select a date"
+                        dateFormat="dd/MMM/yyyy"
+                        minDate={new Date()}
+                        wrapperClassName="datepicker"
+                        className="red-border"
+                      />
                     </div>
-                    {/* <div className='listItem'> */}
+                  
                     <h5>Options</h5>
-                    {/* <div className='OptionsDiv'> */}
+                
                     <div className="listItem">
                       <label>
                         Min price <small>(per night)</small>
@@ -201,36 +203,17 @@ const List = () => {
                         onChange={(e) => setMax(e.target.value)}
                       />
                     </div>
-                    {/* <div className="listItem">
-                      <label>Adult</label>
-                      <input
-                        type="number"
-                        min={1}
-                        placeholder={roomOptions.adults}
-                      />
-                    </div>
-                    <div className="listItem">
-                      <label>Children</label>
-                      <input
-                        type="number"
-                        min={0}
-                        placeholder={roomOptions.children}
-                      />
-                    </div>
-                    <div className="listItem">
-                      <label>Room</label>
-                      <input
-                        type="number"
-                        min={1}
-                        placeholder={roomOptions.rooms}
-                      />
-                    </div> */}
-                    {/* </div> */}
-                    {/* </div> */}
+
                     <button onClick={handleClick}>Search</button>
                   </div>
                   <div className="listResult">
-                    <SearchItem hotelList={hotelList} pictures={pictures} hideCheckInDate={hideCheckInDate} hideCheckOutDate={hideCheckOutDate} />
+                    <SearchItem
+                      hotelList={hotelList}
+                      pictures={pictures}
+                      hideCheckInDate={hideCheckInDate}
+                      hideCheckOutDate={hideCheckOutDate}
+                      destination={destination}
+                    />
                   </div>
                 </div>
               </div>

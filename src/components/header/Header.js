@@ -17,6 +17,8 @@ import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useSearchContext } from "../../context/searchContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Header = ({ type }) => {
   const refDate = useRef();
@@ -31,6 +33,12 @@ const Header = ({ type }) => {
     setDestination,
     roomOptions,
     setRoomOptions,
+    checkinDateValue,
+    setCheckinDateValue,
+    checkoutDateValue,
+    setCheckoutDateValue,
+    validateCheckoutDateValue,
+    validateCheckinDateValue
   } = useSearchContext();
   const navigate = useNavigate();
 
@@ -95,156 +103,81 @@ const Header = ({ type }) => {
 
           <div className="headerSearch">
             <div className="headerSearchItem headerSearchItem1">
-              <FontAwesomeIcon
-                icon={faCity}
-                className="headerSearchIcon headerSearchIcon1"
-              />
+              <div className="headerSearchItemTopDiv">
+                <FontAwesomeIcon
+                  icon={faCity}
+                  className="headerSearchIcon headerSearchIcon1"
+                />
+                <span>Destination</span>
+              </div>
+
               <input
                 type="text"
                 className="headerSearchInput"
-                placeholder="Where are you going?"
+                placeholder="City"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
               />
             </div>
+
             <div
-              onClick={hideDateFunc}
-              className="headerSearchItem headerSearchItem2"
+              // onClick={hideDateFunc}
+              className="headerSearchItem headerSearchItem2"          
             >
+              <div className="headerSearchItemTopDiv">
               <FontAwesomeIcon
                 icon={faCalendarDays}
                 className="headerSearchIcon headerSearchIcon2"
               />
-              <span className="headerSearchSpan headerSearchSpan1">
-                {`${format(date[0].startDate, "MMM/dd/yyyy")}  -  ${format(
-                  date[0].endDate,
-                  "MMM/dd/yyyy"
-                )}`}
-              </span>
-
-              <div
-                className={
-                  hideDate ? "headerSearchDatePicker" : "hideDateClass"
-                }
-                ref={refDate}
-              >
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setDate([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={date}
-                  minDate={new Date()}
-                  // scroll={{enabled: true, longMonthHeight: 100}}
-                />
- 
+              <p>Check in date</p>
               </div>
+              
+              <DatePicker
+                selected={checkinDateValue}
+                onChange={(date) => validateCheckinDateValue(date)}
+                placeholderText="Select a date"
+                dateFormat="dd/MMM/yyyy"
+                minDate={new Date()}
+                wrapperClassName="datepicker"             
+                className="red-border"         
+              /> 
             </div>
-            {/* <div
-              onClick={hideRoomOptionsFunc}
-              className="headerSearchItem headerSearchItem3"
-            >
-              <FontAwesomeIcon
-                icon={faPersonWalkingLuggage}
-                className="headerSearchIcon headerSearchIcon3"
-              />
-              <div>
-                <span className="nowrap">{`${roomOptions.adults} adult(s), `}</span>
-                <span className="nowrap">{`${roomOptions.children} children, `}</span>
-                <p className="nowrap">{`${roomOptions.rooms} room(s)`}</p>
-              </div>
 
-              <div
-                ref={refRoomOptions}
-                className={
-                  hideRoomOptions ? "headerSearchOptions" : "hideDateClass"
-                }
-              >
-                <div className="roomOptions roomOptions1">
-                  <span className="roomOptionsSpan roomOptionsSpan1">
-                    Adults
-                  </span>
-                  <div className="roomOptionsDiv roomOptionsDiv1">
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivMinus roomOptionsDivSpan1"
-                      disabled={roomOptions.adults <= 1}
-                      onClick={() => modifyRoomOptions("adults", "decrease")}
-                    >
-                      -
-                    </button>
-                    <span className="roomOptionsDivSpan roomOptionsDivSpan2">
-                      {roomOptions.adults}
-                    </span>
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivPlus roomOptionsDivSpan3"
-                      disabled={roomOptions.adults >= 30}
-                      onClick={() => modifyRoomOptions("adults", "increase")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="roomOptions roomOptions2">
-                  <span className="roomOptionsSpan roomOptionsSpan2">
-                    Children
-                  </span>
-                  <div className="roomOptionsDiv roomOptionsDiv2">
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivMinus roomOptionsDivSpan4"
-                      disabled={roomOptions.children <= 0}
-                      onClick={() => modifyRoomOptions("children", "decrease")}
-                    >
-                      -
-                    </button>
-                    <span className="roomOptionsDivSpan roomOptionsDivSpan5">
-                      {roomOptions.children}
-                    </span>
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivPlus roomOptionsDivSpan6"
-                      disabled={roomOptions.children >= 10}
-                      onClick={() => modifyRoomOptions("children", "increase")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="roomOptions roomOptions3">
-                  <span className="roomOptionsSpan roomOptionsSpan3">
-                    Rooms
-                  </span>
-                  <div className="roomOptionsDiv roomOptionsDiv3">
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivMinus roomOptionsDivSpan7"
-                      disabled={roomOptions.rooms <= 1}
-                      onClick={() => modifyRoomOptions("rooms", "decrease")}
-                    >
-                      -
-                    </button>
-                    <span className="roomOptionsDivSpan roomOptionsDivSpan8">
-                      {roomOptions.rooms}
-                    </span>
-                    <button
-                      className="roomOptionsDivSpan roomOptionsDivPlus roomOptionsDivSpan9"
-                      disabled={roomOptions.rooms >= 30}
-                      onClick={() => modifyRoomOptions("rooms", "increase")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <button
-                  className="roomOptionsBtn"
-                  onClick={() => setHideRoomOptions(false)}
-                >
-                  Done
-                </button>
+            <div
+              // onClick={hideDateFunc}
+              className="headerSearchItem headerSearchItem3"          
+            >
+              <div className="headerSearchItemTopDiv">
+              <FontAwesomeIcon
+                icon={faCalendarDays}
+                className="headerSearchIcon headerSearchIcon2"
+              />
+              <p>Check out date</p>
               </div>
-            </div> */}
+              
+              <DatePicker
+                selected={checkoutDateValue}
+                onChange={(date) => validateCheckoutDateValue(date)}
+                placeholderText="Select a date"
+                dateFormat="dd/MMM/yyyy"
+                minDate={new Date()}
+                wrapperClassName="datepicker"
+                className="red-border"
+              /> 
+            </div>
+
+            <div className="headerSearchItem headerSearchItem3">
+              <div className="headerSearchItemTopDiv hideEmptyDiv">
+
+              </div>
             <button
               onClick={handleSearch}
-              className="headerSearchItem headerSearchButton"
+              className="headerSearchButton"
             >
               Search
             </button>
+            </div>
+            
           </div>
         </>
       </div>
