@@ -26,11 +26,17 @@ const List = () => {
   const [endDate, setEndDate] = useState({});  //new
   const [pictures, setPictures] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(1000);
   const [hideCheckInDate, setHideCheckInDate] = useState(false);
   const [hideCheckOutDate, setHideCheckOutDate] = useState(false);
+
+  const errorDiv = error 
+        ? <div className="error">
+            {error}
+          </div> 
+        : '';
 
   const {
     date,
@@ -54,6 +60,7 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {   
       setLoading(true);
+      setError(null);
       try {
         const res = await axios.get(baseURL + `api/v1/hotels?city=${destination}`);
         setHotelList([...res.data.data]);
@@ -77,6 +84,7 @@ const List = () => {
         setLoading(false);
       } catch (err) {
         console.log(err);
+        setError(err.response.data.message);
       }
     };
     if (ref.current === false) {
@@ -220,6 +228,7 @@ const List = () => {
             )
             // </div>
           }
+          {errorDiv}
         </>
       ) : (
         <Navigate to="/" />
