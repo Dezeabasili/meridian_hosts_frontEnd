@@ -37,11 +37,12 @@ export const SearchContextProvider = ({ children }) => {
     
       const validateCheckinDateValue = (date) => {
         if (date.getTime() > checkoutDateValue.getTime()) {
-          setCheckinDateValue(checkoutDateValue)
+          setCheckoutDateValue(date);
+          setCheckinDateValue(date);
         } else {
-          setCheckinDateValue(date)
+          setCheckinDateValue(date);
         }
-      }
+      };
 
     return <SearchContext.Provider value={{ date, setDate, destination, setDestination, roomOptions, setRoomOptions, cart, setCart, checkinDateValue, setCheckinDateValue, checkoutDateValue, setCheckoutDateValue, validateCheckoutDateValue, validateCheckinDateValue }}>
         {children}
