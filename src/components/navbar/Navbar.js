@@ -1,5 +1,6 @@
 import "./navbar.css";
-import './../menu/menu.css'
+import "./../menu/menu.css";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -13,26 +14,31 @@ import Menu_Guest_Structure from "../menu/Menu_Guest_Structure";
 const Navbar = () => {
   const { auth } = useAuthContext();
   const screenSize = useWindowSize();
+  const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener("click", handleHide, true);
+
+    return () => {
+      document.removeEventListener("click", handleHide, true);
+    };
+  }, []);
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [screenSize]);
+
+  const handleHide = () => {
+    setShowMenu(false);
+  };
 
   const menuSelector = () => {
     if (auth.assignedRoles == 2010) {
-      return (
-        
-          <Menu_RegisteredUser_Structure />
-       
-      );
+      return <Menu_RegisteredUser_Structure />;
     } else if (auth.assignedRoles == 2030) {
-      return (
-        
-          <Menu_Admin_Structure />
-       
-      );
+      return <Menu_Admin_Structure />;
     } else {
-      return (
-       
-          <Menu_Guest_Structure />
-       
-      );
+      return <Menu_Guest_Structure />;
     }
   };
 
@@ -100,40 +106,8 @@ const Navbar = () => {
       </div>
 
       <div className="navbarMainMenu">
-        <ul>
-          <li>
-            <p>Menu</p>
-            <div className="navbarMainMenuList">
-              {screenSize.width <= 570 && (
-                <>
-                <ul>
-                  <li>
-                    <NavLink to={"/"}>Home</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={"/login"}>Sign in</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={"/register"}>Sign up</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={"/logout"}>Log out</NavLink>
-                  </li>
-                  {auth.accessToken && (
-                    <li>
-                      <NavLink to={"/users/myaccount"}>My account</NavLink>
-                    </li>
-                  )}
-                </ul>
-                <br />
-                </>
-              )}
-              {/* <br /> */}
-              {menuSelector()}
-              
-            </div>
-          </li>
-        </ul>
+        <p onClick={() => setShowMenu(true)}>Menu</p>
+        {showMenu && menuSelector()}
       </div>
     </div>
   );

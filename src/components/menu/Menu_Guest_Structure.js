@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
+import SubMenu from "./SubMenu";
 
 const Menu_Guest_Structure = () => {
   return (
     <div className="navbarMainMenuList">
+       <SubMenu />
         <ul>
         <li>
           <p><strong>Hotels</strong></p>

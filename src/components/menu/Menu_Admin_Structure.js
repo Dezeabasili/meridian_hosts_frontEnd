@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
+import SubMenu from "./SubMenu";
 
 const Menu_Admin_Structure = () => {
   return (
     <div className="navbarMainMenuList">
-        <ul>
+      <SubMenu />
+      <ul>
         <li>
-          <p><strong>Bookings</strong></p>
+          <p>
+            <strong>Bookings</strong>
+          </p>
         </li>
         <li>
           <NavLink end to={"/bookings"}>
@@ -21,7 +25,9 @@ const Menu_Admin_Structure = () => {
         <br />
 
         <li>
-          <p><strong>Hotels</strong></p>
+          <p>
+            <strong>Hotels</strong>
+          </p>
         </li>
         <li>
           <NavLink to={"/createhotel"}>Create a hotel</NavLink>
@@ -50,21 +56,31 @@ const Menu_Admin_Structure = () => {
           <NavLink to={"/hotels/createhoteltype"}>Create hotel type</NavLink>
         </li>
         <li>
-          <NavLink to={"/hotels/allcityrefs"}>Get all hotel city references</NavLink>
+          <NavLink to={"/hotels/allcityrefs"}>
+            Get all hotel city references
+          </NavLink>
         </li>
         <li>
-          <NavLink to={"/hotels/allhoteltyperefs"}>Get all hotel type references</NavLink>
+          <NavLink to={"/hotels/allhoteltyperefs"}>
+            Get all hotel type references
+          </NavLink>
         </li>
         <li>
-          <NavLink to={"/hotels/updatecityphoto"}>Update hotel city photo</NavLink>
+          <NavLink to={"/hotels/updatecityphoto"}>
+            Update hotel city photo
+          </NavLink>
         </li>
         <li>
-          <NavLink to={"/hotels/updatehoteltypephoto"}>Update hotel type photo</NavLink>
+          <NavLink to={"/hotels/updatehoteltypephoto"}>
+            Update hotel type photo
+          </NavLink>
         </li>
         <br />
 
         <li>
-          <p><strong>Reviews</strong></p>
+          <p>
+            <strong>Reviews</strong>
+          </p>
         </li>
         <li>
           <NavLink to={"/createreview"}>Write a review</NavLink>
@@ -80,7 +96,9 @@ const Menu_Admin_Structure = () => {
         <br />
 
         <li>
-          <p><strong>Rooms</strong></p>
+          <p>
+            <strong>Rooms</strong>
+          </p>
         </li>
         <li>
           <NavLink to={"/createroom"}>Create a room</NavLink>
@@ -94,7 +112,9 @@ const Menu_Admin_Structure = () => {
         <br />
 
         <li>
-          <p><strong>Users</strong></p>
+          <p>
+            <strong>Users</strong>
+          </p>
         </li>
         <li>
           <NavLink to={"/register"}>Create a user</NavLink>
@@ -112,7 +132,7 @@ const Menu_Admin_Structure = () => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Menu_Admin_Structure
+export default Menu_Admin_Structure;

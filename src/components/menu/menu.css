@@ -42,7 +42,7 @@
 
  
 .container2 a:hover {
-  background-color: aqua;
+  background-color: rgb(167, 180, 180);
 
 } 
 
@@ -54,13 +54,7 @@
   .container3 {
     width: 100%
   }
+ 
+}
 
-  
-}
-@media screen and (max-width: 775px) {
-  
-}
-@media screen and (max-width: 485px) {
-  
-}
 

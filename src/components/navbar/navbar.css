@@ -121,14 +121,9 @@
   background-color: blue;
 }
 
+
 .navbarMainMenu {
   display: none;
-}
-
-.navbarMainMenu ul {
-  text-decoration: none;
-  list-style: none;
-  margin-left: 2%;
 }
 
 .navbarMainMenuList {
@@ -149,31 +144,24 @@
   margin-top: 0px;
 }
 
-/* .navbarMainMenuList ul li:first-child {
-  margin-top: 0px;
-} */
-
 .navbarMainMenu a {
   text-decoration: none;
   color: black;
 }
 
 @media screen and (max-width: 1030px) {
-
   .navbar {
     height: 110px;
   }
 
-  
   .navbarMainMenu {
     display: block;
     z-index: 15;
     display: flex;
-    justify-content: flex-start;
-    /* width: 100%; */
+    flex-direction: column;
     align-self: flex-start;
     margin-left: 2%;
-    
+    height: 400px;
   }
 
   .navbarMainMenu ul {
@@ -183,17 +171,22 @@
   }
 
   .navbarMainMenuList {
-    display: none;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(199, 214, 214);
     height: 400px;
     overflow-y: scroll;
+    width: 200px;
+    overflow-x: hidden;
   }
 
-  .navbarMainMenu:hover .navbarMainMenuList {
-    display: block;
+  .navbarMainMenuList p {
+    font-weight: bold;
+    color: black;
+  }
+
+  .navbarMainMenuList a:hover {
+    background-color: rgb(167, 180, 180);
   }
 }
-
 
 @media screen and (max-width: 800px) {
   .menu-bar {
@@ -201,12 +194,10 @@
     right: 2%;
     bottom: -10px;
   }
-  
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 571px) {
   .menu-bar {
     display: none;
   }
-  
 }
