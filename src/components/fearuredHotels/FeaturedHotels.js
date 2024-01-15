@@ -12,6 +12,7 @@ const FeaturedHotels = () => {
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const runOnce = useRef(false)
 
   const screenSize = useWindowSize();
@@ -20,10 +21,17 @@ const FeaturedHotels = () => {
   
   ref.current = screenSize.width
 
+  const errorDiv = error 
+  ? <div className="error">
+      {error}
+    </div> 
+  : '';
+
   useEffect(() => {
     if (runOnce.current === false) {
       const loadPage = async () => {
         setLoading(true);
+        setError(null);
         try {
           const resp = await axios.get(baseURL + "api/v1/hotels/countByType");
           // console.log("resp.data: ", resp.data.data);
@@ -60,6 +68,7 @@ const FeaturedHotels = () => {
           setLoading(false);
         } catch (err) {
           console.log(err);
+          setError(err.response.data.message);
         }
       };
   
@@ -91,8 +100,8 @@ const FeaturedHotels = () => {
 
   return (
     <div className="hotelContainer">
-      {loading ? (
-        <RotatingLines
+      <>
+      {loading && <RotatingLines
         visible={true}
         height="96"
         width="96"
@@ -102,9 +111,10 @@ const FeaturedHotels = () => {
         ariaLabel="rotating-lines-loading"
         wrapperStyle={{}}
         wrapperClass=""
-        />
-      ) : (
-        <>
+        />}
+      </>
+      <>
+        {!loading && <>
           <h3 className="hotelContainerTitle">Explore our hotels</h3>
           <div className="hotelList">
             {hotelsToDisplay.map((hotel, index) => {
@@ -125,8 +135,12 @@ const FeaturedHotels = () => {
               );
             })}
           </div>
-        </>
-      )}
+        </>}
+      </>
+      <>
+      {error && errorDiv}
+      </>
+      
     </div>
   );
 };

@@ -14,17 +14,26 @@ const Cities = () => {
   const [pictures, setPictures] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const runOnce = useRef(false);
   const pictureAddress = baseURL + "hotel-cities/";
 
   const screenSize = useWindowSize();
 
+  const errorDiv = error 
+  ? <div className="error">
+      {error}
+    </div> 
+  : '';
+
 
   useEffect(() => {
     let cityPictures = [];
+    
     if (runOnce.current === false) {
       const loadPage = async () => {
         setLoading(true);
+        setError(null);
         try {
           const resp = await axios.get(
             baseURL + "api/v1/hotels/countByCity"
@@ -50,6 +59,7 @@ const Cities = () => {
           setLoading(false);
         } catch (err) {
           console.log(err);
+          setError(err.response.data.message);
         }
       };
 
@@ -99,8 +109,8 @@ const Cities = () => {
 
   return (
     <div className="citiesContainer">
-      {loading ? (
-        <RotatingLines
+      <>
+        {loading && <RotatingLines
         visible={true}
         height="96"
         width="96"
@@ -110,9 +120,10 @@ const Cities = () => {
         ariaLabel="rotating-lines-loading"
         wrapperStyle={{}}
         wrapperClass=""
-        />
-      ) : (
-        <>
+        />}
+      </>
+      <>
+          {!loading && <>
           <FontAwesomeIcon
             icon={faArrowLeft}
             className="changeArrow"
@@ -184,8 +195,12 @@ const Cities = () => {
             className="changeArrow"
             onClick={() => changeSlide("right")}
           />
-        </>
-      )}
+        </>}
+      </>
+      <>
+       {error && errorDiv}
+      </>
+     
     </div>
   );
 };

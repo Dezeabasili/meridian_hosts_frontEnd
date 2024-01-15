@@ -116,6 +116,7 @@ const List = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       const res = await axios.get(
         baseURL + `api/v1/hotels/price?city=${destination}&min=${min}&max=${max}`
@@ -141,6 +142,7 @@ const List = () => {
       setLoading(false);
     } catch (err) {
       console.log(err);
+      setError(err.response.data.message);
     }
   };
 

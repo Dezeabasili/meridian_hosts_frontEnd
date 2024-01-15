@@ -59,43 +59,25 @@ const Navbar = () => {
 
         <div className="menu-bar">
           <ul>
-            {/* <li className='navSpan navSpan1'><Link to={'/just'}>USD</Link></li> */}
-            {/* <li className='navButton navButton1'><img src='../pictures/free-american-flag.jpg' alt='' width="20" height="20" /></li> */}
             <li>
               <Link to={"/"}>Home</Link>
             </li>
-            <li>
-              <Link to={"/login"}>Sign in</Link>
-              <div className="sub-menu-1">
-                <ul>
-                  <li>
-                    <Link to={"/register"}>Sign up</Link>
-                  </li>
-                  <li>
-                    <Link to={"/logout"}>Sign out</Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a href="#">About Us</a>
-              <div className="sub-menu-1">
-                <ul>
-                  <li>
-                    <a href="#">Mission</a>
-                  </li>
-                  <li>
-                    <a href="#">Vision</a>
-                  </li>
-                  <li>
-                    <a href="#">Team</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact us</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+
+            {!auth.accessToken && (
+              <li>
+                <Link to={"/login"}>Sign in</Link>
+              </li>
+            )}
+            {!auth.accessToken && (
+              <li>
+                <Link to={"/register"}>Sign up</Link>
+              </li>
+            )}
+            {auth.accessToken && (
+              <li>
+                <Link to={"/logout"}>Sign out</Link>
+              </li>
+            )}
             {auth.accessToken && (
               <li>
                 <Link to={"/users/myaccount"}>My account</Link>
