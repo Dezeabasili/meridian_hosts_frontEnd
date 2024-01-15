@@ -49,6 +49,7 @@ import GetAllHotelCityRefs from "./pages/hotelPage/GetAllHotelCityRefs";
 import GetAllHotelTypesRef from "./pages/hotelPage/GetAllHotelTypesRef";
 import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
 import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
+import HandleError from "./pages/handleError/HandleError";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route element={<TrustDevice />}>
           <Route element={<Menu />}>
             <Route path="/" element={<Home />} />
+            <Route path="/handleerror" element={<HandleError />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="logout" element={<Logout />} />

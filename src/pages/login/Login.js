@@ -10,15 +10,15 @@ const Login = () => {
   // console.log(location.state)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+
   const { setAuth, trustThisDevice, setTrustThisDevice } = useAuthContext();
 
   const navigate = useNavigate();
-  const errorDiv = error ? <div className="error">{error}</div> : "";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
+   
     try {
       const response = await axios.post(
         baseURL + "api/v1/auth/login",
@@ -35,8 +35,7 @@ const Login = () => {
       localStorage.setItem("trustThisDevice", JSON.stringify(trustThisDevice));
       navigate(location?.state || "/");
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+        navigate('/handleerror', {state: err.response.data.message})
     }
   };
 
@@ -98,7 +97,7 @@ const Login = () => {
           </p>
         </Link>
       </form>
-      <>{error && errorDiv}</>
+   
     </div>
   );
 };
