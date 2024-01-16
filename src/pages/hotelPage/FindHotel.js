@@ -67,6 +67,14 @@ const FindHotel = () => {
     }
   };
 
+  
+  const handleSelectChange = (e) => {
+    setCity(e.target.value);
+  };
+  const handleSelectChange2 = (e) => {
+    setType(e.target.value);
+  };
+
   return (
     <div className="register">
       <>
@@ -100,60 +108,51 @@ const FindHotel = () => {
             autoComplete="off"
           />
         </div>
+       
+       
         <div className="registerDiv">
-          <label htmlFor="hotelCity">Hotel city reference number:</label>
-          <input
-            id="hotelCity"
-            type="text"
-            value={city || ''}
-            onChange={(e) => setCity(e.target.value)}
-            autoComplete="off"
-            onFocus={() => setCityDataFocus(true)}
-            onBlur={() => setCityDataFocus(false)}
-          />
-          <div
-            className={
-              cityDataFocus ? "showInstructions" : "hideInstructions"
-            }
-          >
-            {cityData?.map((city) => (
-              <div key={city._id}>
-                <p style={{ textTransform: "capitalize" }}>
-                  City Name: {city.cityName}
-                </p>
-                <p>City Reference: {city._id}</p>
-                <br />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelType">Hotel type reference number:</label>
-          <input
-            id="hotelType"
-            type="text"
-            value={type || ''}
-            onChange={(e) => setType(e.target.value)}
-            autoComplete="off"
-            onFocus={() => setHotelTypeDataFocus(true)}
-            onBlur={() => setHotelTypeDataFocus(false)}
-          />
-          <div
-            className={
-              hotelTypeDataFocus ? "showInstructions" : "hideInstructions"
-            }
-          >
-            {hotelTypeData?.map((hotelType) => (
-              <div key={hotelType._id}>
-                <p style={{ textTransform: "capitalize" }}>
-                  Hotel Type: {hotelType.hotelType}
-                </p>
-                <p>Hotel Type Reference: {hotelType._id}</p>
-                <br />
-              </div>
-            ))}
-          </div>
-        </div>
+              <label htmlFor="city">Select a city:</label>
+              <select id="city" onChange={handleSelectChange}>
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  value={""}
+                  onClick={() => setCity(null)}
+                >
+                  --Please select an option--
+                </option>
+                {cityData?.map((selectedCity) => (
+                  <option
+                    style={{ textTransform: "capitalize" }}
+                    key={selectedCity._id}
+                    value={selectedCity._id}
+                  >
+                    {selectedCity.cityName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="registerDiv">
+              <label htmlFor="hoteltype">Select a hotel type:</label>
+              <select id="hoteltype" onChange={handleSelectChange2}>
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  value={""}
+                  onClick={() => setType(null)}
+                >
+                  --Please select an option--
+                </option>
+                {hotelTypeData?.map((selectedType) => (
+                  <option
+                    style={{ textTransform: "capitalize" }}
+                    key={selectedType._id}
+                    value={selectedType._id}
+                  >
+                    {selectedType.hotelType}
+                  </option>
+                ))}
+              </select>
+            </div>
 
         <button className="signUpButton" disabled={!name && !city && !type}>
           Continue

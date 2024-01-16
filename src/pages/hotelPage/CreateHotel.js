@@ -13,7 +13,10 @@ const CreateHotel = () => {
   const [description, setDescription] = useState();
   const [detailedDescription, setDetailedDescription] = useState();
   const [closestTouristLocation, setClosestTouristLocation] = useState();
-  const [distanceToClosestTouristLocation, setDistanceToClosestTouristLocation] = useState();
+  const [
+    distanceToClosestTouristLocation,
+    setDistanceToClosestTouristLocation,
+  ] = useState();
   const [manager, setManager] = useState();
   const [staff, setStaff] = useState();
   const [cityData, setCityData] = useState();
@@ -34,7 +37,9 @@ const CreateHotel = () => {
         setLoading(true);
         setError(null);
         try {
-          const resp = await axiosWithInterceptors.get(baseURL + "api/v1/hotels/allcityrefs");
+          const resp = await axiosWithInterceptors.get(
+            baseURL + "api/v1/hotels/allcityrefs"
+          );
           // console.log("hotels: ", resp.data.data);
           setCityData([...resp.data.data]);
 
@@ -58,7 +63,6 @@ const CreateHotel = () => {
       runOnce.current = true;
     };
   }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,6 +105,13 @@ const CreateHotel = () => {
     }
   };
 
+  const handleSelectChange = (e) => {
+    setCity(e.target.value);
+  };
+  const handleSelectChange2 = (e) => {
+    setType(e.target.value);
+  };
+
   return (
     <div className="register">
       <>
@@ -119,182 +130,177 @@ const CreateHotel = () => {
         )}
       </>
       <>
-          {!loading && <form className="registerContainer" onSubmit={handleSubmit}>
-        <h3 className="registerTitle">Provide hotel details</h3>
+        {!loading && (
+          <form className="registerContainer" onSubmit={handleSubmit}>
+            <h3 className="registerTitle">Provide hotel details</h3>
 
-        <div className="registerDiv">
-          <label htmlFor="hotelName">Hotel name:</label>
-          <input
-            id="hotelName"
-            type="text"
-            value={name || ''}
-            onChange={(e) => setName(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelCity">Hotel city reference number:</label>
-          <input
-            id="hotelCity"
-            type="text"
-            value={city || ''}
-            onChange={(e) => setCity(e.target.value)}
-            autoComplete="off"
-            onFocus={() => setCityDataFocus(true)}
-            onBlur={() => setCityDataFocus(false)}
-          />
-          <div
-            className={
-              cityDataFocus ? "showInstructions" : "hideInstructions"
-            }
-          >
-            {cityData?.map((city) => (
-              <div key={city._id}>
-                <p style={{ textTransform: "capitalize" }}>
-                  City Name: {city.cityName}
-                </p>
-                <p>City Reference: {city._id}</p>
-                <br />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelType">Hotel type reference number:</label>
-          <input
-            id="hotelType"
-            type="text"
-            value={type || ''}
-            onChange={(e) => setType(e.target.value)}
-            autoComplete="off"
-            onFocus={() => setHotelTypeDataFocus(true)}
-            onBlur={() => setHotelTypeDataFocus(false)}
-          />
-          <div
-            className={
-              hotelTypeDataFocus ? "showInstructions" : "hideInstructions"
-            }
-          >
-            {hotelTypeData?.map((hotelType) => (
-              <div key={hotelType._id}>
-                <p style={{ textTransform: "capitalize" }}>
-                  Hotel Type: {hotelType.hotelType}
-                </p>
-                <p>Hotel Type Reference: {hotelType._id}</p>
-                <br />
-              </div>
-            ))}
-          </div>
-        </div>
+            <div className="registerDiv">
+              <label htmlFor="hotelName">Hotel name:</label>
+              <input
+                id="hotelName"
+                type="text"
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            
+            <div className="registerDiv">
+              <label htmlFor="city">Select a city:</label>
+              <select id="city" onChange={handleSelectChange}>
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  value={""}
+                  onClick={() => setCity(null)}
+                >
+                  --Please select an option--
+                </option>
+                {cityData?.map((selectedCity) => (
+                  <option
+                    style={{ textTransform: "capitalize" }}
+                    key={selectedCity._id}
+                    value={selectedCity._id}
+                  >
+                    {selectedCity.cityName}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div className="registerDiv">
-          <label htmlFor="coordinates">Hotel Location Coordinates:</label>
-          <input
-            id="coordinates"
-            type="text"
-            value={coordinates || []}
-            onChange={(e) => setCoordinates(e.target.value)}
-            autoComplete="off"
-            placeholder="latitude, longitude"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="address">Hotel address:</label>
-          <input
-            id="address"
-            type="text"
-            value={address || ''}
-            onChange={(e) => setAddress(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelDesc">Brief hotel description:</label>
-          <textarea
-            id="hotelDesc"
-            onChange={(e) => setDescription(e.target.value)}
-            autoComplete="off"
-            rows="5"
-            cols="30"
-          >
-            {description || ''}
-          </textarea>
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelDesc">Detailed hotel description:</label>
-          <textarea
-            id="hotelDesc"
-            onChange={(e) => setDetailedDescription(e.target.value)}
-            autoComplete="off"
-            rows="5"
-            cols="30"
-          >
-            {detailedDescription || ''}
-          </textarea>
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="touristLocation">Name of closest tourist location:</label>
-          <input
-            id="touristLocation"
-            type="text"
-            value={closestTouristLocation || ''}
-            onChange={(e) => setClosestTouristLocation(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="distanceToTouristLocation">Distance (in miles) to closest tourist location:</label>
-          <input
-            id="distanceToTouristLocation"
-            type="text"
-            value={distanceToClosestTouristLocation || 0}
-            onChange={(e) => setDistanceToClosestTouristLocation(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelManager">Hotel manager:</label>
-          <input
-            id="hotelManager"
-            type="text"
-            value={manager || ''}
-            onChange={(e) => setManager(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="registerDiv">
-          <label htmlFor="hotelStaff">Hotel staff:</label>
-          <input
-            id="hotelStaff"
-            type="text"
-            value={staff || ''}
-            onChange={(e) => setStaff(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
+            <div className="registerDiv">
+              <label htmlFor="hoteltype">Select a hotel type:</label>
+              <select id="hoteltype" onChange={handleSelectChange2}>
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  value={""}
+                  onClick={() => setType(null)}
+                >
+                  --Please select an option--
+                </option>
+                {hotelTypeData?.map((selectedType) => (
+                  <option
+                    style={{ textTransform: "capitalize" }}
+                    key={selectedType._id}
+                    value={selectedType._id}
+                  >
+                    {selectedType.hotelType}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <button
-          className="signUpButton"
-          disabled={
-            !name ||
-            !city ||
-            !type ||
-            !coordinates ||
-            !address ||
-            !description ||
-            !detailedDescription ||
-            !manager ||
-            !staff
-          }
-        >
-          Continue
-        </button>
-      </form>}
+            <div className="registerDiv">
+              <label htmlFor="coordinates">Hotel Location Coordinates:</label>
+              <input
+                id="coordinates"
+                type="text"
+                value={coordinates || []}
+                onChange={(e) => setCoordinates(e.target.value)}
+                autoComplete="off"
+                placeholder="latitude, longitude"
+              />
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="address">Hotel address:</label>
+              <input
+                id="address"
+                type="text"
+                value={address || ""}
+                onChange={(e) => setAddress(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="hotelDesc">Brief hotel description:</label>
+              <textarea
+                id="hotelDesc"
+                onChange={(e) => setDescription(e.target.value)}
+                autoComplete="off"
+                rows="5"
+                cols="30"
+              >
+                {description || ""}
+              </textarea>
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="hotelDesc">Detailed hotel description:</label>
+              <textarea
+                id="hotelDesc"
+                onChange={(e) => setDetailedDescription(e.target.value)}
+                autoComplete="off"
+                rows="5"
+                cols="30"
+              >
+                {detailedDescription || ""}
+              </textarea>
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="touristLocation">
+                Name of closest tourist location:
+              </label>
+              <input
+                id="touristLocation"
+                type="text"
+                value={closestTouristLocation || ""}
+                onChange={(e) => setClosestTouristLocation(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="distanceToTouristLocation">
+                Distance (in miles) to closest tourist location:
+              </label>
+              <input
+                id="distanceToTouristLocation"
+                type="text"
+                value={distanceToClosestTouristLocation || 0}
+                onChange={(e) =>
+                  setDistanceToClosestTouristLocation(e.target.value)
+                }
+                autoComplete="off"
+              />
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="hotelManager">Hotel manager:</label>
+              <input
+                id="hotelManager"
+                type="text"
+                value={manager || ""}
+                onChange={(e) => setManager(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+            <div className="registerDiv">
+              <label htmlFor="hotelStaff">Hotel staff:</label>
+              <input
+                id="hotelStaff"
+                type="text"
+                value={staff || ""}
+                onChange={(e) => setStaff(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+
+            <button
+              className="signUpButton"
+              disabled={
+                !name ||
+                !city ||
+                !type ||
+                !coordinates ||
+                !address ||
+                !description ||
+                !detailedDescription ||
+                !manager ||
+                !staff
+              }
+            >
+              Continue
+            </button>
+          </form>
+        )}
       </>
-      <>
-      {error && errorDiv}
-      </>
-      
+      <>{error && errorDiv}</>
     </div>
   );
 };
