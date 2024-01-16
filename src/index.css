@@ -74,3 +74,8 @@ button {
 .hideInstructions {
   display: none;
 }
+
+select {
+  height: 30px;
+  text-transform: capitalize;
+}
