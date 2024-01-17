@@ -20,9 +20,7 @@ const CreateHotel = () => {
   const [manager, setManager] = useState();
   const [staff, setStaff] = useState();
   const [cityData, setCityData] = useState();
-  const [cityDataFocus, setCityDataFocus] = useState(false);
   const [hotelTypeData, setHotelTypeData] = useState();
-  const [hotelTypeDataFocus, setHotelTypeDataFocus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const axiosWithInterceptors = useAxiosInterceptors();
@@ -79,7 +77,7 @@ const CreateHotel = () => {
       for (let i = 0; i < staffList.length; i++) {
         staffArray.push(staffList[i].trim());
       }
-      // Continue tomorrow
+   
       const hotelLocation = {
         coordinates: [...coordinatesToNumbers],
         address,

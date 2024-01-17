@@ -1,9 +1,7 @@
 import "./searchItem.css";
 import { Link } from "react-router-dom";
-import { baseURL } from "../../context/authContext";
 
-const SearchItem = ({ hotelList, pictures, hideCheckInDate, hideCheckOutDate  }) => {
-  const pictureAddress = baseURL + "hotelsPictures/"
+const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate  }) => {
   return (
     <div>
       {hotelList.length < 1 ? (

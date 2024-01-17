@@ -3,14 +3,12 @@
   display: flex;
   justify-content: center;
   color: white;
-  /* position: relative; */
   width: 100%;
 }
 
 .headerContainer {
   width: 100%;
   max-width: 1024px;
-  /* margin: 20px 0px 50px 0px; */
   text-align: center;
 }
 
@@ -25,14 +23,10 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  /* background-color: rgba(240, 224, 136, 0.945); */
-  /* border: 4px solid rgba(247, 211, 7, 0.945); */
   height: fit-content;
   color: black;
   border-radius: 5px;
   position: relative;
-  /* bottom: 0px; */
-  /* left: 0px; */
   width: 100%;
   max-width: 1024px;
   min-width: 230px;
@@ -42,12 +36,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* gap: 1px; */
-  /* background-color: white; */
-  /* width: 100%; */
   flex: 22%;
   height: 70px;
-  /* height: fit-content; */
   border-radius: 5px;
   margin: 2px;
   padding: 3px;
@@ -68,17 +58,13 @@
   font-weight: bold;
   height: 30px;
   width: 100%;
-  /* flex-basis: 60%; */
 }
 
 .headerSearchItemTopDiv {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* background-color: aqua; */
   width: 100%;
   height: 30px;
-  /* border: 1px solid green; */
 }
 
 .headerSearchItemTopDiv .headerSearchIcon1 {
@@ -97,12 +83,8 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  z-index: 1;
-  
-  
+  z-index: 1;  
 }
-
-
 
 .headerSearchOptions {
   display: flex;
@@ -157,8 +139,6 @@
 
 .datepicker {
   width: 100%;
-  /* border: 2px solid green; */
-  /* height: 30px; */
 }
 
 @media screen and (max-width: 1030px) {

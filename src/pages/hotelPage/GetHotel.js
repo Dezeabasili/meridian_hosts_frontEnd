@@ -7,13 +7,13 @@ import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
 
 const GetHotel = () => {
-  const pictureAddress = baseURL + "hotelsPictures/"
+
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
   const [hotelToDisplay, setHotelToDisplay] = useState();
   const location = useLocation();
   const { hotel_id } = useParams();
-  // const hotelToDisplay = location?.state;
+
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
   const { auth } = useAuthContext();
@@ -86,7 +86,6 @@ const GetHotel = () => {
         <>
           <div className="getHotelImgContainer">
             <img
-              // src={pictureAddress + `${hotelToDisplay._id}/${hotelToDisplay.photos}`}
               src={hotelToDisplay.photos}
               alt=""
               className="getHotelImg"

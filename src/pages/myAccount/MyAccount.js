@@ -9,22 +9,18 @@ import {RotatingLines} from 'react-loader-spinner'
 
 const MyAccount = () => {
   const pictureAddress = baseURL + "profilePic/";
-  const effectRan = useRef(false);
   const runOnce = useRef(false)
   const [openModal, setOpenModal] = useState(false);
   const [userInfo, setUserInfo] = useState();
   const [userPhoto, setUserPhoto] = useState();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
-  const { setAuth, updatedProfilePhoto } = useAuthContext();
+  const { setAuth } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
   const previousPage = location.pathname;
 
   const axiosWithInterceptors = useAxiosInterceptors();
 
-  // Code will be modified to upload image to Cloudinary.
-  // This will not be limited to this file, but to other files where the user uploads images
   useEffect(() => {
     if (runOnce.current === false) {
       const loadUser = async () => {
@@ -44,20 +40,6 @@ const MyAccount = () => {
         } catch (err) {
           console.log(err);
         }
-        // try {
-        //   const myPhoto = await axiosWithInterceptors.get(
-        //     baseURL + "api/v1/users/myaccount/myphoto",
-        //     { responseType: "blob" }
-        //   );
-        //   // console.log(resp.data.data)
-         
-        //   effectRan.current = URL.createObjectURL(myPhoto.data);
-        //   // setUserPhoto(myPhoto)
-        //   // console.log(myPhoto)
-        //   setLoading(false);
-        // } catch (err) {
-        //   console.log(err);
-        // }
       };
   
       loadUser();
@@ -66,8 +48,6 @@ const MyAccount = () => {
     
 
     return () => {
-      // effectRan.current = true
-      // URL.revokeObjectURL(effectRan.current);
       runOnce.current = true
     };
   }, []);
@@ -121,7 +101,6 @@ const MyAccount = () => {
           <div className="profilePhotoDiv">
           <img
             className="img"
-            // src={effectRan.current}
             src={userPhoto}
             alt="Profile"
             width={50}

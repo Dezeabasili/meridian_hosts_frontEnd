@@ -9,7 +9,6 @@ const GetAllReviews = () => {
   const [reviewsList, setReviewsList] = useState();
   const [loading, setLoading] = useState(true);
   const runOnce = useRef(false)
-  const navigate = useNavigate();
   const location = useLocation();
   const axiosWithInterceptors = useAxiosInterceptors();
 

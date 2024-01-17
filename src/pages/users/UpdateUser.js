@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
 import { baseURL } from "../../context/authContext";
 

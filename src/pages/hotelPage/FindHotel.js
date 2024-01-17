@@ -9,9 +9,7 @@ const FindHotel = () => {
   const [city, setCity] = useState();
   const [type, setType] = useState();
   const [cityData, setCityData] = useState();
-  const [cityDataFocus, setCityDataFocus] = useState(false);
   const [hotelTypeData, setHotelTypeData] = useState();
-  const [hotelTypeDataFocus, setHotelTypeDataFocus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const axiosWithInterceptors = useAxiosInterceptors();
@@ -56,8 +54,7 @@ const FindHotel = () => {
     setError(null);
     try {
       const resp = await axiosWithInterceptors.get(
-        baseURL + "api/v1/hotels",
-        { name, city, type }
+        baseURL + `api/v1/hotels?cityref=${city}`
       );
       console.log(resp.data.data);
       navigate("/hotels", { state: resp.data.data });
@@ -95,10 +92,10 @@ const FindHotel = () => {
       <>
           {!loading && <form className="registerContainer" onSubmit={handleSubmit}>
         <h3 className="registerTitle">
-          Provide the hotel name, type or city 
+          Provide the city 
         </h3>
 
-        <div className="registerDiv">
+        {/* <div className="registerDiv">
           <label htmlFor="hotelName">Hotel name:</label>
           <input
             id="hotelName"
@@ -107,7 +104,7 @@ const FindHotel = () => {
             onChange={(e) => setName(e.target.value)}
             autoComplete="off"
           />
-        </div>
+        </div> */}
        
        
         <div className="registerDiv">
@@ -132,7 +129,7 @@ const FindHotel = () => {
               </select>
             </div>
 
-            <div className="registerDiv">
+            {/* <div className="registerDiv">
               <label htmlFor="hoteltype">Select a hotel type:</label>
               <select id="hoteltype" onChange={handleSelectChange2}>
                 <option
@@ -152,9 +149,9 @@ const FindHotel = () => {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
-        <button className="signUpButton" disabled={!name && !city && !type}>
+        <button className="signUpButton" disabled={!city}>
           Continue
         </button>
       </form>}

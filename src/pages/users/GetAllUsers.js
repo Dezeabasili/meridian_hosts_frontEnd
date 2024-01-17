@@ -42,12 +42,6 @@ const GetAllUsers = () => {
 
   }, []);
 
-//   const showSelectedHotel = (hotel_id) => {
-//     const hotelToDisplay = hotelsList.find(
-//       (hotel) => hotel_id === hotel._id
-//     );
-//     navigate(`/hotels/${hotel_id}`, { state: hotelToDisplay });
-//   };
 
   return (
     <div>

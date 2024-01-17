@@ -1,5 +1,4 @@
 .listContainer {
-  /* margin-top: 10px; */
   display: flex;
   justify-content: center;
 }
@@ -16,8 +15,6 @@
   background-color: #febb02;
   padding: 10px;
   border-radius: 10px;
-  /* position: sticky; */
-  /* top: 10px; */
   display: flex;
   flex-direction: column;
   height: max-content;

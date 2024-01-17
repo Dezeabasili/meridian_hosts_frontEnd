@@ -40,9 +40,6 @@ const Menu_Admin_Structure = () => {
         <li>
           <NavLink to={"/hotels/findhotel"}>Find a hotel</NavLink>
         </li>
-        {/* <li>
-          <NavLink to={"/listproperty"}>Upload hotel photos</NavLink>
-        </li> */}
         <li>
           <NavLink to={"/hotels/countbycity"}>Count hotels by city</NavLink>
         </li>

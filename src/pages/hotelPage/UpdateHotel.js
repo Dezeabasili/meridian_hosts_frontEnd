@@ -14,9 +14,7 @@ const UpdateHotel = () => {
   const [addStaff, setAddStaff] = useState();
   const [removeStaff, setRemoveStaff] = useState();
   const [cityData, setCityData] = useState();
-  const [cityDataFocus, setCityDataFocus] = useState(false);
   const [hotelTypeData, setHotelTypeData] = useState();
-  const [hotelTypeDataFocus, setHotelTypeDataFocus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const axiosWithInterceptors = useAxiosInterceptors();

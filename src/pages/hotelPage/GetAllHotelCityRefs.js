@@ -1,6 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-// import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
@@ -9,8 +7,7 @@ const GetAllHotelCityRefs = () => {
   const [referenceList, setReferenceList] = useState();
   const [loading, setLoading] = useState(true);
   const runOnce = useRef(false)
-  const navigate = useNavigate();
-  const location = useLocation();
+
   const axiosWithInterceptors = useAxiosInterceptors();
 
   useEffect(() => {

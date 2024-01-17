@@ -12,7 +12,6 @@ const FindUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    //   let userArray = [];
       const resp = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
         email,
       });

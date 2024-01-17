@@ -1,8 +1,7 @@
 import './changePassword.css'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
-import axios from 'axios'
 import { baseURL } from "../../context/authContext";
 
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/

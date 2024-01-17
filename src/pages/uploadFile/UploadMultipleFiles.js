@@ -1,22 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
-import { useAuthContext } from "../../context/authContext";
 
 const UploadMultipleFiles = () => {
   const [filesList, setFilesList] = useState();
   const [progress, setProgress] = useState({ started: false, pc: 0 });
   const [message, setMessage] = useState();
-  const [imageURL, setImageURL] = useState();
   const axiosWithInterceptors = useAxiosInterceptors();
-  const { updatedProfilePhoto, setUpdatedProfilePhoto } = useAuthContext();
-  // const [uploadType, setUpload] = useState('multiple')
+
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location)
-  // console.log(location.state)
+
   const sizeInMB = location?.state?.size;
   const FILE_SIZE_LIMIT = sizeInMB * 1024 * 1024; // 5MB
   const allowedExtensions = location?.state?.types;
@@ -94,7 +90,7 @@ const UploadMultipleFiles = () => {
 
     }
 
-    console.log('urlArray: ', urlArray)
+    // console.log('urlArray: ', urlArray)
 
     try {
       const resp = await axiosWithInterceptors.post(
@@ -105,12 +101,6 @@ const UploadMultipleFiles = () => {
         }
       );
 
-      console.log("below 2 ");
-
-      // setUpdatedProfilePhoto(photoURL);
-      //onUploadProgress: (ProgressEvent) => { console.log(ProgressEvent.progress * 100) }
-
-      // console.log(resp.data)
     } catch (err) {
       console.log(err);
     }
@@ -150,22 +140,15 @@ const UploadMultipleFiles = () => {
     fd.append("api_key", process.env.REACT_APP_API_KEY);
     fd.append("folder", folderName);
 
-    // upload pictures
-
-    
     setMessage("Uploading...");
     setProgress((prev) => {
       return { ...prev, started: true };
     });
 
-    console.log("above 1 ");
 
     try {
-      // https://api.cloudinary.com/v1_1/<cloud name>/<resource_type>/upload
       let cloudName = process.env.REACT_APP_CLOUD_NAME;
       let api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-
-      console.log("above 2 ");
 
       const res = await axios.post(api, fd, {
         onUploadProgress: (ProgressEvent) => {
@@ -179,8 +162,7 @@ const UploadMultipleFiles = () => {
 
       const { secure_url } = res.data;
       URLArray.push(secure_url)
-      // photoURL = secure_url;
-      // console.log("photoURL: ", photoURL);
+
       setMessage(`Upload successful, ${index + 1} ${index === 1 ? 'file' : 'files'} uploaded`);
     } catch (err) {
       setMessage("upload failed");

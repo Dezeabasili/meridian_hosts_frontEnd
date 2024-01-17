@@ -14,14 +14,14 @@ import { baseURL } from '../../context/authContext';
 import {RotatingLines} from 'react-loader-spinner'
 
 const GetRoom = () => {
-  const pictureAddress = baseURL + "roomsPictures/"
+
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
   const [roomToDisplay, setRoomToDisplay] = useState();
   const [photo, setPhoto] = useState({slide: null, length: null})
   const location = useLocation();
   const { room_id } = useParams();
-  // const hotelToDisplay = location?.state;
+  
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
   const { auth } = useAuthContext();

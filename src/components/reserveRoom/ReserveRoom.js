@@ -2,10 +2,6 @@ import "./reserveRoom.css";
 import { format } from "date-fns";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import useAxios from "../../hooks/useAxios";
-import { useState, useEffect, useRef } from "react";
-// import axios from "axios";
-import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { useSearchContext } from "../../context/searchContext";
 
 const ReserveRoom = ({
@@ -17,11 +13,7 @@ const ReserveRoom = ({
   setNewlySelectedRooms, 
   ref2
 }) => {
-  const runOnce = useRef(false);
-  // const [newlySelectedRooms, setNewlySelectedRooms] = useState([]);
-  // const [loading, setLoading] = useState();
-  const [hotelRoomsArray, setHotelRoomsArray] = useState([]);
-  const axiosWithInterceptors = useAxiosInterceptors();
+
   const { checkinDateValue, checkoutDateValue } = useSearchContext();
 
   console.log('checkinDateValue, checkoutDateValue: ', checkinDateValue, checkoutDateValue )
@@ -90,7 +82,6 @@ const ReserveRoom = ({
   };
 
   // get all reservation dates
-  // reservedDates = reservationDates(checkinDate, checkoutDate);
   ref2.current = reservationDates(checkinDate, checkoutDate);
   // console.log("reservedDates: ", reservedDates);
   console.log("ref2.current: ", ref2.current);
@@ -144,8 +135,6 @@ const ReserveRoom = ({
             <br />
 
             <div className="reserveRoomMap">
-              {/* {hotelRoomsArray?.map((hotelRoom) => {
-                return ( */}
               <div className="roomCont">
                 <div className="roomInfo">
                   <h4 className="ReserveRoom_RoomStyleTitle">{roomStyleToDisplay?.title}</h4>
@@ -169,8 +158,6 @@ const ReserveRoom = ({
                   })}
                 </div>
               </div>
-              {/* );
-              })} */}
             </div>
 
             <button onClick={() => addNewlySelectedRooms()}>

@@ -1,10 +1,6 @@
 import { useLocation, Navigate } from "react-router-dom";
-import Header from "../../components/header/Header";
-import Navbar from "../../components/navbar/Navbar";
 import "./list.css";
 import { useState, useEffect, useRef } from "react";
-import { format } from "date-fns";
-import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import SearchItem from "../../components/searchItem/SearchItem";
@@ -22,8 +18,6 @@ const List = () => {
   const refDate1 = useRef();
   const refDate2 = useRef();
   const [hotelList, setHotelList] = useState([]);
-  const [startDate, setStartDate] = useState({}); // new
-  const [endDate, setEndDate] = useState({});  //new
   const [pictures, setPictures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,15 +34,10 @@ const List = () => {
 
   const {
     date,
-    setDate,
     destination,
     setDestination,
-    roomOptions,
-    setRoomOptions,
     checkinDateValue,
-    setCheckinDateValue,
     checkoutDateValue,
-    setCheckoutDateValue,
     validateCheckoutDateValue,
     validateCheckinDateValue,
   } = useSearchContext();
@@ -228,7 +217,7 @@ const List = () => {
                 </div>
               </div>
             )
-            // </div>
+      
           }
           {errorDiv}
         </>

@@ -5,56 +5,30 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
 import { baseURL } from "../../context/authContext";
-import {RotatingLines} from 'react-loader-spinner'
+import { RotatingLines } from "react-loader-spinner";
 
 const Cities = () => {
   const [slide1, setSlide1] = useState(0);
   const [slide2, setSlide2] = useState(1);
   const [slide3, setSlide3] = useState(2);
-  const [pictures, setPictures] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const runOnce = useRef(false);
-  const pictureAddress = baseURL + "hotel-cities/";
 
   const screenSize = useWindowSize();
 
-  const errorDiv = error 
-  ? <div className="error">
-      {error}
-    </div> 
-  : '';
-
+  const errorDiv = error ? <div className="error">{error}</div> : "";
 
   useEffect(() => {
-    let cityPictures = [];
-    
     if (runOnce.current === false) {
       const loadPage = async () => {
         setLoading(true);
         setError(null);
         try {
-          const resp = await axios.get(
-            baseURL + "api/v1/hotels/countByCity"
-          );
+          const resp = await axios.get(baseURL + "api/v1/hotels/countByCity");
           console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
-
-          // let split1;
-          // let split2;
-          // let join1;
-          // let join2;
-          // let photoArray = [];
-          // resp.data.data.forEach((city) => {
-          //   split1 = city._id.split(".");
-          //   join1 = split1.join("");
-          //   split2 = join1.split(" ");
-          //   join2 = split2.join("");
-          //   photoArray.push(join2);
-          // });
-
-          // setPictures([...photoArray]);
 
           setLoading(false);
         } catch (err) {
@@ -110,97 +84,98 @@ const Cities = () => {
   return (
     <div className="citiesContainer">
       <>
-        {loading && <RotatingLines
-        visible={true}
-        height="96"
-        width="96"
-        color="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        ariaLabel="rotating-lines-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        />}
+        {loading && (
+          <RotatingLines
+            visible={true}
+            height="96"
+            width="96"
+            color="grey"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        )}
       </>
       <>
-          {!loading && <>
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            className="changeArrow"
-            onClick={() => changeSlide("left")}
-          />
-
-          <div className="cities">
-            <img
-              src={hotelsData[slide1].photo}
-              className="cityPicture"
-              alt=""
-              width="200"
-              height="200"
+        {!loading && (
+          <>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              className="changeArrow"
+              onClick={() => changeSlide("left")}
             />
-            <div className="cityDiv">
-              <h3 className="cityHeader">{hotelsData[slide1].cityName}</h3>
-              <h5 className="cityDesc">
-                {hotelsData[slide1].numberOfHotels}{" "}
-                {hotelsData[slide1].numberOfHotels == 1
-                  ? "property"
-                  : "properties"}
-              </h5>
-            </div>
-          </div>
 
-          {screenSize.width >= 350 && (
             <div className="cities">
               <img
-                src={hotelsData[slide2].photo}
+                src={hotelsData[slide1].photo}
                 className="cityPicture"
                 alt=""
                 width="200"
                 height="200"
               />
               <div className="cityDiv">
-                <h3 className="cityHeader">{hotelsData[slide2].cityName}</h3>
+                <h3 className="cityHeader">{hotelsData[slide1].cityName}</h3>
                 <h5 className="cityDesc">
-                  {hotelsData[slide2].numberOfHotels}{" "}
-                  {hotelsData[slide2].numberOfHotels == 1
+                  {hotelsData[slide1].numberOfHotels}{" "}
+                  {hotelsData[slide1].numberOfHotels == 1
                     ? "property"
                     : "properties"}
                 </h5>
               </div>
             </div>
-          )}
 
-          {screenSize.width >= 485 && (
-            <div className="cities">
-              <img
-                src={hotelsData[slide3].photo}
-                className="cityPicture"
-                alt=""
-                width="200"
-                height="200"
-              />
-              <div className="cityDiv">
-                <h3 className="cityHeader">{hotelsData[slide3].cityName}</h3>
-                <h5 className="cityDesc">
-                  {hotelsData[slide3].numberOfHotels}{" "}
-                  {hotelsData[slide3].numberOfHotels == 1
-                    ? "property"
-                    : "properties"}
-                </h5>
+            {screenSize.width >= 350 && (
+              <div className="cities">
+                <img
+                  src={hotelsData[slide2].photo}
+                  className="cityPicture"
+                  alt=""
+                  width="200"
+                  height="200"
+                />
+                <div className="cityDiv">
+                  <h3 className="cityHeader">{hotelsData[slide2].cityName}</h3>
+                  <h5 className="cityDesc">
+                    {hotelsData[slide2].numberOfHotels}{" "}
+                    {hotelsData[slide2].numberOfHotels == 1
+                      ? "property"
+                      : "properties"}
+                  </h5>
+                </div>
               </div>
-            </div>
-          )}
-          <FontAwesomeIcon
-            icon={faArrowRight}
-            className="changeArrow"
-            onClick={() => changeSlide("right")}
-          />
-        </>}
+            )}
+
+            {screenSize.width >= 485 && (
+              <div className="cities">
+                <img
+                  src={hotelsData[slide3].photo}
+                  className="cityPicture"
+                  alt=""
+                  width="200"
+                  height="200"
+                />
+                <div className="cityDiv">
+                  <h3 className="cityHeader">{hotelsData[slide3].cityName}</h3>
+                  <h5 className="cityDesc">
+                    {hotelsData[slide3].numberOfHotels}{" "}
+                    {hotelsData[slide3].numberOfHotels == 1
+                      ? "property"
+                      : "properties"}
+                  </h5>
+                </div>
+              </div>
+            )}
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="changeArrow"
+              onClick={() => changeSlide("right")}
+            />
+          </>
+        )}
       </>
-      <>
-       {error && errorDiv}
-      </>
-     
+      <>{error && errorDiv}</>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import "./featuredHotels.css";
-// import useAxios from "./../../hooks/useAxios";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -7,8 +6,7 @@ import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
 
 const FeaturedHotels = () => {
-  const pictureAddress = baseURL + "hotel-types/"
-  const [picture, setPicture] = useState();
+
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +14,7 @@ const FeaturedHotels = () => {
   const runOnce = useRef(false)
 
   const screenSize = useWindowSize();
-  // console.log('screenSize.width: ', screenSize.width)
+
   const ref = useRef()
   
   ref.current = screenSize.width
@@ -34,15 +32,15 @@ const FeaturedHotels = () => {
         setError(null);
         try {
           const resp = await axios.get(baseURL + "api/v1/hotels/countByType");
-          // console.log("resp.data: ", resp.data.data);
+
           setHotelsData([...resp.data.data]);
-          // setHotelsToDisplay(resp.data.data)
+
           if (ref.current <= 600) {
             setHotelsToDisplay((prev) => {
               prev = [...resp.data.data];
               prev?.pop();
               prev?.pop();
-              // console.log("prev:", prev);
+
               return [...prev];
             });
           } else if (ref.current <= 900) {
@@ -52,18 +50,6 @@ const FeaturedHotels = () => {
               return [...prev];
             });
           } else setHotelsToDisplay([...resp.data.data]);
-  
-          // let split1;
-          // let join1;
-          // let hotelTypeArray = [];
-  
-          // resp.data.data.forEach((hotelType) => {
-          //   split1 = hotelType._id.split("-");
-          //   join1 = split1.join("");
-          //   hotelTypeArray.push(join1);
-          // });
-          // // console.log("hotelTypeArray: ", hotelTypeArray);
-          // setPicture([...hotelTypeArray]);
   
           setLoading(false);
         } catch (err) {

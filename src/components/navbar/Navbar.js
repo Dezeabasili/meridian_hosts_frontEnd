@@ -1,13 +1,10 @@
 import "./navbar.css";
 import "./../menu/menu.css";
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
 import useWindowSize from "../../hooks/useWindowSize";
 import Menu_Admin_Structure from "../menu/Menu_Admin_Structure";
-import Menu_RegisteredUser from "../menu/Menu_RegisteredUser";
-import Menu_Admin from "../menu/Menu_Admin";
-import Menu_Guest from "../menu/Menu_Guest";
 import Menu_RegisteredUser_Structure from "../menu/Menu_RegisteredUser_Structure";
 import Menu_Guest_Structure from "../menu/Menu_Guest_Structure";
 

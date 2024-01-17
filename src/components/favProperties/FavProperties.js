@@ -1,5 +1,4 @@
 import "./favProperties.css";
-// import useAxios from "./../../hooks/useAxios";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -7,15 +6,12 @@ import { baseURL } from "../../context/authContext";
 import { RotatingLines } from "react-loader-spinner";
 
 const FavProperties = () => {
-  const pictureAddress = baseURL + "hotelsPictures/";
-  // const [picture, setPicture] = useState();
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const screenSize = useWindowSize();
-  // console.log('screenSize.width: ', screenSize.width)
   const ref = useRef();
   const runOnce = useRef(false);
   ref.current = screenSize.width;
@@ -31,15 +27,15 @@ const FavProperties = () => {
           const resp = await axios.get(
             baseURL + "api/v1/hotels?sort=-ratingsAverage&limit=4"
           );
-          // console.log("resp.data: ", resp.data.data);
+
           setHotelsData([...resp.data.data]);
-          // setHotelsToDisplay(resp.data.data)
+
           if (ref.current <= 600) {
             setHotelsToDisplay((prev) => {
               prev = [...resp.data.data];
               prev?.pop();
               prev?.pop();
-              // console.log("prev:", prev);
+
               return [...prev];
             });
           } else if (ref.current <= 900) {
@@ -49,26 +45,6 @@ const FavProperties = () => {
               return [...prev];
             });
           } else setHotelsToDisplay([...resp.data.data]);
-
-          // let split1;
-          // let split2;
-          // let join1;
-          // let join2;
-          // let hotelArray = [];
-
-          // resp.data.data.forEach((hotel) => {
-          //   split1 = hotel.name.split(".");
-          //   join1 = split1.join("");
-          //   split2 = join1.split(" ");
-          //   join2 = split2.join("");
-          //   hotelArray.push(join2);
-          // });
-
-          // resp.data.data.forEach((hotel) => {
-          //   hotelArray.push(hotel.photos);
-          // });
-          // console.log("hotelTypeArray: ", hotelTypeArray);
-          // setPicture([...hotelArray]);
 
           setLoading(false);
         } catch (err) {

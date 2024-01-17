@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import "./getAllBookings.css";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
-import { useAuthContext, baseURL } from "../../context/authContext";
+import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
 
 const GetMyBookings = () => {

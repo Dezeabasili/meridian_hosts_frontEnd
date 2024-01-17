@@ -1,18 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
-import Navbar from "../../components/navbar/Navbar";
 import Subscription from "../../components/subscription/Subscription";
 import "./hotel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
-  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
-// import useAxios from '../../hooks/useAxios'
-import { useSearchContext } from "../../context/searchContext";
 import { useAuthContext } from "../../context/authContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import ReserveRoom from "../../components/reserveRoom/ReserveRoom";
@@ -20,7 +14,6 @@ import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
 
 const Hotel = () => {
-  const pictureAddress = baseURL + "roomsPictures/"
   const ref2 = useRef([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [slides, setSlides] = useState([]);
@@ -31,12 +24,9 @@ const Hotel = () => {
   const [roomStyleToDisplay, setRoomStyleToDisplay] = useState();
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [newlySelectedRooms, setNewlySelectedRooms] = useState([]);
-  const [reservedDates, setReservedDates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
   const { hotel_id } = useParams();
   const navigate = useNavigate();
-  const { date, roomOptions } = useSearchContext();
   const { auth } = useAuthContext();
   const axiosWithInterceptors = useAxiosInterceptors();
 
@@ -151,20 +141,9 @@ const Hotel = () => {
         baseURL + "api/v1/stripe/create-checkout-session",
         { selectedRooms, reservedDates: ref2.current, hotel_id }
       );
-      // const resp = await axiosWithInterceptors.post(
-      //   "/stripe/create-checkout-session",
-      //   { selectedRooms, reservedDates, hotel_id }
-      // );
-      // const resp = await axios.post('/stripe/create-checkout-session', {selectedRooms, reservedDates})
+    
       window.location.href = resp.data.url;
 
-      // const promiseArray = selectedRooms.map(room => {
-      //     return axios.patch(`/rooms/availability/${room}`, { reservedDates }, { withCredentials: true })
-      // })
-      // const resArray = await Promise.all(promiseArray)
-      // // console.log(resArray)
-
-      // setOpenHotelRooms(false);
     } catch (err) {
       console.log(err);
     }
@@ -193,35 +172,6 @@ const Hotel = () => {
         ) : (
           <>
             <div className="hotelRoomContainer">
-              {/* {openSlider && (
-                <div className="hotelSlider">
-                  <FontAwesomeIcon
-                    icon={faCircleXmark}
-                    className="close"
-                    onClick={() => setOpenSlider(false)}
-                  />
-                  <FontAwesomeIcon
-                    icon={faArrowLeft}
-                    className="arrow"
-                    // onClick={() => changeSlide("left")}
-                  />
-                  <div>
-                    <div className="sliderImgWrapper">
-                      <img
-                        src={`/pictures/hotels/${pictures[slideNumber]}`}
-                        alt={`${slideNumber}`}
-                      />
-                    </div>
-                  </div>
-
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="arrow"
-                    // onClick={() => changeSlide("right")}
-                  />
-                </div>
-              )} */}
-
               <div className="hotelRoomWrapper">
                 <div className="hotelInfo">
                   <div className="hotelInfoForRooms">
@@ -314,21 +264,7 @@ const Hotel = () => {
                   </>
                 ))}
 
-                {/* <div className="hotelRoomPictures">
-                  {pictures.map((picture, key) => {
-                    return (
-                      <div className="hotelRoomPicturesWrap" key={key}>
-                        <img
-                          src={`/pictures/hotels/${picture}`}
-                          onClick={() => handleSlider(key)}
-                          alt=""
-                          width="200"
-                          height="200"
-                        />
-                      </div>
-                    );
-                  })}
-                </div> */}
+               
                 <div className="hotelDecs">
                   <div className="hotelDecs1">
                     <h3>{hotelInfo.description}</h3>
@@ -382,7 +318,7 @@ const Hotel = () => {
               />
             )}
             <Subscription />
-            {/* <Footer /> */}
+
           </>
         )}
       </>

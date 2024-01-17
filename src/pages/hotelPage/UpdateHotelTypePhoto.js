@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
-import { baseURL } from "../../context/authContext";
 
 const UpdateHotelTypePhoto = () => {
  
   const [hotelTypeRef, setHotelTypeRef] = useState();
-  const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

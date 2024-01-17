@@ -1,5 +1,5 @@
 import "./login.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../context/authContext";
@@ -7,7 +7,6 @@ import { baseURL } from "../../context/authContext";
 
 const Login = () => {
   const location = useLocation();
-  // console.log(location.state)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,9 +38,6 @@ const Login = () => {
     }
   };
 
-  // useEffect(() => {
-  //     localStorage.setItem('trustThisDevice', JSON.stringify(trustThisDevice))
-  // }, [trustThisDevice])
 
   const handleTrustThisDevice = (e) => {
     setTrustThisDevice(e.target.checked);

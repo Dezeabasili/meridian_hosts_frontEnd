@@ -1,6 +1,5 @@
-// import './passwordReset.css'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { baseURL } from "../../context/authContext";
 
@@ -24,7 +23,6 @@ const PasswordReset = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            //continue tomorrow
             const response = await axios.post(baseURL + `api/v1/auth/resetpassword/${resettoken}/${user_id}`, { password })
 
             // console.log(response.data)
