@@ -20,7 +20,7 @@
 .subsButton {
     background-color: blue;
     color: white;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .subsInput, .subsButton {
