@@ -104,6 +104,7 @@ const FavProperties = () => {
               {hotelsToDisplay?.map((hotel, index) => {
                 return (
                   <div className="favProperty" key={hotel._id}>
+                    <div className="favPropertyDiv1">
                     <img
                       src={hotel.photos}
                       alt=""
@@ -116,6 +117,8 @@ const FavProperties = () => {
                     <p className="fPPrice">
                       Starting from ${hotel.cheapestPrice}
                     </p>
+                    </div>
+                    
                     <div className="fPStats">
                       <button className="fPRating">
                         Rating: {hotel.ratingsAverage}
