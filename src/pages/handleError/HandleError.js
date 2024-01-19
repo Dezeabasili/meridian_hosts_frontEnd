@@ -1,10 +1,22 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const HandleError = () => {
+  const navigate = useNavigate()
   const location = useLocation()
+
+
+  const goBack = () => {
+    navigate(-1)
+  }
+ 
   return (
-    <div>{location.state}</div>
+    <div>
+      <p>{location.state.message}</p>
+      <br />
+      <h4 onClick={goBack} style={{cursor: 'pointer'}}>Go back to previous page</h4>
+    </div>
+ 
   )
 }
 

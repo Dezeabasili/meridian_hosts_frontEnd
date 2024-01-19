@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
 import { baseURL } from "../../context/authContext";
 
@@ -7,34 +7,48 @@ const UpdateUser = () => {
     const [roles, setRoles] = useState('')
     const [active, setActive] = useState('')
     const [email, setEmail] = useState('')
+
     const navigate = useNavigate()
+    const location = useLocation()
 
     const axiosWithInterceptors = useAxiosInterceptors()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
         try {
             let resp = await axiosWithInterceptors.patch(baseURL + 'api/v1/users/updateuser', { roles, active, email })
 
            
             if (resp.data.data.matchedCount === 1) {
-                 resp = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
-                    email,
-                  });
-            }
-            
-
-            console.log('Updated User:', resp.data.data)
+                try {
+                    const resp2 = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
+                        email,
+                      });
+                  
             setRoles('')
             setActive('')
             setEmail('')
+            navigate("/users/getuser", { state: resp2.data.data });
 
-            navigate("/users/getuser", { state: resp.data.data });
-
+                } catch (err) {
+                    navigate('/handleerror', {state: {message: 'The user is disabled', path: location.pathname}})
+                }
+                 
+            } else {
+                navigate('/handleerror', {state: {message: 'The email provided is not in the database', path: location.pathname}})
+            }
+            
         } catch (err) {
-            if (!err?.response)
+            if (!err?.response) {
                 console.log('no server response')
-            else console.log(err)
+                
+            }
+                
+            else {
+                // console.log(err)
+                navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+            } 
         }
 
     }
@@ -43,6 +57,8 @@ const UpdateUser = () => {
             <form className='registerContainer' onSubmit={handleSubmit}>
                 <h1 className='registerTitle'>Update user details</h1>
                 <div className='registerDiv'>
+                <p>Provide user e-mail in order to update user role, disable or enable user</p>
+                    <br/>
                     <label htmlFor='email'>User e-mail:</label>
                     <input
                         id='email'
@@ -75,7 +91,7 @@ const UpdateUser = () => {
                     />
                 </div>
 
-             <button className='signUpButton' disabled={!email} >Continue</button>
+                <button className='signUpButton' disabled={!(email && roles) && !(email && active) } >Continue</button>
                
             </form>
         </div>

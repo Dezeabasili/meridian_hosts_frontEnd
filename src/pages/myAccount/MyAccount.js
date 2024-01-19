@@ -30,12 +30,8 @@ const MyAccount = () => {
             withCredentials: true,
           });
           setUserInfo({...resp.data.data});
-          if (resp.data.data.photo == 'default_profile_pic.png') {
-            setUserPhoto(`${pictureAddress}default_profile_pic.png`)
-          } else {
-            setUserPhoto(resp.data.data.photo)
-          }
-
+          setUserPhoto(resp.data.data.photo)
+ 
           setLoading(false);
         } catch (err) {
           console.log(err);

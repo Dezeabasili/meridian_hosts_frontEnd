@@ -9,7 +9,7 @@ const CheckUserRoles = ({ authorizedRoles }) => {
     const desiredDestination = location.pathname
 
     // check if user is authorized to view resource
-    const result = userRoles?.some((role) => authorizedRoles.includes(role))
+    const result = authorizedRoles.includes(userRoles)
 
     return (
         <>

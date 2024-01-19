@@ -34,7 +34,7 @@ const Login = () => {
       localStorage.setItem("trustThisDevice", JSON.stringify(trustThisDevice));
       navigate(location?.state || "/");
     } catch (err) {
-        navigate('/handleerror', {state: err.response.data.message})
+      navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
     }
   };
 
