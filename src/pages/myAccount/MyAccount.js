@@ -12,9 +12,8 @@ const MyAccount = () => {
   const runOnce = useRef(false)
   const [openModal, setOpenModal] = useState(false);
   const [userInfo, setUserInfo] = useState();
-  const [userPhoto, setUserPhoto] = useState();
   const [loading, setLoading] = useState(true);
-  const { setAuth } = useAuthContext();
+  const { setAuth, profilePhoto, setProfilePhoto } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
   const previousPage = location.pathname;
@@ -30,7 +29,8 @@ const MyAccount = () => {
             withCredentials: true,
           });
           setUserInfo({...resp.data.data});
-          setUserPhoto(resp.data.data.photo)
+          setProfilePhoto(resp.data.data.photo)
+          localStorage.setItem("profilePhoto", JSON.stringify(resp.data.data.photo));
  
           setLoading(false);
         } catch (err) {
@@ -97,7 +97,7 @@ const MyAccount = () => {
           <div className="profilePhotoDiv">
           <img
             className="img"
-            src={userPhoto}
+            src={profilePhoto}
             alt="Profile"
             width={50}
             height={50}

@@ -10,7 +10,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { setAuth, trustThisDevice, setTrustThisDevice } = useAuthContext();
+  const { setAuth, trustThisDevice, setTrustThisDevice, setProfilePhoto } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -29,9 +29,11 @@ const Login = () => {
       const accessToken = response.data.accessToken;
       const assignedRoles = response.data.assignedRoles;
       setAuth({ username, password, accessToken, assignedRoles });
+      setProfilePhoto(response.data.profilePhoto)
       setUsername("");
       setPassword("");
       localStorage.setItem("trustThisDevice", JSON.stringify(trustThisDevice));
+      localStorage.setItem("profilePhoto", JSON.stringify(response.data.profilePhoto));
       navigate(location?.state || "/");
     } catch (err) {
       navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})

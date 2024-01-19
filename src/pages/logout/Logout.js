@@ -7,7 +7,7 @@ import { baseURL } from "../../context/authContext";
 const Logout = () => {
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
-  const { setAuth } = useAuthContext();
+  const { setAuth, setProfilePhoto } = useAuthContext();
 
   useEffect(() => {
     if (runOnce.current === false) {
@@ -19,6 +19,7 @@ const Logout = () => {
           // clear the cookie
           await axios.get(baseURL + "api/v1/auth/logout", { withCredentials: true });
           localStorage.clear();
+          setProfilePhoto('')
           setLoading(false);
         } catch (err) {
           console.log(err);

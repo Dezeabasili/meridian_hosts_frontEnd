@@ -9,7 +9,7 @@ import Menu_RegisteredUser_Structure from "../menu/Menu_RegisteredUser_Structure
 import Menu_Guest_Structure from "../menu/Menu_Guest_Structure";
 
 const Navbar = () => {
-  const { auth } = useAuthContext();
+  const { auth, profilePhoto } = useAuthContext();
   const screenSize = useWindowSize();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -54,6 +54,16 @@ const Navbar = () => {
           />
         </div>
 
+        {screenSize.width <= 800 && auth.accessToken &&  
+        <div className="navContainerimgDiv">
+          <img
+            src={profilePhoto}
+            alt="ProfilePhoto"
+            width="50"
+            height="50"
+          />
+        </div>}
+
         <div className="menu-bar">
           <ul>
             <li>
@@ -82,6 +92,17 @@ const Navbar = () => {
             )}
           </ul>
         </div>
+
+        {screenSize.width >= 800 && auth.accessToken &&
+        <div className="navContainerimgDiv">
+          <img
+            src={profilePhoto}
+            alt="ProfilePhoto"
+            width="50"
+            height="50"
+          />
+        </div>}
+        
       </div>
 
       <div className="navbarMainMenu">
