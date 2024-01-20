@@ -9,6 +9,10 @@ const Subscription = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
+    if (email == 'Thank you for subscribing') {
+        setEmail('')
+        return
+      }
     e.preventDefault();
     try {
         await axios.post(baseURL + 'api/v1/users/subscriptions', {email})
