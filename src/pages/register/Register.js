@@ -122,7 +122,7 @@ const Register = () => {
           <div className="abraham">
             <input
               id="password"
-              type={togglePassword ? "password" : "text"}
+              type={!togglePassword ? "password" : "text"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -153,7 +153,7 @@ const Register = () => {
           <div className="abraham">
           <input
             id="confirmPwd"
-            type={togglePassword2 ? "password" : "text"}
+            type={!togglePassword2 ? "password" : "text"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -166,7 +166,7 @@ const Register = () => {
               onClick={tryAbraham2}
             />
           </div>
-          
+
           <p
             className={
               confirmPasswordFocus && !validConfirmPassword
