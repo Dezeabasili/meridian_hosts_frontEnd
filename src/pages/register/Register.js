@@ -79,7 +79,7 @@ const Register = () => {
                     />
                     <p className={usernameFocus && !validUsername ? 'showInstructions' : 'hideInstructions'}>
                     Username must begin with a letter.<br/> 
-                    Must contain 5 - 20 characters. <br/>
+                    Must contain 6 - 20 characters. <br/>
                     The following characters are allowed: <br/> 
                     Letters, numbers, hyphens, underscores
                     </p>
