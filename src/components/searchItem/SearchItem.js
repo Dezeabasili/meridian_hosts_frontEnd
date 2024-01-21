@@ -1,24 +1,28 @@
 import "./searchItem.css";
 import { Link } from "react-router-dom";
 
-const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate  }) => {
+const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate }) => {
   return (
     <div>
       {hotelList.length < 1 ? (
-        <h3>We do not have a hotel in the city you specified</h3>
+        <>
+          <h3>We do not have a hotel in the city you specified</h3>
+          <h3>Or we within the price range </h3>
+        </>
       ) : (
         <>
           {hotelList?.map((hotel, index) => {
             return (
               <div key={hotel._id}>
                 <div className="itemContainer">
-                  <div className={hideCheckInDate || hideCheckOutDate ? "pictureAlt" : "picture"}>
-                    <img
-                      src={hotel.photos}
-                      alt=""
-                      width={200}
-                      height={200}
-                    />
+                  <div
+                    className={
+                      hideCheckInDate || hideCheckOutDate
+                        ? "pictureAlt"
+                        : "picture"
+                    }
+                  >
+                    <img src={hotel.photos} alt="" width={200} height={200} />
                   </div>
                   <div>
                     <h2 className="SearchItem_Hotel_Name">{hotel.name}</h2>
@@ -50,14 +54,22 @@ const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate  }) => {
                         <div>
                           <div>
                             <span>Minimum price per night: </span>
-                            <span><b>${hotel.cheapestPrice}</b></span>
+                            <span>
+                              <b>${hotel.cheapestPrice}</b>
+                            </span>
                           </div>
                           <div>
                             <p>Free cancellation</p>
                           </div>
                         </div>
                       </div>
-                      <div className= {hideCheckInDate || hideCheckOutDate ? "smallerPictureAlt" : "smallerPicture"} >
+                      <div
+                        className={
+                          hideCheckInDate || hideCheckOutDate
+                            ? "smallerPictureAlt"
+                            : "smallerPicture"
+                        }
+                      >
                         <img
                           src={hotel.photos}
                           alt=""
@@ -66,8 +78,8 @@ const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate  }) => {
                         />
                       </div>
                       <Link to={`/hotels/${hotel._id}/all`}>
-                          <button>See availability</button>
-                        </Link>
+                        <button>See availability</button>
+                      </Link>
                     </div>
                   </div>
                 </div>

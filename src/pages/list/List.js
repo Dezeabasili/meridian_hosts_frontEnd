@@ -10,9 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { baseURL } from "../../context/authContext";
 
-
 const List = () => {
-  
   const location = useLocation();
   const ref = useRef(false);
   const refDate1 = useRef();
@@ -25,12 +23,9 @@ const List = () => {
   const [max, setMax] = useState(1000);
   const [hideCheckInDate, setHideCheckInDate] = useState(false);
   const [hideCheckOutDate, setHideCheckOutDate] = useState(false);
+  const [cityData, setCityData] = useState();
 
-  const errorDiv = error 
-        ? <div className="error">
-            {error}
-          </div> 
-        : '';
+  const errorDiv = error ? <div className="error">{error}</div> : "";
 
   const {
     date,
@@ -42,17 +37,30 @@ const List = () => {
     validateCheckinDateValue,
   } = useSearchContext();
 
-  
-  console.log('checkinDateValue, checkoutDateValue: ', checkinDateValue, checkoutDateValue )
-  console.log('date[0].startDate, date[0].endDate: ', date[0].startDate, date[0].endDate )
+  console.log(
+    "checkinDateValue, checkoutDateValue: ",
+    checkinDateValue,
+    checkoutDateValue
+  );
+  console.log(
+    "date[0].startDate, date[0].endDate: ",
+    date[0].startDate,
+    date[0].endDate
+  );
 
   useEffect(() => {
-    const fetchData = async () => {   
+    const fetchData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get(baseURL + `api/v1/hotels?city=${destination}`);
+        const res = await axios.get(
+          baseURL + `api/v1/hotels?city=${destination}`
+        );
         setHotelList([...res.data.data]);
+
+        const resp = await axios.get(baseURL + "api/v1/hotels/allcityrefs");
+        // console.log("hotels: ", resp.data.data);
+        setCityData([...resp.data.data]);
 
         let split1;
         let split2;
@@ -88,7 +96,6 @@ const List = () => {
     };
   }, []);
 
-
   const handleHide = (e) => {
     if (refDate1.current?.contains(e.target)) {
       setHideCheckInDate(true);
@@ -108,7 +115,8 @@ const List = () => {
     setError(null);
     try {
       const res = await axios.get(
-        baseURL + `api/v1/hotels/price?city=${destination}&min=${min}&max=${max}`
+        baseURL +
+          `api/v1/hotels/price?city=${destination}&min=${min}&max=${max}`
       );
       setHotelList([...res.data.data]);
 
@@ -135,90 +143,122 @@ const List = () => {
     }
   };
 
+  const handleSelectChange = (e) => {
+    setDestination(e.target.value);
+  };
+
   return (
     <>
       {location.state ? (
         <>
-          {
-            !loading && (
-              // <div>
+          {!loading && (
+            // <div>
 
-              <div className="listContainer">
-                <div className="listWrapper">
-                  <div className="listSearch">
-                    <h1 className="listTitle">Search</h1>
-                    <div className="listItem">
-                      <label>City name:</label>
-                      <input
+            <div className="listContainer">
+              <div className="listWrapper">
+                <div className="listSearch">
+                  <h1 className="listTitle">Search</h1>
+                  <div className="listItem">
+                    <label>City name:</label>
+                    {/* <input
                         type="text"
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
-                      />
-                    </div>
-                    <div className="listItem">
-                      <label>Check-in date:</label>
-                      <DatePicker
-                        selected={checkinDateValue}
-                        onChange={(date) => validateCheckinDateValue(date)}
-                        placeholderText="Select a date"
-                        dateFormat="dd/MMM/yyyy"
-                        minDate={new Date()}
-                        wrapperClassName="datepicker"
-                        className="red-border"
-                      />
-                    </div>
-                    <div className="listItem">
-                      <label>Check-out date:</label>
-                      <DatePicker
-                        selected={checkoutDateValue}
-                        onChange={(date) => validateCheckoutDateValue(date)}
-                        placeholderText="Select a date"
-                        dateFormat="dd/MMM/yyyy"
-                        minDate={new Date()}
-                        wrapperClassName="datepicker"
-                        className="red-border"
-                      />
-                    </div>
-                  
-                    <h5>Options</h5>
-                
-                    <div className="listItem">
-                      <label>
-                        Min price <small>(per night)</small>
-                      </label>
-                      <input
-                        type="number"
-                        value={min}
-                        onChange={(e) => setMin(e.target.value)}
-                      />
-                    </div>
-                    <div className="listItem">
-                      <label>
-                        Max price <small>(per night)</small>
-                      </label>
-                      <input
-                        type="number"
-                        value={max}
-                        onChange={(e) => setMax(e.target.value)}
-                      />
-                    </div>
+                      /> */}
 
-                    <button onClick={handleClick}>Search</button>
+                    <select
+                      className="headerSearchInput"
+                      id="city"
+                      onChange={handleSelectChange}
+                    >
+                      <option
+                        style={{ textTransform: "capitalize" }}
+                        value={destination}
+                        onClick={() => setDestination(destination)}
+                      >
+                        {destination}
+                      </option>
+                      {cityData?.map((selectedCity) => {
+                        return (
+                          <>
+                            {selectedCity.cityName != destination ? (
+                              <option
+                                style={{ textTransform: "capitalize" }}
+                                key={selectedCity._id}
+                                value={selectedCity.cityName}
+                              >
+                                {selectedCity.cityName}
+                              </option>
+                            ) : (
+                              ""
+                            )}
+                          </>
+                        );
+                      })}
+                    </select>
                   </div>
-                  <div className="listResult">
-                    <SearchItem
-                      hotelList={hotelList}
-                      pictures={pictures}
-                      hideCheckInDate={hideCheckInDate}
-                      hideCheckOutDate={hideCheckOutDate}
-                      destination={destination}
+                  <div className="listItem">
+                    <label>Check-in date:</label>
+                    <DatePicker
+                      selected={checkinDateValue}
+                      onChange={(date) => validateCheckinDateValue(date)}
+                      placeholderText="Select a date"
+                      dateFormat="dd/MMM/yyyy"
+                      minDate={new Date()}
+                      wrapperClassName="datepicker"
+                      className="red-border"
                     />
                   </div>
+                  <div className="listItem">
+                    <label>Check-out date:</label>
+                    <DatePicker
+                      selected={checkoutDateValue}
+                      onChange={(date) => validateCheckoutDateValue(date)}
+                      placeholderText="Select a date"
+                      dateFormat="dd/MMM/yyyy"
+                      minDate={new Date()}
+                      wrapperClassName="datepicker"
+                      className="red-border"
+                    />
+                  </div>
+
+                  <h5>Options</h5>
+
+                  <div className="listItem">
+                    <label>
+                      Min price <small>(per night)</small>
+                    </label>
+                    <input
+                      type="number"
+                      value={min}
+                      onChange={(e) => setMin(e.target.value)}
+                    />
+                  </div>
+                  <div className="listItem">
+                    <label>
+                      Max price <small>(per night)</small>
+                    </label>
+                    <input
+                      type="number"
+                      value={max}
+                      onChange={(e) => setMax(e.target.value)}
+                    />
+                  </div>
+
+                  <button onClick={handleClick}>Search</button>
+                </div>
+                <div className="listResult">
+                  <SearchItem
+                    hotelList={hotelList}
+                    pictures={pictures}
+                    hideCheckInDate={hideCheckInDate}
+                    hideCheckOutDate={hideCheckOutDate}
+                    destination={destination}
+                  />
                 </div>
               </div>
-            )
-      
-          }
+            </div>
+          )}
           {errorDiv}
         </>
       ) : (

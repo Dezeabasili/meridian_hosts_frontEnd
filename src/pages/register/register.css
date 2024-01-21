@@ -39,3 +39,23 @@
   color: inherit;
   cursor: pointer;
 }
+
+
+.abraham input {
+  border: none;
+  outline: none;
+  width: 90%;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.abraham {
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.abraham .headerSearchIcon1 {
+  background-color: black;
+  border-radius: 50%;
+
+}

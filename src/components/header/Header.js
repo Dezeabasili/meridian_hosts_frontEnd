@@ -19,12 +19,16 @@ import { useNavigate } from "react-router-dom";
 import { useSearchContext } from "../../context/searchContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import { baseURL } from "../../context/authContext";
 
 const Header = ({ type }) => {
   const refDate = useRef();
   const refRoomOptions = useRef();
   const [hideDate, setHideDate] = useState(false);
   const [hideRoomOptions, setHideRoomOptions] = useState(false);
+  const [cityData, setCityData] = useState();
+  const [loading, setLoading] = useState(true);
 
   const {
     date,
@@ -41,13 +45,37 @@ const Header = ({ type }) => {
     validateCheckinDateValue
   } = useSearchContext();
   const navigate = useNavigate();
+  const runOnce = useRef(false);
 
   useEffect(() => {
-  
-    document.addEventListener("click", handleHide, true);
+   
+    if (runOnce.current === false) {
+      const references = async () => {
+        setLoading(true);
+
+        try {
+          const resp = await axios.get(
+            baseURL + "api/v1/hotels/allcityrefs"
+          );
+          // console.log("hotels: ", resp.data.data);
+          setCityData([...resp.data.data]);
+
+          setLoading(false);
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
+
+      document.addEventListener("click", handleHide, true);
+
+      references();
+    }
+
+
 
     return () => {
       document.removeEventListener("click", handleHide, true);
+      runOnce.current = true;
     };
   }, []);
 
@@ -90,6 +118,11 @@ const Header = ({ type }) => {
     refRoomOptions.current.focus();
   };
 
+  const handleSelectChange = (e) => {
+    setDestination(e.target.value);
+  };
+
+
   return (
     <div className="header">
       <div className="headerContainer">
@@ -111,13 +144,33 @@ const Header = ({ type }) => {
                 <span>Destination</span>
               </div>
 
-              <input
+              {/* <input
                 type="text"
                 className="headerSearchInput"
                 placeholder="City"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-              />
+              /> */}
+
+<select className="headerSearchInput" id="city" onChange={handleSelectChange}>
+                  <option
+                    style={{ textTransform: "capitalize" }}
+                    value={""}
+                    onClick={() => setDestination(null)}
+                  >
+                    --Select an city--
+                  </option>
+                  {cityData?.map((selectedCity) => (
+                    <option
+                      style={{ textTransform: "capitalize" }}
+                      key={selectedCity._id}
+                      value={selectedCity.cityName}
+                    >
+                      {selectedCity.cityName}
+                    </option>
+                  ))}
+                </select>
+
             </div>
 
             <div
