@@ -17,7 +17,7 @@ export const SearchContextProvider = ({ children }) => {
     ])
     const [checkinDateValue, setCheckinDateValue] = useState(new Date())
     const [checkoutDateValue, setCheckoutDateValue] = useState(new Date())
-    const [destination, setDestination] = useState('Select a city')
+    const [destination, setDestination] = useState('')
     const [roomOptions, setRoomOptions] = useState({
         adults: 1,
         children: 0,

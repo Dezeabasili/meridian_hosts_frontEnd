@@ -7,7 +7,7 @@ const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate }) => {
       {hotelList.length < 1 ? (
         <>
           <h3>We do not have a hotel in the city you specified</h3>
-          <h3>Or we within the price range </h3>
+          <h3>Or within the price range specified </h3>
         </>
       ) : (
         <>

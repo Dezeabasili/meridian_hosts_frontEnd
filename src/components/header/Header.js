@@ -52,6 +52,7 @@ const Header = ({ type }) => {
     if (runOnce.current === false) {
       const references = async () => {
         setLoading(true);
+        setDestination('')
 
         try {
           const resp = await axios.get(
@@ -106,7 +107,11 @@ const Header = ({ type }) => {
   };
 
   const handleSearch = () => {
-    navigate("/hotelslist", { state: { destination, date, roomOptions } });
+    if (!destination) {
+      navigate('/')
+    } else {
+      navigate("/hotelslist", { state: { destination, date, roomOptions } });
+    }
   };
 
   const hideDateFunc = () => {
