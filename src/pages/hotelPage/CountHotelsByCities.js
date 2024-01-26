@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
@@ -7,6 +8,8 @@ const CountHotelsByCities = () => {
   const [loading, setLoading] = useState(true);
   const [hotelData, setHotelData] = useState();
   const runOnce = useRef(false)
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (runOnce.current === false) {
@@ -18,7 +21,11 @@ const CountHotelsByCities = () => {
           setHotelData([...resp.data.data]);
           setLoading(false)
         } catch (err) {
-          console.log(err);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
   

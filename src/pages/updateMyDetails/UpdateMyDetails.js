@@ -1,6 +1,6 @@
 import './updateMyDetails.css'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import useAxiosInterceptors from '../../hooks/useAxiosWithInterceptors'
 import { baseURL } from "../../context/authContext";
 
@@ -13,6 +13,7 @@ const UpdateMyDetails = () => {
     const [usernameFocus, setUsernameFocus] = useState()
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
+    const location = useLocation();
 
     const axiosWithInterceptors = useAxiosInterceptors()
 
@@ -33,9 +34,11 @@ const UpdateMyDetails = () => {
             navigate('/login')
 
         } catch (err) {
-            if (!err?.response)
-                console.log('no server response')
-            else console.log(err)
+            if (err.response.data.message) {
+                navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+              } else {
+                navigate('/somethingwentwrong')
+              }
         }
 
     }

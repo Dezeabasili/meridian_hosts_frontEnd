@@ -1,4 +1,5 @@
 import "./favProperties.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -9,20 +10,19 @@ const FavProperties = () => {
   const [hotelsData, setHotelsData] = useState([]);
   const [hotelsToDisplay, setHotelsToDisplay] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const screenSize = useWindowSize();
   const ref = useRef();
   const runOnce = useRef(false);
   ref.current = screenSize.width;
 
-  const errorDiv = error ? <div className="error">{error}</div> : "";
-
   useEffect(() => {
     if (runOnce.current === false) {
       const loadPage = async () => {
         setLoading(true);
-        setError(null);
         try {
           const resp = await axios.get(
             baseURL + "api/v1/hotels?sort=-ratingsAverage&limit=4"
@@ -48,8 +48,16 @@ const FavProperties = () => {
 
           setLoading(false);
         } catch (err) {
-          console.log(err);
-          setError(err.response.data.message);
+          if (err.response.data.message) {
+            navigate("/handleerror", {
+              state: {
+                message: err.response.data.message,
+                path: location.pathname,
+              },
+            });
+          } else {
+            navigate("/somethingwentwrong");
+          }
         }
       };
 
@@ -105,20 +113,20 @@ const FavProperties = () => {
                 return (
                   <div className="favProperty" key={hotel._id}>
                     <div className="favPropertyDiv1">
-                    <img
-                      src={hotel.photos}
-                      alt=""
-                      className="fPImg"
-                      width="150"
-                      height="150"
-                    />
-                    <h4 className="fPName">{hotel.name}</h4>
-                    <p className="fPDesc">{hotel.description}</p>
-                    <p className="fPPrice">
-                      Starting from ${hotel.cheapestPrice}
-                    </p>
+                      <img
+                        src={hotel.photos}
+                        alt=""
+                        className="fPImg"
+                        width="150"
+                        height="150"
+                      />
+                      <h4 className="fPName">{hotel.name}</h4>
+                      <p className="fPDesc">{hotel.description}</p>
+                      <p className="fPPrice">
+                        Starting from ${hotel.cheapestPrice}
+                      </p>
                     </div>
-                    
+
                     <div className="fPStats">
                       <button className="fPRating">
                         Rating: {hotel.ratingsAverage}
@@ -135,8 +143,6 @@ const FavProperties = () => {
           </>
         )}
       </>
-
-      <>{error && errorDiv}</>
     </div>
   );
 };

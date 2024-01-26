@@ -50,6 +50,7 @@ import GetAllHotelTypesRef from "./pages/hotelPage/GetAllHotelTypesRef";
 import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
 import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
 import HandleError from "./pages/handleError/HandleError";
+import SomethingWentWrong from "./pages/handleError/SomethingWentWrong";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route element={<Menu />}>
             <Route path="/" element={<Home />} />
             <Route path="/handleerror" element={<HandleError />} />
+            <Route path="/somethingwentwrong" element={<SomethingWentWrong />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="logout" element={<Logout />} />

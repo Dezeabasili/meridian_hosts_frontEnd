@@ -1,6 +1,6 @@
 import "./changePassword.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +21,7 @@ const ChangePassword = () => {
   const [togglePassword2, setTogglePassword2] = useState(false);
   const [togglePassword3, setTogglePassword3] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const axiosWithInterceptors = useAxiosInterceptors();
 
   useEffect(() => {
@@ -40,8 +41,11 @@ const ChangePassword = () => {
       setConfirmPassword("");
       navigate("/login");
     } catch (err) {
-      if (!err?.response) console.log("no server response");
-      else console.log(err);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

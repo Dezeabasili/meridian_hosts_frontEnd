@@ -4,14 +4,13 @@ import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
 
-
 const GetUser = () => {
   const runOnce = useRef(false)
   const [loading, setLoading] = useState(true);
   const [userToDisplay, setUserToDisplay] = useState();
+  const navigate = useNavigate();
   const location = useLocation();
   const axiosWithInterceptors = useAxiosInterceptors();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (runOnce.current === false) {
@@ -38,7 +37,11 @@ const GetUser = () => {
       await axiosWithInterceptors.delete(baseURL + `api/v1/users/${userToDisplay._id}`);
       navigate("/users");
     } catch (err) {
-      console.log(err);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

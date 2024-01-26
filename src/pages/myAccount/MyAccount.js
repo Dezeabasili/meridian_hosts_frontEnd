@@ -5,11 +5,10 @@ import { useAuthContext } from "../../context/authContext";
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { baseURL } from "../../context/authContext";
-import {RotatingLines} from 'react-loader-spinner'
+import { RotatingLines } from "react-loader-spinner";
 
 const MyAccount = () => {
-  const pictureAddress = baseURL + "profilePic/";
-  const runOnce = useRef(false)
+  const runOnce = useRef(false);
   const [openModal, setOpenModal] = useState(false);
   const [userInfo, setUserInfo] = useState();
   const [loading, setLoading] = useState(true);
@@ -25,26 +24,39 @@ const MyAccount = () => {
       const loadUser = async () => {
         try {
           setLoading(true);
-          const resp = await axiosWithInterceptors.get(baseURL + "api/v1/users/myaccount", {
-            withCredentials: true,
-          });
-          setUserInfo({...resp.data.data});
-          setProfilePhoto(resp.data.data.photo)
-          localStorage.setItem("profilePhoto", JSON.stringify(resp.data.data.photo));
- 
+          const resp = await axiosWithInterceptors.get(
+            baseURL + "api/v1/users/myaccount",
+            {
+              withCredentials: true,
+            }
+          );
+          setUserInfo({ ...resp.data.data });
+          setProfilePhoto(resp.data.data.photo);
+          localStorage.setItem(
+            "profilePhoto",
+            JSON.stringify(resp.data.data.photo)
+          );
+
           setLoading(false);
         } catch (err) {
-          console.log(err);
+          if (err.response.data.message) {
+            navigate("/handleerror", {
+              state: {
+                message: err.response.data.message,
+                path: location.pathname,
+              },
+            });
+          } else {
+            navigate("/somethingwentwrong");
+          }
         }
       };
-  
-      loadUser();
 
+      loadUser();
     }
-    
 
     return () => {
-      runOnce.current = true
+      runOnce.current = true;
     };
   }, []);
 
@@ -54,33 +66,50 @@ const MyAccount = () => {
       types: [".jpg", "jpeg", ".png", ".JPG"],
       sizeLimit: 5,
       number: "single",
-      code: 'profilephoto',
+      code: "profilephoto",
       previousPage,
     };
     navigate("/uploadfiles", { state: fileOptions });
   };
 
   const deleteAccount = async () => {
-    await axiosWithInterceptors.delete(baseURL + "api/v1/users/deletemyaccount");
-    await axios.get(baseURL + "api/v1/auth/logout", { withCredentials: true });
-    setAuth({});
-    localStorage.clear();
-    navigate("/");
+    try {
+      await axiosWithInterceptors.delete(
+        baseURL + "api/v1/users/deletemyaccount"
+      );
+      await axios.get(baseURL + "api/v1/auth/logout", {
+        withCredentials: true,
+      });
+      setAuth({});
+      localStorage.clear();
+      navigate("/");
+    } catch (err) {
+      if (err.response.data.message) {
+        navigate("/handleerror", {
+          state: {
+            message: err.response.data.message,
+            path: location.pathname,
+          },
+        });
+      } else {
+        navigate("/somethingwentwrong");
+      }
+    }
   };
 
   return (
     <>
       {loading ? (
         <RotatingLines
-        visible={true}
-        height="96"
-        width="96"
-        color="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        ariaLabel="rotating-lines-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
+          visible={true}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
         />
       ) : (
         <div className="myProfileContainer">
@@ -95,31 +124,28 @@ const MyAccount = () => {
           <span>{userInfo.email}</span>
           <br />
           <div className="profilePhotoDiv">
-          <img
-            className="img"
-            src={profilePhoto}
-            alt="Profile"
-            width={50}
-            height={50}
-          />
+            <img
+              className="img"
+              src={profilePhoto}
+              alt="Profile"
+              width={50}
+              height={50}
+            />
           </div>
-          
+
           <button onClick={choosePhoto}>Edit profile photo</button>
 
           <br />
-          
 
           <Link to={"/changepassword"}>
             <button>Change password</button>
           </Link>
           <br />
-          
 
           <Link to={"/updatemyaccount"}>
             <button>Update my details</button>
           </Link>
           <br />
-          
 
           <button onClick={() => setOpenModal(true)}>Delete my account</button>
 

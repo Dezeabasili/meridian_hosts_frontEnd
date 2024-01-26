@@ -19,11 +19,10 @@ const GetRoom = () => {
   const [loading, setLoading] = useState(true);
   const [roomToDisplay, setRoomToDisplay] = useState();
   const [photo, setPhoto] = useState({slide: null, length: null})
-  const location = useLocation();
-  const { room_id } = useParams();
-  
+  const { room_id } = useParams(); 
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
+  const location = useLocation();
   const { auth } = useAuthContext();
 
   useEffect(() => {
@@ -50,7 +49,11 @@ const GetRoom = () => {
           
           setLoading(false);
         } catch (err) {
-          console.log(err);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
       displayRoom();
@@ -66,7 +69,11 @@ const GetRoom = () => {
       await axiosWithInterceptors.delete(baseURL + `api/v1/rooms/${room_id}`);
       navigate("/rooms");
     } catch (err) {
-      console.log(err);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

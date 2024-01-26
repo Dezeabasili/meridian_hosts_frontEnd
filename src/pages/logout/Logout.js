@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../context/authContext";
 import { baseURL } from "../../context/authContext";
@@ -7,6 +7,8 @@ import { baseURL } from "../../context/authContext";
 const Logout = () => {
   const runOnce = useRef(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { setAuth, setProfilePhoto } = useAuthContext();
 
   useEffect(() => {
@@ -22,7 +24,11 @@ const Logout = () => {
           setProfilePhoto('')
           setLoading(false);
         } catch (err) {
-          console.log(err);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 

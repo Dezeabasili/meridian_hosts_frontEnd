@@ -1,6 +1,6 @@
 import "./register.css";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,7 @@ const Register = () => {
   const [togglePassword, setTogglePassword] = useState(false);
   const [togglePassword2, setTogglePassword2] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setValidUsername(username_REGEX.test(username));
@@ -53,8 +54,11 @@ const Register = () => {
       setConfirmPassword("");
       navigate("/login");
     } catch (err) {
-      if (!err?.response) console.log("no server response");
-      else console.log(err);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

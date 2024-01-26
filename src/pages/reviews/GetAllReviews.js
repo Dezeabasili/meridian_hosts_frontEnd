@@ -9,6 +9,7 @@ const GetAllReviews = () => {
   const [reviewsList, setReviewsList] = useState();
   const [loading, setLoading] = useState(true);
   const runOnce = useRef(false)
+  const navigate = useNavigate();
   const location = useLocation();
   const axiosWithInterceptors = useAxiosInterceptors();
 
@@ -27,7 +28,11 @@ const GetAllReviews = () => {
   
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
   

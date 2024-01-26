@@ -6,14 +6,13 @@ import { useAuthContext } from "../../context/authContext";
 import { baseURL } from "../../context/authContext";
 
 const Login = () => {
-  const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { setAuth, trustThisDevice, setTrustThisDevice, setProfilePhoto } = useAuthContext();
 
   const navigate = useNavigate();
-
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,14 +35,18 @@ const Login = () => {
       localStorage.setItem("profilePhoto", JSON.stringify(response.data.profilePhoto));
       navigate(location?.state || "/");
     } catch (err) {
-      navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
-
 
   const handleTrustThisDevice = (e) => {
     setTrustThisDevice(e.target.checked);
   };
+
   return (
     <div className="login">
       <form className="loginContainer" onSubmit={handleSubmit}>

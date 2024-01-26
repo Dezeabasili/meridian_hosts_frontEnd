@@ -22,13 +22,17 @@ const MyReviews = () => {
             setReviewsList(location.state);
           } else {
             const resp = await axiosWithInterceptors.get(baseURL + "api/v1/reviews/myreviews");
-            console.log("reviews: ", resp.data.data);
+            // console.log("reviews: ", resp.data.data);
             setReviewsList([...resp.data.data]);
           }
   
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
   

@@ -1,4 +1,5 @@
 import "./cities.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
@@ -13,27 +14,28 @@ const Cities = () => {
   const [slide3, setSlide3] = useState(2);
   const [hotelsData, setHotelsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const runOnce = useRef(false);
 
-  const screenSize = useWindowSize();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const errorDiv = error ? <div className="error">{error}</div> : "";
+  const screenSize = useWindowSize();
 
   useEffect(() => {
     if (runOnce.current === false) {
       const loadPage = async () => {
         setLoading(true);
-        setError(null);
         try {
           const resp = await axios.get(baseURL + "api/v1/hotels/countByCity");
-          console.log("resp.data: ", resp.data.data);
+          // console.log("resp.data: ", resp.data.data);
           setHotelsData([...resp.data.data]);
-
           setLoading(false);
         } catch (err) {
-          console.log(err);
-          setError(err.response.data.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 
@@ -175,7 +177,6 @@ const Cities = () => {
           </>
         )}
       </>
-      <>{error && errorDiv}</>
     </div>
   );
 };

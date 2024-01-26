@@ -1,4 +1,4 @@
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import "./list.css";
 import { useState, useEffect, useRef } from "react";
 import "react-date-range/dist/styles.css"; // main css file
@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { baseURL } from "../../context/authContext";
 
 const List = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const ref = useRef(false);
   const refDate1 = useRef();
@@ -18,14 +19,11 @@ const List = () => {
   const [hotelList, setHotelList] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(1000);
   const [hideCheckInDate, setHideCheckInDate] = useState(false);
   const [hideCheckOutDate, setHideCheckOutDate] = useState(false);
   const [cityData, setCityData] = useState();
-
-  const errorDiv = error ? <div className="error">{error}</div> : "";
 
   const {
     date,
@@ -51,7 +49,6 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
       try {
         const res = await axios.get(
           baseURL + `api/v1/hotels?city=${destination}`
@@ -80,8 +77,11 @@ const List = () => {
 
         setLoading(false);
       } catch (err) {
-        console.log(err);
-        setError(err.response.data.message);
+        if (err.response.data.message) {
+          navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+        } else {
+          navigate('/somethingwentwrong')
+        }
       }
     };
     if (ref.current === false) {
@@ -112,7 +112,6 @@ const List = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
     try {
       const res = await axios.get(
         baseURL +
@@ -138,8 +137,11 @@ const List = () => {
 
       setLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 
@@ -259,7 +261,6 @@ const List = () => {
               </div>
             </div>
           )}
-          {errorDiv}
         </>
       ) : (
         <Navigate to="/" />

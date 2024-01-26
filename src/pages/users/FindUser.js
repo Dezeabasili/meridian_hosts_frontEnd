@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 
@@ -8,6 +8,7 @@ const FindUser = () => {
 
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,11 +16,15 @@ const FindUser = () => {
       const resp = await axiosWithInterceptors.post(baseURL + "api/v1/users/finduser", {
         email,
       });
-      console.log(resp.data.data);
+      // console.log(resp.data.data);
     //   userArray.push(resp.data.data);
       navigate("/users/getuser", { state: resp.data.data });
     } catch (err) {
-      console.log(err);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

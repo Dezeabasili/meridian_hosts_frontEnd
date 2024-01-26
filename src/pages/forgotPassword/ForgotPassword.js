@@ -1,12 +1,13 @@
 // import './forgotPassword.css'
-import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { baseURL } from "../../context/authContext";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
+    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -17,9 +18,11 @@ const ForgotPassword = () => {
             navigate('/login')
 
         } catch (err) {
-            if (!err?.response)
-                console.log('no server response')
-            else console.log(err)
+            if (err.response.data.message) {
+                navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+              } else {
+                navigate('/somethingwentwrong')
+              }
         }
 
     }

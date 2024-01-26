@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 
 const FindReview = () => {
   const [review_id, setReview_id] = useState();
-  const [email, setEmail] = useState();
 
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,11 @@ const FindReview = () => {
       console.log(resp.data.data);
       navigate("/reviews", { state: resp.data.data });
     } catch (err) {
-      console.log(err.message);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 
@@ -40,17 +44,7 @@ const FindReview = () => {
             autoComplete="off"
           />
         </div>
-        {/* <div className="registerDiv">
-          <label htmlFor="email">Customer email:</label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="off"
-          />
-        </div> */}
-
+        
         <button className="signUpButton" disabled={!review_id }>
           Continue
         </button>

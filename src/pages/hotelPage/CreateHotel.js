@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 import { RotatingLines } from "react-loader-spinner";
@@ -22,18 +22,15 @@ const CreateHotel = () => {
   const [cityData, setCityData] = useState();
   const [hotelTypeData, setHotelTypeData] = useState();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
+  const location = useLocation();
   const runOnce = useRef(false);
-
-  const errorDiv = error ? <div className="error">{error}</div> : "";
 
   useEffect(() => {
     if (runOnce.current === false) {
       const references = async () => {
         setLoading(true);
-        setError(null);
         try {
           const resp = await axiosWithInterceptors.get(
             baseURL + "api/v1/hotels/allcityrefs"
@@ -49,8 +46,11 @@ const CreateHotel = () => {
 
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
-          setError(err.response.data.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 
@@ -64,7 +64,6 @@ const CreateHotel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     try {
       const givenCoordinates = coordinates.split(",");
       let coordinatesToNumbers = [];
@@ -98,8 +97,11 @@ const CreateHotel = () => {
       console.log(resp.data.data);
       navigate("/hotels");
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 
@@ -298,7 +300,6 @@ const CreateHotel = () => {
           </form>
         )}
       </>
-      <>{error && errorDiv}</>
     </div>
   );
 };

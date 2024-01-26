@@ -1,21 +1,11 @@
 import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBed,
-  faPlane,
-  faCar,
-  faMasksTheater,
-  faTaxi,
-  faCity,
-  faCalendarDays,
-  faPersonWalkingLuggage,
-} from "@fortawesome/free-solid-svg-icons";
-import { DateRange } from "react-date-range";
+import { faCity, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSearchContext } from "../../context/searchContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,28 +32,30 @@ const Header = ({ type }) => {
     checkoutDateValue,
     setCheckoutDateValue,
     validateCheckoutDateValue,
-    validateCheckinDateValue
+    validateCheckinDateValue,
   } = useSearchContext();
   const navigate = useNavigate();
+  const location = useLocation();
   const runOnce = useRef(false);
 
   useEffect(() => {
-   
     if (runOnce.current === false) {
       const references = async () => {
         setLoading(true);
-        setDestination('')
+        setDestination("");
 
         try {
-          const resp = await axios.get(
-            baseURL + "api/v1/hotels/allcityrefs"
-          );
+          const resp = await axios.get(baseURL + "api/v1/hotels/allcityrefs");
           // console.log("hotels: ", resp.data.data);
           setCityData([...resp.data.data]);
 
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 
@@ -71,8 +63,6 @@ const Header = ({ type }) => {
 
       references();
     }
-
-
 
     return () => {
       document.removeEventListener("click", handleHide, true);
@@ -108,7 +98,7 @@ const Header = ({ type }) => {
 
   const handleSearch = () => {
     if (!destination) {
-      navigate('/')
+      navigate("/");
     } else {
       navigate("/hotelslist", { state: { destination, date, roomOptions } });
     }
@@ -126,7 +116,6 @@ const Header = ({ type }) => {
   const handleSelectChange = (e) => {
     setDestination(e.target.value);
   };
-
 
   return (
     <div className="header">
@@ -157,62 +146,65 @@ const Header = ({ type }) => {
                 onChange={(e) => setDestination(e.target.value)}
               /> */}
 
-<select className="headerSearchInput" id="city" onChange={handleSelectChange}>
+              <select
+                className="headerSearchInput"
+                id="city"
+                onChange={handleSelectChange}
+              >
+                <option
+                  style={{ textTransform: "capitalize" }}
+                  value={""}
+                  onClick={() => setDestination(null)}
+                >
+                  --Select an city--
+                </option>
+                {cityData?.map((selectedCity) => (
                   <option
                     style={{ textTransform: "capitalize" }}
-                    value={""}
-                    onClick={() => setDestination(null)}
+                    key={selectedCity._id}
+                    value={selectedCity.cityName}
                   >
-                    --Select an city--
+                    {selectedCity.cityName}
                   </option>
-                  {cityData?.map((selectedCity) => (
-                    <option
-                      style={{ textTransform: "capitalize" }}
-                      key={selectedCity._id}
-                      value={selectedCity.cityName}
-                    >
-                      {selectedCity.cityName}
-                    </option>
-                  ))}
-                </select>
-
+                ))}
+              </select>
             </div>
 
             <div
               // onClick={hideDateFunc}
-              className="headerSearchItem headerSearchItem2"          
+              className="headerSearchItem headerSearchItem2"
             >
               <div className="headerSearchItemTopDiv">
-              <FontAwesomeIcon
-                icon={faCalendarDays}
-                className="headerSearchIcon headerSearchIcon2"
-              />
-              <p>Check in date</p>
+                <FontAwesomeIcon
+                  icon={faCalendarDays}
+                  className="headerSearchIcon headerSearchIcon2"
+                />
+                <p>Check in date</p>
               </div>
-              
+
               <DatePicker
                 selected={checkinDateValue}
                 onChange={(date) => validateCheckinDateValue(date)}
                 placeholderText="Select a date"
                 dateFormat="dd/MMM/yyyy"
                 minDate={new Date()}
-                wrapperClassName="datepicker"             
-                className="red-border"         
-              /> 
+                wrapperClassName="datepicker"
+                className="red-border"
+              />
             </div>
 
             <div
               // onClick={hideDateFunc}
-              className="headerSearchItem headerSearchItem3"          
+              className="headerSearchItem headerSearchItem3"
             >
               <div className="headerSearchItemTopDiv">
-              <FontAwesomeIcon
-                icon={faCalendarDays}
-                className="headerSearchIcon headerSearchIcon2"
-              />
-              <p>Check out date</p>
+                <FontAwesomeIcon
+                  icon={faCalendarDays}
+                  className="headerSearchIcon headerSearchIcon2"
+                />
+                <p>Check out date</p>
               </div>
-              
+
               <DatePicker
                 selected={checkoutDateValue}
                 onChange={(date) => validateCheckoutDateValue(date)}
@@ -221,21 +213,15 @@ const Header = ({ type }) => {
                 minDate={new Date()}
                 wrapperClassName="datepicker"
                 className="red-border"
-              /> 
+              />
             </div>
 
             <div className="headerSearchItem headerSearchItem3">
-              <div className="headerSearchItemTopDiv hideEmptyDiv">
-
-              </div>
-            <button
-              onClick={handleSearch}
-              className="headerSearchButton"
-            >
-              Search
-            </button>
+              <div className="headerSearchItemTopDiv hideEmptyDiv"></div>
+              <button onClick={handleSearch} className="headerSearchButton">
+                Search
+              </button>
             </div>
-            
           </div>
         </>
       </div>

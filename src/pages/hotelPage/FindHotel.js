@@ -1,28 +1,24 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 import { RotatingLines } from "react-loader-spinner";
 
 const FindHotel = () => {
-  const [name, setName] = useState();
   const [city, setCity] = useState();
   const [type, setType] = useState();
   const [cityData, setCityData] = useState();
   const [hotelTypeData, setHotelTypeData] = useState();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
+  const location = useLocation();
   const runOnce = useRef(false);
-
-  const errorDiv = error ? <div className="error">{error}</div> : "";
 
   useEffect(() => {
     if (runOnce.current === false) {
       const references = async () => {
         setLoading(true);
-        setError(null);
         try {
           const resp = await axiosWithInterceptors.get(baseURL + "api/v1/hotels/allcityrefs");
           // console.log("hotels: ", resp.data.data);
@@ -36,8 +32,11 @@ const FindHotel = () => {
 
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
-          setError(err.response.data.message);
+          if (err.response.data.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 
@@ -51,7 +50,6 @@ const FindHotel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     try {
       const resp = await axiosWithInterceptors.get(
         baseURL + `api/v1/hotels?cityref=${city}`
@@ -59,8 +57,11 @@ const FindHotel = () => {
       console.log(resp.data.data);
       navigate("/hotels", { state: resp.data.data });
     } catch (err) {
-      console.log(err.message);
-      setError(err.response.data.message);
+      if (err.response.data.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 
@@ -95,18 +96,6 @@ const FindHotel = () => {
           Provide the city 
         </h3>
 
-        {/* <div className="registerDiv">
-          <label htmlFor="hotelName">Hotel name:</label>
-          <input
-            id="hotelName"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoComplete="off"
-          />
-        </div> */}
-       
-       
         <div className="registerDiv">
               <label htmlFor="city">Select a city:</label>
               <select id="city" onChange={handleSelectChange}>
@@ -129,37 +118,11 @@ const FindHotel = () => {
               </select>
             </div>
 
-            {/* <div className="registerDiv">
-              <label htmlFor="hoteltype">Select a hotel type:</label>
-              <select id="hoteltype" onChange={handleSelectChange2}>
-                <option
-                  style={{ textTransform: "capitalize" }}
-                  value={""}
-                  onClick={() => setType(null)}
-                >
-                  --Please select an option--
-                </option>
-                {hotelTypeData?.map((selectedType) => (
-                  <option
-                    style={{ textTransform: "capitalize" }}
-                    key={selectedType._id}
-                    value={selectedType._id}
-                  >
-                    {selectedType.hotelType}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-
         <button className="signUpButton" disabled={!city}>
           Continue
         </button>
       </form>}
-      </>
-      <>
-      {error && errorDiv}
-      </>
-      
+      </>  
     </div>
   );
 };
