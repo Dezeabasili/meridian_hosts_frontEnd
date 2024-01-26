@@ -47,11 +47,11 @@ const PasswordReset = () => {
     }
   };
 
-  const tryAbraham = () => {
+  const tryTogglePassword = () => {
     setTogglePassword((prev) => !prev);
   };
 
-  const tryAbraham2 = () => {
+  const tryTogglePassword2 = () => {
     setTogglePassword2((prev) => !prev);
   };
 
@@ -75,7 +75,7 @@ const PasswordReset = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham}
+              onClick={tryTogglePassword}
             />
           </div>
           <p
@@ -106,7 +106,7 @@ const PasswordReset = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham2}
+              onClick={tryTogglePassword2}
             />
           </div>
           <p

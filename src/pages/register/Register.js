@@ -62,11 +62,11 @@ const Register = () => {
     }
   };
 
-  const tryAbraham = () => {
+  const tryTogglePassword = () => {
     setTogglePassword((prev) => !prev);
   };
 
-  const tryAbraham2 = () => {
+  const tryTogglePassword2 = () => {
     setTogglePassword2((prev) => !prev);
   };
   return (
@@ -136,7 +136,7 @@ const Register = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham}
+              onClick={tryTogglePassword}
             />
           </div>
           <p
@@ -167,7 +167,7 @@ const Register = () => {
           <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham2}
+              onClick={tryTogglePassword2}
             />
           </div>
 

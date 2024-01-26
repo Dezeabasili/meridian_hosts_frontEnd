@@ -49,15 +49,15 @@ const ChangePassword = () => {
     }
   };
 
-  const tryAbraham = () => {
+  const tryTogglePassword = () => {
     setTogglePassword((prev) => !prev);
   };
 
-  const tryAbraham2 = () => {
+  const tryTogglePassword2 = () => {
     setTogglePassword2((prev) => !prev);
   };
 
-  const tryAbraham3 = () => {
+  const tryTogglePassword3 = () => {
     setTogglePassword3((prev) => !prev);
   };
 
@@ -79,7 +79,7 @@ const ChangePassword = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham}
+              onClick={tryTogglePassword}
             />
           </div>
         </div>
@@ -98,7 +98,7 @@ const ChangePassword = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham2}
+              onClick={tryTogglePassword2}
             />
           </div>
           <p
@@ -129,7 +129,7 @@ const ChangePassword = () => {
             <FontAwesomeIcon
               icon={faEye}
               className="headerSearchIcon headerSearchIcon1"
-              onClick={tryAbraham3}
+              onClick={tryTogglePassword3}
             />
           </div>
           <p
