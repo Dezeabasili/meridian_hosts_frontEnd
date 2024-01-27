@@ -8,6 +8,7 @@ import { baseURL } from "../../context/authContext";
 import { RotatingLines } from "react-loader-spinner";
 
 const MyAccount = () => {
+  const defaultProfilePhoto = 'https://res.cloudinary.com/dmth3elzl/image/upload/v1705633392/profilephotos/edeo8b4vzeppeovxny9c.png'
   const runOnce = useRef(false);
   const [openModal, setOpenModal] = useState(false);
   const [userInfo, setUserInfo] = useState();
@@ -194,9 +195,11 @@ const MyAccount = () => {
 
           <br />
 
-          <button onClick={deletePhoto}>Delete profile photo</button>
+          {(defaultProfilePhoto != profilePhoto) && <>
+            <button onClick={deletePhoto}>Delete profile photo</button>
 
           <br />
+          </>}
 
           <Link to={"/changepassword"}>
             <button>Change password</button>
