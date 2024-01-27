@@ -60,6 +60,42 @@ const MyAccount = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        setLoading(true);
+        const resp = await axiosWithInterceptors.get(
+          baseURL + "api/v1/users/myaccount",
+          {
+            withCredentials: true,
+          }
+        );
+        setUserInfo({ ...resp.data.data });
+        setProfilePhoto(resp.data.data.photo);
+        localStorage.setItem(
+          "profilePhoto",
+          JSON.stringify(resp.data.data.photo)
+        );
+
+        setLoading(false);
+      } catch (err) {
+        if (err.response.data.message) {
+          navigate("/handleerror", {
+            state: {
+              message: err.response.data.message,
+              path: location.pathname,
+            },
+          });
+        } else {
+          navigate("/somethingwentwrong");
+        }
+      }
+    };
+
+    loadUser();
+  
+}, [profilePhoto, setProfilePhoto]);
+
   const choosePhoto = () => {
     // Specify the types of files, the size limit in MB, and whether its a single or multiple files
     const fileOptions = {
@@ -70,6 +106,27 @@ const MyAccount = () => {
       previousPage,
     };
     navigate("/uploadfiles", { state: fileOptions });
+  };
+
+  const deletePhoto = async () => {
+    try {
+      await axiosWithInterceptors.delete(
+        baseURL + "api/v1/users/myaccount/deletemyphoto"
+      );
+      
+      setProfilePhoto('')
+    } catch (err) {
+      if (err.response.data.message) {
+        navigate("/handleerror", {
+          state: {
+            message: err.response.data.message,
+            path: location.pathname,
+          },
+        });
+      } else {
+        navigate("/somethingwentwrong");
+      }
+    }
   };
 
   const deleteAccount = async () => {
@@ -134,6 +191,10 @@ const MyAccount = () => {
           </div>
 
           <button onClick={choosePhoto}>Change profile photo</button>
+
+          <br />
+
+          <button onClick={deletePhoto}>Delete profile photo</button>
 
           <br />
 
