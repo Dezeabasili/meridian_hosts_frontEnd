@@ -277,20 +277,7 @@ const Hotel = () => {
                 <div className="hotelDecs">
                   <div className="hotelDecs1">
                     <h3>{hotelInfo.description}</h3>
-                    <p>
-                      A 10-minute walk from Houston Zoo, Locale Medical Center -
-                      Houston features sustainable 4-star accommodations in the
-                      Medical Center district of Houston. Complimentary Wifi is
-                      available throughout the property and private parking is
-                      available on site. This 4-star condo hotel offers private
-                      entrance. The units come with parquet floors and feature a
-                      fully equipped kitchen with a dishwasher, a dining area, a
-                      flat-screen TV, and a private bathroom with walk-in shower
-                      and a hair dryer. An oven, a microwave, and toaster are
-                      also offered, as well as a coffee machine and a kettle. At
-                      the condo hotel, every unit comes with bed linen and
-                      towels.
-                    </p>
+                    <p>{hotelInfo.detailedDescription}</p>
                   </div>
                   <div className="hotelDecs2">
                     <h4>Will exceed your expectations</h4>
