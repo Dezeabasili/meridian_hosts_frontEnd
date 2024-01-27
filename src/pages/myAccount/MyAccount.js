@@ -133,7 +133,7 @@ const MyAccount = () => {
             />
           </div>
 
-          <button onClick={choosePhoto}>Edit profile photo</button>
+          <button onClick={choosePhoto}>Change profile photo</button>
 
           <br />
 
