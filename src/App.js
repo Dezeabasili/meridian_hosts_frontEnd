@@ -51,6 +51,7 @@ import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
 import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
 import HandleError from "./pages/handleError/HandleError";
 import SomethingWentWrong from "./pages/handleError/SomethingWentWrong";
+import UpdateMyReview from "./pages/reviews/UpdateMyReviews";
 
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
               <Route path="mybookings" element={<GetMyBookings />} />
               <Route path="myreviews" element={<MyReviews />} />
               <Route path="createreview" element={<CreateReview />} /> 
+              <Route path="updatemyreview" element={<UpdateMyReview />} />
             </Route>
 
             <Route

@@ -9,10 +9,10 @@ import { RotatingLines } from "react-loader-spinner";
 
 const MyAccount = () => {
   const defaultProfilePhoto = 'https://res.cloudinary.com/dmth3elzl/image/upload/v1705633392/profilephotos/edeo8b4vzeppeovxny9c.png'
-  const runOnce = useRef(false);
   const [openModal, setOpenModal] = useState(false);
   const [userInfo, setUserInfo] = useState();
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
   const { setAuth, profilePhoto, setProfilePhoto } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,50 +21,10 @@ const MyAccount = () => {
   const axiosWithInterceptors = useAxiosInterceptors();
 
   useEffect(() => {
-    if (runOnce.current === false) {
-      const loadUser = async () => {
-        try {
-          setLoading(true);
-          const resp = await axiosWithInterceptors.get(
-            baseURL + "api/v1/users/myaccount",
-            {
-              withCredentials: true,
-            }
-          );
-          setUserInfo({ ...resp.data.data });
-          setProfilePhoto(resp.data.data.photo);
-          localStorage.setItem(
-            "profilePhoto",
-            JSON.stringify(resp.data.data.photo)
-          );
-
-          setLoading(false);
-        } catch (err) {
-          if (err.response.data.message) {
-            navigate("/handleerror", {
-              state: {
-                message: err.response.data.message,
-                path: location.pathname,
-              },
-            });
-          } else {
-            navigate("/somethingwentwrong");
-          }
-        }
-      };
-
-      loadUser();
-    }
-
-    return () => {
-      runOnce.current = true;
-    };
-  }, []);
-
-  useEffect(() => {
     const loadUser = async () => {
       try {
         setLoading(true);
+        setRefresh(false);
         const resp = await axiosWithInterceptors.get(
           baseURL + "api/v1/users/myaccount",
           {
@@ -95,7 +55,7 @@ const MyAccount = () => {
 
     loadUser();
   
-}, [profilePhoto, setProfilePhoto]);
+}, [refresh, setRefresh]);
 
   const choosePhoto = () => {
     // Specify the types of files, the size limit in MB, and whether its a single or multiple files
@@ -115,7 +75,7 @@ const MyAccount = () => {
         baseURL + "api/v1/users/myaccount/deletemyphoto"
       );
       
-      setProfilePhoto('')
+      setRefresh(true);
     } catch (err) {
       if (err.response.data.message) {
         navigate("/handleerror", {

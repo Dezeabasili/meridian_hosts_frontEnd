@@ -8,15 +8,16 @@ import {RotatingLines} from 'react-loader-spinner'
 const MyReviews = () => {
   const [reviewsList, setReviewsList] = useState();
   const [loading, setLoading] = useState(true);
-  const runOnce = useRef(false)
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const axiosWithInterceptors = useAxiosInterceptors();
 
   useEffect(() => {
-    if (runOnce.current === false) {
+    // if (runOnce.current === false) {
       const reviews = async () => {
         setLoading(true);
+        setRefresh(false)
         try {
           if (location.state) {
             setReviewsList(location.state);
@@ -38,12 +39,25 @@ const MyReviews = () => {
   
       reviews();
 
-    }
-    return () => {
-      runOnce.current = true
-    }
+    // }
+    // return () => {
+    //   runOnce.current = true
+    // }
 
-  }, []);
+  }, [refresh, setRefresh]);
+
+  const updateMyReview = (review_id) => {
+    navigate('/updatemyreview', {state: review_id})
+  }
+
+  const deleteMyReview = async (review_id) => {
+    try {
+      await axiosWithInterceptors.delete(baseURL + `api/v1/reviews/${review_id}`)
+      setRefresh(true)
+    } catch (err) {
+
+    }    
+  }
 
   return (
     <div>
@@ -70,6 +84,8 @@ const MyReviews = () => {
                   <p>Review date: {format(new Date(review.createdAt), "MMM/dd/yyyy,  hh:mm:ss bbb")}</p>
                   <p>Review: {review.review}</p>
                   <p>Rating: {review.rating}</p>
+                  <button style={{marginRight: '5px', marginTop: '5px'}} onClick={() => updateMyReview(review._id)}>Edit review</button>
+                  <button style={{marginTop: '5px'}} onClick={() => deleteMyReview(review._id)}>Delete review</button>
                   <br />
                   <br />
                 </div>
