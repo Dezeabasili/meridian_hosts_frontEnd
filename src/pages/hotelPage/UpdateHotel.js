@@ -42,8 +42,11 @@ const UpdateHotel = () => {
 
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
-          setError(err.response.data.message);
+          if (err.response?.data?.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
 
@@ -66,8 +69,11 @@ const UpdateHotel = () => {
       // console.log(resp.data.data);
       navigate(`/hotels/${location.state}`);
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+      if (err.response?.data?.message) {
+        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }
   };
 

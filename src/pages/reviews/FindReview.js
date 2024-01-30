@@ -17,9 +17,11 @@ const FindReview = () => {
         baseURL + `api/v1/reviews?review_id=${review_id}`
       );
       console.log(resp.data.data);
-      navigate("/reviews", { state: resp.data.data });
+      const reviewsToDisplay = [...resp.data.data]
+      navigate("/searchreviewsresults", { state: {reviewsToDisplay} });
+      
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

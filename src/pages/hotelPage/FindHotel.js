@@ -13,6 +13,7 @@ const FindHotel = () => {
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
   const location = useLocation();
+  const pathname = location.pathname
   const runOnce = useRef(false);
 
   useEffect(() => {
@@ -32,8 +33,8 @@ const FindHotel = () => {
 
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
-            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          if (err.response?.data?.message) {
+            navigate('/handleerror', {state: {message: err.response?.data?.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')
           }
@@ -55,10 +56,11 @@ const FindHotel = () => {
         baseURL + `api/v1/hotels?cityref=${city}`
       );
       console.log(resp.data.data);
-      navigate("/hotels", { state: resp.data.data });
+      const hotelsToDisplay = [...resp.data.data]
+      navigate("/searchhotelsresults", { state: {pathname, hotelsToDisplay} });
     } catch (err) {
-      if (err.response.data.message) {
-        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      if (err.response?.data?.message) {
+        navigate('/handleerror', {state: {message: err.response?.data?.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
       }
@@ -69,9 +71,9 @@ const FindHotel = () => {
   const handleSelectChange = (e) => {
     setCity(e.target.value);
   };
-  const handleSelectChange2 = (e) => {
-    setType(e.target.value);
-  };
+  // const handleSelectChange2 = (e) => {
+  //   setType(e.target.value);
+  // };
 
   return (
     <div className="register">

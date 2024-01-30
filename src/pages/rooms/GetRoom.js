@@ -49,7 +49,7 @@ const GetRoom = () => {
           
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
+          if (err.response?.data?.message) {
             navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')
@@ -69,7 +69,7 @@ const GetRoom = () => {
       await axiosWithInterceptors.delete(baseURL + `api/v1/rooms/${room_id}`);
       navigate("/rooms");
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

@@ -28,7 +28,7 @@ const GetAllReviews = () => {
   
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
+          if (err.response?.data?.message) {
             navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')
@@ -65,6 +65,7 @@ const GetAllReviews = () => {
             <>
               {reviewsList?.map((review) => (
                 <div key={review._id}>
+                  <p>Review Id: {review._id}</p>
                   <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{review.hotel.name}</span></p>
                   <p>Customer name: <span style={{"textTransform": "capitalize"}}>{review.customer.name}</span></p>
                   <p>Review date: {format(new Date(review.createdAt), "MMM/dd/yyyy,  hh:mm:ss bbb")}</p>

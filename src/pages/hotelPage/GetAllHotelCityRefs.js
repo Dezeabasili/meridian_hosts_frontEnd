@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 import {RotatingLines} from 'react-loader-spinner'
@@ -7,6 +8,8 @@ const GetAllHotelCityRefs = () => {
   const [referenceList, setReferenceList] = useState();
   const [loading, setLoading] = useState(true);
   const runOnce = useRef(false)
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const axiosWithInterceptors = useAxiosInterceptors();
 
@@ -23,7 +26,11 @@ const GetAllHotelCityRefs = () => {
   
           setLoading(false);
         } catch (err) {
-          console.log(err.message);
+          if (err.response?.data?.message) {
+            navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+          } else {
+            navigate('/somethingwentwrong')
+          }
         }
       };
   

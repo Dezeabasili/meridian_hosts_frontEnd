@@ -31,7 +31,7 @@ const Cities = () => {
           setHotelsData([...resp.data.data]);
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
+          if (err.response?.data?.message) {
             navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')

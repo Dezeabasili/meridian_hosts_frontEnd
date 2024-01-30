@@ -31,7 +31,7 @@ const UpdateRoom = () => {
       // console.log(resp.data.data);
       navigate(`/rooms/${location.state}`);
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
@@ -56,7 +56,7 @@ const UpdateRoom = () => {
         console.log(resp.data.data);
         navigate(`/rooms/${location.state}`);
       } catch (err) {
-        if (err.response.data.message) {
+        if (err.response?.data?.message) {
           navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
         } else {
           navigate('/somethingwentwrong')

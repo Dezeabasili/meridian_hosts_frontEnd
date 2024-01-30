@@ -65,7 +65,7 @@ const Hotel = () => {
 
         isMounted && setLoading(false);
       } catch (err) {
-        if (err.response.data.message) {
+        if (err.response?.data?.message) {
           navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
         } else {
           navigate('/somethingwentwrong')
@@ -150,7 +150,7 @@ const Hotel = () => {
       window.location.href = resp.data.url;
 
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

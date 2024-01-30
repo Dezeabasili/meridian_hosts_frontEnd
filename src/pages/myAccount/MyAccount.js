@@ -40,7 +40,7 @@ const MyAccount = () => {
 
         setLoading(false);
       } catch (err) {
-        if (err.response.data.message) {
+        if (err.response?.data?.message) {
           navigate("/handleerror", {
             state: {
               message: err.response.data.message,
@@ -77,7 +77,7 @@ const MyAccount = () => {
       
       setRefresh(true);
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate("/handleerror", {
           state: {
             message: err.response.data.message,
@@ -102,7 +102,7 @@ const MyAccount = () => {
       localStorage.clear();
       navigate("/");
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate("/handleerror", {
           state: {
             message: err.response.data.message,

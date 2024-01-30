@@ -25,6 +25,7 @@ const CreateHotel = () => {
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
   const location = useLocation();
+  const pathname = location.pathname
   const runOnce = useRef(false);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const CreateHotel = () => {
 
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
+          if (err.response?.data?.message) {
             navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')
@@ -95,9 +96,12 @@ const CreateHotel = () => {
         staff: staffArray,
       });
       console.log(resp.data.data);
-      navigate("/hotels");
+      const newlyCreatedHotel = {...resp.data.data}
+      let hotelsToDisplay = []
+      hotelsToDisplay.push(newlyCreatedHotel)
+      navigate("/searchhotelsresults", { state: {pathname, hotelsToDisplay} });
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

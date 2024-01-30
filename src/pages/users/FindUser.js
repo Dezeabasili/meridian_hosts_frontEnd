@@ -20,7 +20,7 @@ const FindUser = () => {
     //   userArray.push(resp.data.data);
       navigate("/users/getuser", { state: resp.data.data });
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

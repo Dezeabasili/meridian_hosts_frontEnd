@@ -20,7 +20,7 @@ const CreateHotelType = () => {
       console.log(resp.data.data);
       navigate("/hotels");
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

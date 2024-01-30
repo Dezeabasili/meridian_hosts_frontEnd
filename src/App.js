@@ -51,7 +51,11 @@ import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
 import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
 import HandleError from "./pages/handleError/HandleError";
 import SomethingWentWrong from "./pages/handleError/SomethingWentWrong";
-import UpdateMyReview from "./pages/reviews/UpdateMyReviews";
+import UpdateMyReview from "./pages/reviews/UpdateMyReview";
+import GetAllBookingsForAHotel from "./pages/bookings/GetAllBookingsForAHotel";
+import SearchBookingsResults from "./pages/bookings/SearchBookingsResults";
+import SearchHotelsResults from "./pages/hotelPage/SearchHotelsResults";
+import SearchReviewsResults from "./pages/reviews/SearchReviewsResults";
 
 
 function App() {
@@ -74,6 +78,7 @@ function App() {
             <Route path="hotels" element={<GetAllHotels />} />
             <Route path="hotels/:hotel_id" element={<GetHotel />} />   
             <Route path="hotels/findhotel" element={<FindHotel />} />
+            <Route path="searchhotelsresults" element={<SearchHotelsResults />} />
             <Route path="hotels/countbycity" element={<CountHotelsByCities />} />
             <Route path="hotels/countbytype" element={<CountHotelsByTypes />} />
             <Route path="rooms" element={<GetAllRooms />} />
@@ -88,6 +93,7 @@ function App() {
             <Route element={<CheckUserRoles authorizedRoles={[2010, 2030]} />}>              
               <Route path="bookings/:booking_id" element={<GetBooking />} />                        
               <Route path="reviews/findreview" element={<FindReview />} />                                  
+              <Route path="searchreviewsresults" element={<SearchReviewsResults />} />                                  
               <Route path="changepassword" element={<ChangePassword />} />
               <Route path="updatemyaccount" element={<UpdateMyDetails />} />
               <Route path="hotelslist" element={<List />} />
@@ -102,13 +108,15 @@ function App() {
               <Route path="mybookings" element={<GetMyBookings />} />
               <Route path="myreviews" element={<MyReviews />} />
               <Route path="createreview" element={<CreateReview />} /> 
-              <Route path="updatemyreview" element={<UpdateMyReview />} />
+              <Route path="updatemyreview" element={<UpdateMyReview />} /> 
             </Route>
 
             <Route
               element={<CheckUserRoles authorizedRoles={[2030]} />}
             >
               <Route path="bookings" element={<GetAllBookings />} />
+              <Route path="bookingsforahotel" element={<GetAllBookingsForAHotel />} />
+              <Route path="searchbookingsresults" element={<SearchBookingsResults />} />
               <Route path="bookings/findbooking" element={<FindBooking />} />
               <Route path="createhotel" element={<CreateHotel />} />
               <Route path="hotels/updatehotel" element={<UpdateHotel />} />

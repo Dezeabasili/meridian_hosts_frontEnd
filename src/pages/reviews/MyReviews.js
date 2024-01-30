@@ -29,7 +29,7 @@ const MyReviews = () => {
   
           setLoading(false);
         } catch (err) {
-          if (err.response.data.message) {
+          if (err.response?.data?.message) {
             navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
           } else {
             navigate('/somethingwentwrong')
@@ -55,7 +55,11 @@ const MyReviews = () => {
       await axiosWithInterceptors.delete(baseURL + `api/v1/reviews/${review_id}`)
       setRefresh(true)
     } catch (err) {
-
+      if (err.response?.data?.message) {
+        navigate('/handleerror', {state: {message: err.response?.data?.message, path: location.pathname}})
+      } else {
+        navigate('/somethingwentwrong')
+      }
     }    
   }
 

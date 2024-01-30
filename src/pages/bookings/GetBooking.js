@@ -13,15 +13,15 @@ const GetBooking = () => {
   const deleteThisBooking = async () => {
     try {
       await axiosWithInterceptors.delete(baseURL + `api/v1/bookings/${bookingToDisplay._id}`);
-      if (location.state.pathname === '/bookings') {
-        navigate("/bookings");
-      } else if (location.state.pathname === '/mybookings') {
+      if (location.state?.pathname === '/mybookings') {
         navigate("/mybookings");
+      } else  {
+        navigate("/bookings");
       }
       
     } catch (err) {
-      if (err.response.data.message) {
-        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+      if (err.response?.data?.message) {
+        navigate('/handleerror', {state: {message: err.response?.data?.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
       }

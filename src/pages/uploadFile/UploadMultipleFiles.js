@@ -102,7 +102,7 @@ const UploadMultipleFiles = () => {
       );
 
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
@@ -130,7 +130,7 @@ const UploadMultipleFiles = () => {
       timestamp = resp.data.timestamp;
       signature = resp.data.signature;
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
@@ -174,7 +174,7 @@ const UploadMultipleFiles = () => {
       setMessage(`Upload successful, ${index + 1} ${index === 1 ? 'file' : 'files'} uploaded`);
     } catch (err) {
       setMessage("upload failed");
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')

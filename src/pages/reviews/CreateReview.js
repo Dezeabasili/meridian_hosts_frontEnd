@@ -4,7 +4,7 @@ import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
 
 const CreateReview = () => {
-  const [hotel, setHotel] = useState();
+  // const [hotel, setHotel] = useState();
   const [bookingRef, setBookingRef] = useState();
   const [rating, setRating] = useState();
   const [review, setReview] = useState();
@@ -18,7 +18,7 @@ const CreateReview = () => {
     try {
       
       const resp = await axiosWithInterceptors.post(baseURL + "api/v1/reviews", {
-        hotel,
+        // hotel,
         bookingRef,
         rating,
         review
@@ -26,7 +26,7 @@ const CreateReview = () => {
       console.log(resp.data.data);
       navigate("/myreviews");
     } catch (err) {
-      if (err.response.data.message) {
+      if (err.response?.data?.message) {
         navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
       } else {
         navigate('/somethingwentwrong')
@@ -39,7 +39,7 @@ const CreateReview = () => {
       <form className="registerContainer" onSubmit={handleSubmit}>
         <h3 className="registerTitle">Provide hotel details</h3>
 
-        <div className="registerDiv">
+        {/* <div className="registerDiv">
           <label htmlFor="hotelName">Hotel name:</label>
           <input
             id="hotelName"
@@ -48,7 +48,7 @@ const CreateReview = () => {
             onChange={(e) => setHotel(e.target.value)}
             autoComplete="off"
           />
-        </div>
+        </div> */}
         <div className="registerDiv">
           <label htmlFor="hotelRef">Booking reference:</label>
           <input
@@ -85,7 +85,7 @@ const CreateReview = () => {
         <button
           className="signUpButton"
           disabled={
-            !hotel ||
+            // !hotel ||
             !review ||
             !rating ||
             !bookingRef 
