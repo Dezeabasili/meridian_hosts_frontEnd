@@ -51,7 +51,7 @@ import UpdateCityPhoto from "./pages/hotelPage/UpdateCityPhoto";
 import UpdateHotelTypePhoto from "./pages/hotelPage/UpdateHotelTypePhoto";
 import HandleError from "./pages/handleError/HandleError";
 import SomethingWentWrong from "./pages/handleError/SomethingWentWrong";
-import UpdateMyReview from "./pages/reviews/UpdateMyReview";
+import UpdateMyReview from "./pages/reviews/UpdateMyReviews";
 import GetAllBookingsForAHotel from "./pages/bookings/GetAllBookingsForAHotel";
 import SearchBookingsResults from "./pages/bookings/SearchBookingsResults";
 import SearchHotelsResults from "./pages/hotelPage/SearchHotelsResults";
