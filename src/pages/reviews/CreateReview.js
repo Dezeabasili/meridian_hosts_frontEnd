@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
+import Stars from "../../components/starRating/Stars";
 
 const CreateReview = () => {
-  // const [hotel, setHotel] = useState();
   const [bookingRef, setBookingRef] = useState();
   const [rating, setRating] = useState();
   const [review, setReview] = useState();
+  const [hover, setHover] = useState(0);
 
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const CreateReview = () => {
     try {
       
       const resp = await axiosWithInterceptors.post(baseURL + "api/v1/reviews", {
-        // hotel,
         bookingRef,
         rating,
         review
@@ -39,16 +39,6 @@ const CreateReview = () => {
       <form className="registerContainer" onSubmit={handleSubmit}>
         <h3 className="registerTitle">Provide hotel details</h3>
 
-        {/* <div className="registerDiv">
-          <label htmlFor="hotelName">Hotel name:</label>
-          <input
-            id="hotelName"
-            type="text"
-            value={hotel}
-            onChange={(e) => setHotel(e.target.value)}
-            autoComplete="off"
-          />
-        </div> */}
         <div className="registerDiv">
           <label htmlFor="hotelRef">Booking reference:</label>
           <input
@@ -73,19 +63,12 @@ const CreateReview = () => {
         </div>
         <div className="registerDiv">
           <label htmlFor="rating">Rating:</label>
-          <input
-            id="rating"
-            type="text"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
-            autoComplete="off"
-          />
+          <Stars rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
         </div>
 
         <button
           className="signUpButton"
           disabled={
-            // !hotel ||
             !review ||
             !rating ||
             !bookingRef 

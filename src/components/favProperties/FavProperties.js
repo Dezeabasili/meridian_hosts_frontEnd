@@ -5,6 +5,8 @@ import axios from "axios";
 import useWindowSize from "../../hooks/useWindowSize";
 import { baseURL } from "../../context/authContext";
 import { RotatingLines } from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 
 const FavProperties = () => {
   const [hotelsData, setHotelsData] = useState([]);
@@ -110,6 +112,9 @@ const FavProperties = () => {
             <h3 className="fPContainerTitle">Homes guests love</h3>
             <div className="fPList">
               {hotelsToDisplay?.map((hotel, index) => {
+                const yellowStars = Math.trunc(hotel.ratingsAverage);
+                const whiteStar = Math.trunc(5 - hotel.ratingsAverage);
+                const halfStar = 5 - yellowStars - whiteStar;
                 return (
                   <div className="favProperty" key={hotel._id}>
                     <div className="favPropertyDiv1">
@@ -128,8 +133,37 @@ const FavProperties = () => {
                     </div>
 
                     <div className="fPStats">
-                      <button className="fPRating">
-                        Rating: {hotel.ratingsAverage}
+                    <button className="fPRating">
+                        <>
+                          <span>Rating: </span>
+
+                          {[...Array(yellowStars)].map((star, i) => (
+                            <FontAwesomeIcon
+                              icon={faStar}
+                              size="sm"
+                              className="fStar"
+                              key={i}
+                            />
+                          ))}
+
+                          {[...Array(halfStar)].map((star, i) => (
+                            <FontAwesomeIcon
+                              icon={faStarHalfStroke}
+                              size="sm"
+                              className="fStar"
+                              key={i}
+                            />
+                          ))}
+
+                          {[...Array(whiteStar)].map((star, i) => (
+                            <FontAwesomeIcon
+                              icon={faStar}
+                              size="sm"
+                              className="fStarHover"
+                              key={i}
+                            />
+                          ))}
+                        </>
                       </button>
                       <span className="fPReviews nowrap">
                         {hotel.numberOfRatings}{" "}

@@ -1,5 +1,7 @@
 import "./searchItem.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 
 const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate }) => {
   return (
@@ -12,6 +14,9 @@ const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate }) => {
       ) : (
         <>
           {hotelList?.map((hotel, index) => {
+            const yellowStars = Math.trunc(hotel.ratingsAverage);
+            const whiteStar = Math.trunc(5 - hotel.ratingsAverage);
+            const halfStar = 5 - yellowStars - whiteStar;
             return (
               <div key={hotel._id}>
                 <div className="itemContainer">
@@ -43,8 +48,38 @@ const SearchItem = ({ hotelList, hideCheckInDate, hideCheckOutDate }) => {
                       <div>
                         <div>
                           <div>
-                            <span>Hotel rating: </span>
-                            <span>{hotel.ratingsAverage}</span>
+                            <div>
+                              <span>Rating: </span>
+
+                              {[...Array(yellowStars)].map((star, i) => (
+                                <FontAwesomeIcon
+                                  icon={faStar}
+                                  size="sm"
+                                  className="fStar"
+                                  key={i}
+                                />
+                              ))}
+
+                              {[...Array(halfStar)].map((star, i) => (
+                                <FontAwesomeIcon
+                                  icon={faStarHalfStroke}
+                                  size="sm"
+                                  className="fStar"
+                                  key={i}
+                                />
+                              ))}
+
+                              {[...Array(whiteStar)].map((star, i) => (
+                                <FontAwesomeIcon
+                                  icon={faStar}
+                                  size="sm"
+                                  className="fStarHover"
+                                  key={i}
+                                />
+                              ))}
+                            </div>
+                            {/* <span>Hotel rating: </span>
+                            <span>{hotel.ratingsAverage}</span> */}
                           </div>
                           <div>
                             <span>Number of reviews: </span>

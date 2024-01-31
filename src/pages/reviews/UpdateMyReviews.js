@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { baseURL } from "../../context/authContext";
+import Stars from "../../components/starRating/Stars";
 
 const UpdateMyReview = () => {
   const [rating, setRating] = useState();
   const [review, setReview] = useState();
+  const [hover, setHover] = useState(0);
 
   const axiosWithInterceptors = useAxiosInterceptors();
   const navigate = useNavigate();
@@ -49,13 +51,7 @@ const UpdateMyReview = () => {
         </div>
         <div className="registerDiv">
           <label htmlFor="rating">Rating:</label>
-          <input
-            id="rating"
-            type="text"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
-            autoComplete="off"
-          />
+          <Stars rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
         </div>
 
         <button

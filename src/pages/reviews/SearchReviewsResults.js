@@ -1,5 +1,7 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const SearchReviewsResults = () => {
   const location = useLocation();
@@ -7,40 +9,65 @@ const SearchReviewsResults = () => {
 
   return (
     <div>
-          {reviewsList.length > 0 ? (
-            <>
-              {reviewsList?.map((review) => (
-                <div key={review._id}>
-                  <p>Review Id: {review._id}</p>
-                  <p>
-                    Hotel name:{" "}
-                    <span style={{ textTransform: "capitalize" }}>
-                      {review.hotel.name}
-                    </span>
-                  </p>
-                  <p>
-                    Customer name:{" "}
-                    <span style={{ textTransform: "capitalize" }}>
-                      {review.customer.name}
-                    </span>
-                  </p>
-                  <p>
-                    Review date:{" "}
-                    {format(
-                      new Date(review.createdAt),
-                      "MMM/dd/yyyy,  hh:mm:ss bbb"
-                    )}
-                  </p>
-                  <p>Review: {review.review}</p>
-                  <p>Rating: {review.rating}</p>
-                  <br />
-                  <br />
+      {reviewsList.length > 0 ? (
+        <>
+          {reviewsList?.map((review) => {
+            const yellowStars = review.rating;
+            const whiteStar = 5 - review.rating;
+
+            return (
+              <div key={review._id}>
+                <p>Review Id: {review._id}</p>
+                <p>
+                  Hotel name:{" "}
+                  <span style={{ textTransform: "capitalize" }}>
+                    {review.hotel.name}
+                  </span>
+                </p>
+                <p>
+                  Customer name:{" "}
+                  <span style={{ textTransform: "capitalize" }}>
+                    {review.customer.name}
+                  </span>
+                </p>
+                <p>
+                  Review date:{" "}
+                  {format(
+                    new Date(review.createdAt),
+                    "MMM/dd/yyyy,  hh:mm:ss bbb"
+                  )}
+                </p>
+                <p>Review: {review.review}</p>
+                <div>
+                  <span>Rating: </span>
+
+                  {[...Array(yellowStars)].map((star, i) => (
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      size="sm"
+                      className="fStar"
+                      key={i}
+                    />
+                  ))}
+
+                  {[...Array(whiteStar)].map((star, i) => (
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      size="sm"
+                      className="fStarHover"
+                      key={i}
+                    />
+                  ))}
                 </div>
-              ))}
-            </>
-          ) : (
-            <p>No review in the database !!!</p>
-          )}
+                <br />
+                <br />
+              </div>
+            );
+          })}
+        </>
+      ) : (
+        <p>No review in the database !!!</p>
+      )}
     </div>
   );
 };

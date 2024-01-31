@@ -16,7 +16,7 @@ const CreateHotel = () => {
   const [
     distanceToClosestTouristLocation,
     setDistanceToClosestTouristLocation,
-  ] = useState();
+  ] = useState(0);
   const [manager, setManager] = useState();
   const [staff, setStaff] = useState();
   const [cityData, setCityData] = useState();
@@ -257,7 +257,7 @@ const CreateHotel = () => {
               <input
                 id="distanceToTouristLocation"
                 type="text"
-                value={distanceToClosestTouristLocation || 0}
+                value={distanceToClosestTouristLocation}
                 onChange={(e) =>
                   setDistanceToClosestTouristLocation(e.target.value)
                 }
