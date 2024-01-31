@@ -79,9 +79,9 @@ const Menu_Admin_Structure = () => {
             <strong>Reviews</strong>
           </p>
         </li>
-        <li>
+        {/* <li>
           <NavLink to={"/createreview"}>Write a review</NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink end to={"/reviews"}>
             Get all reviews
