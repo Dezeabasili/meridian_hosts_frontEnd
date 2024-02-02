@@ -91,7 +91,7 @@ const GetAllBookings = () => {
                   <p>
                     Hotel name:{" "}
                     <span style={{ textTransform: "capitalize" }}>
-                      {booking.hotel.name}
+                    <strong>{booking.hotel.name}</strong>
                     </span>
                   </p>
                   <p>

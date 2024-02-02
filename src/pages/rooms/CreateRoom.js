@@ -57,7 +57,7 @@ const CreateRoom = () => {
         <h3 className="registerTitle">Provide room details</h3>
 
         <div className="registerDiv">
-          <label htmlFor="hotelRef">Hotel name:</label>
+          <label htmlFor="hotelRef">Hotel reference:</label>
           <input
             id="hotelRef"
             type="text"

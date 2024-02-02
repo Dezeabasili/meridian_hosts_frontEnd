@@ -32,7 +32,7 @@ const GetBooking = () => {
     <div>
       <p>Booking reference: {bookingToDisplay._id}</p>
       <p>Customer name: <span style={{"textTransform": "capitalize"}}>{bookingToDisplay.user.name}</span></p>
-      <p>Hotel name: <span style={{"textTransform": "capitalize"}}>{bookingToDisplay.hotel.name}</span></p>
+      <p>Hotel name: <span style={{"textTransform": "capitalize"}}><strong>{bookingToDisplay.hotel.name}</strong></span></p>
       <p>Booking date: {format(new Date(bookingToDisplay.createdAt), "MMM/dd/yyyy,  hh:mm:ss bbb")}</p>
       {bookingToDisplay.bookingDetails.map((roomDetails) => (
         <div key={roomDetails.room_id}>

@@ -72,7 +72,7 @@ const UpdateRoom = () => {
 
         {!removeRooms && 
             <div className="registerDiv">
-            <label htmlFor="hotelName">Hotel name:</label>
+            <label htmlFor="hotelName">Hotel reference:</label>
             <input
               id="hotelName"
               type="text"
@@ -171,7 +171,7 @@ const UpdateRoom = () => {
           <div className="hotelChangeModal">
             <div className="hotelChangeModalContainer">
               <p>
-                Changing the hotel name will cancel all the bookings associated
+                Changing the hotel reference will cancel all the bookings associated
                 with all the rooms listed under this room title. Removing a room
                 number will also cancel all the bookings associated with that
                 room number. This operation is not reversible. Do you wish to

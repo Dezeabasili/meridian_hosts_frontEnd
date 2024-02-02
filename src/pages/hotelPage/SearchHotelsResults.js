@@ -26,7 +26,7 @@ const SearchHotelsResults = () => {
                 <p>
                   Hotel name:{" "}
                   <span style={{ textTransform: "capitalize" }}>
-                    {hotel.name}
+                    <strong>{hotel.name}</strong>
                   </span>
                 </p>
                 <p>
