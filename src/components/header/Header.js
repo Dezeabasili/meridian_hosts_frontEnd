@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSearchContext } from "../../context/searchContext";
+import { useAuthContext } from "../../context/authContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -19,18 +20,16 @@ const Header = ({ type }) => {
   const [hideRoomOptions, setHideRoomOptions] = useState(false);
   const [cityData, setCityData] = useState();
   const [loading, setLoading] = useState(true);
+  const [openHotels, setOpenHotels] = useState(false);
+  const { auth } = useAuthContext();
 
   const {
     date,
-    setDate,
     destination,
     setDestination,
     roomOptions,
-    setRoomOptions,
     checkinDateValue,
-    setCheckinDateValue,
     checkoutDateValue,
-    setCheckoutDateValue,
     validateCheckoutDateValue,
     validateCheckinDateValue,
   } = useSearchContext();
@@ -81,36 +80,17 @@ const Header = ({ type }) => {
     }
   };
 
-  const modifyRoomOptions = (keyValue, reqOperation) => {
-    setRoomOptions((prev) => {
-      let newValue;
-      if (reqOperation === "increase") {
-        newValue = roomOptions[keyValue] + 1;
-      } else {
-        newValue = roomOptions[keyValue] - 1;
-      }
-      return {
-        ...prev,
-        [keyValue]: newValue,
-      };
-    });
-  };
-
   const handleSearch = () => {
-    if (!destination) {
-      navigate("/");
+    if (auth.accessToken ) {
+      if (!destination) {
+        setOpenHotels(true)
+      } else {
+        navigate("/hotelslist", { state: { destination, date, roomOptions } });
+      }
+      
     } else {
-      navigate("/hotelslist", { state: { destination, date, roomOptions } });
+      navigate("/logout");
     }
-  };
-
-  const hideDateFunc = () => {
-    setHideDate(true);
-    refDate.current.focus();
-  };
-  const hideRoomOptionsFunc = () => {
-    setHideRoomOptions(true);
-    refRoomOptions.current.focus();
   };
 
   const handleSelectChange = (e) => {
@@ -138,14 +118,6 @@ const Header = ({ type }) => {
                 <span>Destination</span>
               </div>
 
-              {/* <input
-                type="text"
-                className="headerSearchInput"
-                placeholder="City"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-              /> */}
-
               <select
                 className="headerSearchInput"
                 id="city"
@@ -171,7 +143,6 @@ const Header = ({ type }) => {
             </div>
 
             <div
-              // onClick={hideDateFunc}
               className="headerSearchItem headerSearchItem2"
             >
               <div className="headerSearchItemTopDiv">
@@ -194,7 +165,6 @@ const Header = ({ type }) => {
             </div>
 
             <div
-              // onClick={hideDateFunc}
               className="headerSearchItem headerSearchItem3"
             >
               <div className="headerSearchItemTopDiv">
@@ -224,6 +194,14 @@ const Header = ({ type }) => {
             </div>
           </div>
         </>
+        {openHotels && (
+          <div className="selectDestination">
+            <div className="selectDestinationDiv">
+              <h3 style={{ marginBottom: "20px" }}>Select a destination</h3>
+              <button onClick={() => setOpenHotels(false)}>Continue</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
