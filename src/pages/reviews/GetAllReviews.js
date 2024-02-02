@@ -80,7 +80,7 @@ const GetAllReviews = () => {
                   <p>
                     Hotel name:{" "}
                     <span style={{ textTransform: "capitalize" }}>
-                      {review.hotel.name}
+                      <strong>{review.hotel.name}</strong>
                     </span>
                   </p>
                   <p>
