@@ -23,6 +23,7 @@ const UploadMultipleFiles = () => {
     e.preventDefault();
 
     let urlArray = [];
+    let public_idArray = [];
     let photoCode;
     // check if user selected at least one file
     if (!filesList.length) {
@@ -68,26 +69,22 @@ const UploadMultipleFiles = () => {
       return;
     }
 
-
-    
-    if (fileCode === 'profilephoto') {
-      await photoUpdate("profilephotos", 0, urlArray)
-
-    }
-    else if (fileCode === 'hotelphoto') {
-      await photoUpdate("hotelphotos", 0, urlArray)
-
-    } else if (fileCode === 'roomphoto') {
-      
-        for (let i = 0; i < 6; i++) {
-          await photoUpdate("roomphotos", i, urlArray)
-        }
-
+    if (fileCode === "profilephoto") {
+      await photoUpdate("profilephotos", 0, urlArray, public_idArray);
+    } else if (fileCode === "hotelphoto") {
+      await photoUpdate("hotelphotos", 0, urlArray, public_idArray);
+    } else if (fileCode === "roomphoto") {
+      for (let i = 0; i < 6; i++) {
+        await photoUpdate("roomphotos", i, urlArray, public_idArray);
+      }
+    } else if (fileCode === "cityphoto") {
+      await photoUpdate("cityphotos", 0, urlArray, public_idArray);
+    } else if (fileCode === "hoteltypephoto") {
+      await photoUpdate("hoteltypephotos", 0, urlArray, public_idArray);
     } else {
-        for (let i = 0; i < filesList.length; i++) {
-          await photoUpdate("miscphotos", i, urlArray)
-        }
-
+      for (let i = 0; i < filesList.length; i++) {
+        await photoUpdate("miscphotos", i, urlArray, public_idArray);
+      }
     }
 
     // console.log('urlArray: ', urlArray)
@@ -95,24 +92,26 @@ const UploadMultipleFiles = () => {
     try {
       const resp = await axiosWithInterceptors.post(
         baseURL + "api/v1/auth/upload",
-        { urlArray, fileCode, id },
+        { urlArray, fileCode, id, public_idArray },
         {
           withCredentials: true,
         }
       );
-
     } catch (err) {
       if (err.response?.data?.message) {
-        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+        navigate("/handleerror", {
+          state: {
+            message: err.response.data.message,
+            path: location.pathname,
+          },
+        });
       } else {
-        navigate('/somethingwentwrong')
+        navigate("/somethingwentwrong");
       }
     }
   };
 
-  
-
-  const photoUpdate = async (folderName, index, URLArray) => {
+  const photoUpdate = async (folderName, index, URLArray, idArray) => {
     // generate signature
     let photoURL;
     let timestamp;
@@ -131,12 +130,16 @@ const UploadMultipleFiles = () => {
       signature = resp.data.signature;
     } catch (err) {
       if (err.response?.data?.message) {
-        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+        navigate("/handleerror", {
+          state: {
+            message: err.response.data.message,
+            path: location.pathname,
+          },
+        });
       } else {
-        navigate('/somethingwentwrong')
+        navigate("/somethingwentwrong");
       }
     }
-
 
     // populate FormData
 
@@ -153,7 +156,6 @@ const UploadMultipleFiles = () => {
       return { ...prev, started: true };
     });
 
-
     try {
       let cloudName = process.env.REACT_APP_CLOUD_NAME;
       let api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
@@ -166,24 +168,31 @@ const UploadMultipleFiles = () => {
         },
       });
 
-      console.log("below 1 ");
+      const { secure_url, public_id } = res.data;
+      URLArray.push(secure_url);
+      idArray.push(public_id)
 
-      const { secure_url } = res.data;
-      URLArray.push(secure_url)
-
-      setMessage(`Upload successful, ${index + 1} ${index === 1 ? 'file' : 'files'} uploaded`);
+      setMessage(
+        `Upload successful, ${index + 1} ${
+          index === 1 ? "file" : "files"
+        } uploaded`
+      );
     } catch (err) {
       setMessage("upload failed");
       if (err.response?.data?.message) {
-        navigate('/handleerror', {state: {message: err.response.data.message, path: location.pathname}})
+        navigate("/handleerror", {
+          state: {
+            message: err.response.data.message,
+            path: location.pathname,
+          },
+        });
       } else {
-        navigate('/somethingwentwrong')
+        navigate("/somethingwentwrong");
       }
     }
 
-
     // send photo urls to backend
-  }
+  };
 
   return (
     <div>
