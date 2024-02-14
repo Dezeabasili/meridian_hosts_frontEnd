@@ -97,6 +97,9 @@ const UploadMultipleFiles = () => {
           withCredentials: true,
         }
       );
+      if (fileCode == "profilephoto") {
+        navigate("/users/myaccount")
+      }
     } catch (err) {
       if (err.response?.data?.message) {
         navigate("/handleerror", {
