@@ -112,23 +112,23 @@ const FavProperties = () => {
             <h3 className="fPContainerTitle">Homes guests love</h3>
             <div className="fPList">
               {hotelsToDisplay?.map((hotel, index) => {
-                const yellowStars = Math.trunc(hotel.ratingsAverage);
-                const whiteStar = Math.trunc(5 - hotel.ratingsAverage);
+                const yellowStars = Math.trunc(hotel?.ratingsAverage);
+                const whiteStar = Math.trunc(5 - hotel?.ratingsAverage);
                 const halfStar = 5 - yellowStars - whiteStar;
                 return (
-                  <div className="favProperty" key={hotel._id}>
+                  <div className="favProperty" key={hotel?._id}>
                     <div className="favPropertyDiv1">
                       <img
-                        src={hotel.photos}
+                        src={hotel?.photos}
                         alt=""
                         className="fPImg"
                         width="150"
                         height="150"
                       />
-                      <h4 className="fPName">{hotel.name}</h4>
-                      <p className="fPDesc">{hotel.description}</p>
+                      <h4 className="fPName">{hotel?.name}</h4>
+                      <p className="fPDesc">{hotel?.description}</p>
                       <p className="fPPrice">
-                        Starting from ${hotel.cheapestPrice}
+                        Starting from ${hotel?.cheapestPrice}
                       </p>
                     </div>
 
@@ -166,8 +166,8 @@ const FavProperties = () => {
                         </>
                       </button>
                       <span className="fPReviews nowrap">
-                        {hotel.numberOfRatings}{" "}
-                        {hotel.numberOfRatings == 1 ? "review" : "reviews"}
+                        {hotel?.numberOfRatings}{" "}
+                        {hotel?.numberOfRatings == 1 ? "review" : "reviews"}
                       </span>
                     </div>
                   </div>

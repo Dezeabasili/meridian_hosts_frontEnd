@@ -111,17 +111,17 @@ const Cities = () => {
 
             <div className="cities">
               <img
-                src={hotelsData[slide1].photo}
+                src={hotelsData[slide1]?.photo}
                 className="cityPicture"
                 alt=""
                 width="200"
                 height="200"
               />
               <div className="cityDiv">
-                <h3 className="cityHeader">{hotelsData[slide1].cityName}</h3>
+                <h3 className="cityHeader">{hotelsData[slide1]?.cityName}</h3>
                 <h5 className="cityDesc">
-                  {hotelsData[slide1].numberOfHotels}{" "}
-                  {hotelsData[slide1].numberOfHotels == 1
+                  {hotelsData[slide1]?.numberOfHotels}{" "}
+                  {hotelsData[slide1]?.numberOfHotels == 1
                     ? "property"
                     : "properties"}
                 </h5>
@@ -131,17 +131,17 @@ const Cities = () => {
             {screenSize.width >= 350 && (
               <div className="cities">
                 <img
-                  src={hotelsData[slide2].photo}
+                  src={hotelsData[slide2]?.photo}
                   className="cityPicture"
                   alt=""
                   width="200"
                   height="200"
                 />
                 <div className="cityDiv">
-                  <h3 className="cityHeader">{hotelsData[slide2].cityName}</h3>
+                  <h3 className="cityHeader">{hotelsData[slide2]?.cityName}</h3>
                   <h5 className="cityDesc">
-                    {hotelsData[slide2].numberOfHotels}{" "}
-                    {hotelsData[slide2].numberOfHotels == 1
+                    {hotelsData[slide2]?.numberOfHotels}{" "}
+                    {hotelsData[slide2]?.numberOfHotels == 1
                       ? "property"
                       : "properties"}
                   </h5>
@@ -152,17 +152,17 @@ const Cities = () => {
             {screenSize.width >= 485 && (
               <div className="cities">
                 <img
-                  src={hotelsData[slide3].photo}
+                  src={hotelsData[slide3]?.photo}
                   className="cityPicture"
                   alt=""
                   width="200"
                   height="200"
                 />
                 <div className="cityDiv">
-                  <h3 className="cityHeader">{hotelsData[slide3].cityName}</h3>
+                  <h3 className="cityHeader">{hotelsData[slide3]?.cityName}</h3>
                   <h5 className="cityDesc">
-                    {hotelsData[slide3].numberOfHotels}{" "}
-                    {hotelsData[slide3].numberOfHotels == 1
+                    {hotelsData[slide3]?.numberOfHotels}{" "}
+                    {hotelsData[slide3]?.numberOfHotels == 1
                       ? "property"
                       : "properties"}
                   </h5>
