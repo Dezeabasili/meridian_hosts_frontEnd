@@ -54,7 +54,7 @@ const Navbar = () => {
           />
         </div>
 
-        {screenSize.width <= 800 && auth.accessToken &&  
+        {screenSize.width < 800 && auth.accessToken &&  
         <div className="navContainerimgDiv">
           <img
             src={profilePhoto}
