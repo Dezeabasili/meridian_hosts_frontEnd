@@ -54,7 +54,7 @@ const Chats = () => {
 
     const downloadMessages = async (chat) => {
         try {
-            const res = await axiosWithInterceptors.get(baseURL + `/messages/${chat._id}`)
+            const res = await axiosWithInterceptors.get(baseURL + `api/v1/messages/${chat._id}`)
             console.log(res.data)
             setMessages(res.data)
             setChatName(retrieveName(chat))
