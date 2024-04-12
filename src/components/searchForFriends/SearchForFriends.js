@@ -17,7 +17,7 @@ const SearchForFriends = () => {
         const getUsers = async () => {
             try {
                 setLoading(true);
-            const res = await axiosWithInterceptors.get(baseURL + "/users")
+            const res = await axiosWithInterceptors.get(baseURL + "api/v1/users")
             console.log("users: ", res.data);
             setUsers(res.data.data)
             setSearchResult(res.data.data)

@@ -20,7 +20,7 @@ const Chats = () => {
         const getAllChats = async () => {
             try {
             setLoading(true);
-            const res = await axiosWithInterceptors.get(baseURL + "/chats")
+            const res = await axiosWithInterceptors.get(baseURL + "api/v1/chats")
             console.log("chats: ", res.data);
             setChats(res.data)
             setLoading(false);

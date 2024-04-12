@@ -55,7 +55,7 @@ const Messages = () => {
     chatMessage.chatInfo = chat_id;
 
     try {
-      const res = await axiosWithInterceptors.post(baseURL + "/messages", {
+      const res = await axiosWithInterceptors.post(baseURL + "api/v1/messages", {
         messageContent: newMessage,
         chatInfo: chat_id,
       });
