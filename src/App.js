@@ -56,6 +56,7 @@ import GetAllBookingsForAHotel from "./pages/bookings/GetAllBookingsForAHotel";
 import SearchBookingsResults from "./pages/bookings/SearchBookingsResults";
 import SearchHotelsResults from "./pages/hotelPage/SearchHotelsResults";
 import SearchReviewsResults from "./pages/reviews/SearchReviewsResults";
+import RealTimeChat from "./pages/realTimeChats/RealTimeChat";
 
 
 function App() {
@@ -100,6 +101,7 @@ function App() {
               <Route path="hotels/:hotel_id/all" element={<Hotel />} />
               <Route path="users/myaccount" element={<MyAccount />} />
               <Route path="uploadfiles" element={<UploadMultipleFiles />} />
+              <Route path="realtimechat" element={<RealTimeChat />} />
             </Route>
 
             <Route

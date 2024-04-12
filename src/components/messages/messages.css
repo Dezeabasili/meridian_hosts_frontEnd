@@ -1,0 +1,24 @@
+.messages {
+    flex: 3;
+    border-right: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* position: relative; */
+}
+
+.newMessageForm {
+    /* position: absolute; */
+    /* bottom: 0; */
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+
+.newMessageInput {
+    flex: 5;
+}
+
+.newMessageButton {
+    flex: 1;
+}

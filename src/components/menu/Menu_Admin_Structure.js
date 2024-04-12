@@ -127,6 +127,9 @@ const Menu_Admin_Structure = () => {
         <li>
           <NavLink to={"/users/updateuser"}>Update a user</NavLink>
         </li>
+        <li>
+          <NavLink to={"/realtimechat"}>Open chat session</NavLink>
+        </li>
       </ul>
     </div>
   );
