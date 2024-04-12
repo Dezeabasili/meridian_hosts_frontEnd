@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import {RotatingLines} from 'react-loader-spinner'
+import { baseURL } from "../../context/authContext";
 
 const SearchForFriends = () => {
     const [users, setUsers] = useState()
@@ -16,7 +17,7 @@ const SearchForFriends = () => {
         const getUsers = async () => {
             try {
                 setLoading(true);
-            const res = await axiosWithInterceptors.get("/users")
+            const res = await axiosWithInterceptors.get(baseURL + "/users")
             console.log("users: ", res.data);
             setUsers(res.data.data)
             setSearchResult(res.data.data)

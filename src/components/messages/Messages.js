@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import { useSearchContext } from "../../context/searchContext";
 import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
+import { baseURL } from "../../context/authContext";
 
 const Messages = () => {
   const [newMessage, setNewMessage] = useState();
@@ -20,7 +21,8 @@ const Messages = () => {
   prevRoom.current = chat_id;
 
   useEffect(() => {
-    socket.current = io("http://localhost:4000");
+    // socket.current = io("http://localhost:4000");
+    socket.current = io(baseURL);
   }, []);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Messages = () => {
     chatMessage.chatInfo = chat_id;
 
     try {
-      const res = await axiosWithInterceptors.post("/messages", {
+      const res = await axiosWithInterceptors.post(baseURL + "/messages", {
         messageContent: newMessage,
         chatInfo: chat_id,
       });

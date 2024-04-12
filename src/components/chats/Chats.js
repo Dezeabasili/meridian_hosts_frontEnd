@@ -5,6 +5,7 @@ import useAxiosInterceptors from "../../hooks/useAxiosWithInterceptors";
 import { useAuthContext } from "../../context/authContext";
 import { useSearchContext } from "../../context/searchContext";
 import {RotatingLines} from 'react-loader-spinner'
+import { baseURL } from "../../context/authContext";
 
 const Chats = () => {
     const [chats, setChats] = useState()
@@ -19,7 +20,7 @@ const Chats = () => {
         const getAllChats = async () => {
             try {
             setLoading(true);
-            const res = await axiosWithInterceptors.get("/chats")
+            const res = await axiosWithInterceptors.get(baseURL + "/chats")
             console.log("chats: ", res.data);
             setChats(res.data)
             setLoading(false);
@@ -53,7 +54,7 @@ const Chats = () => {
 
     const downloadMessages = async (chat) => {
         try {
-            const res = await axiosWithInterceptors.get(`/messages/${chat._id}`)
+            const res = await axiosWithInterceptors.get(baseURL + `/messages/${chat._id}`)
             console.log(res.data)
             setMessages(res.data)
             setChatName(retrieveName(chat))
