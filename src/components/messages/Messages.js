@@ -46,7 +46,7 @@ const Messages = () => {
       // setMessages(prev => [...prev, newMessage])
       // setMessages([...messages, newMessage])
     });
-  });
+  }, [setMessages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
