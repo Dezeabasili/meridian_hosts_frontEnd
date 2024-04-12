@@ -11,14 +11,15 @@ const Messages = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const socket = useRef();
-  const prevRoom = useRef();
   const axiosWithInterceptors = useAxiosInterceptors();
 
   const { messages, setMessages, chatName, chat_id, previousChat_id } =
     useSearchContext();
 
   useEffect(() => {
-    socket.current = io(baseURL);
+    if (socket.current == null) {
+      socket.current = io(baseURL);
+    }
   }, []);
 
   useEffect(() => {
@@ -34,15 +35,12 @@ const Messages = () => {
   useEffect(() => {
     socket.current.on("received message", (newMessage) => {
       if (newMessage.chatInfo._id == chat_id) {
-        console.log("chat_id: ", chat_id);
-        console.log("newMessage.chatInfo._id: ", newMessage.chatInfo._id);
         setMessages((prev) => [...prev, newMessage]);
       }
-
-      // setMessages(prev => [...prev, newMessage])
-      // setMessages([...messages, newMessage])
     });
-  });
+    
+  }, [socket.current]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,10 +53,7 @@ const Messages = () => {
         messageContent: newMessage,
         chatInfo: chat_id,
       });
-      console.log("message: ", res.data);
       setMessages((prev) => [...prev, res.data]);
-      // setMessages([...messages, res.data])
-      // socket.current.emit("new message", chatMessage)
       socket.current.emit("new message", res.data);
       setNewMessage("");
     } catch (err) {
