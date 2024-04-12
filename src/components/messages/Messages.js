@@ -17,11 +17,7 @@ const Messages = () => {
   const { messages, setMessages, chatName, chat_id, previousChat_id } =
     useSearchContext();
 
-  // let socket;
-  prevRoom.current = chat_id;
-
   useEffect(() => {
-    // socket.current = io("http://localhost:4000");
     socket.current = io(baseURL);
   }, []);
 
@@ -46,7 +42,7 @@ const Messages = () => {
       // setMessages(prev => [...prev, newMessage])
       // setMessages([...messages, newMessage])
     });
-  }, [setMessages]);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
