@@ -19,6 +19,7 @@ const Messages = () => {
   useEffect(() => {
     if (socket.current == null) {
       socket.current = io(baseURL);
+      // socket.emit("set up", {})
     }
   }, []);
 
@@ -38,7 +39,7 @@ const Messages = () => {
         setMessages((prev) => [...prev, newMessage]);
       }
     });
-    
+
   }, [socket.current]);
 
 
