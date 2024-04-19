@@ -6,6 +6,15 @@ const Menu_Admin_Structure = () => {
     <div className="navbarMainMenuList">
       <SubMenu />
       <ul>
+      <li>
+          <p>
+            <strong>Real time chat</strong>
+          </p>
+        </li>
+        <li>
+          <NavLink to={"/realtimechat"}>Open a chat session</NavLink>
+        </li>
+        <br />
         <li>
           <p>
             <strong>Bookings</strong>
@@ -127,9 +136,7 @@ const Menu_Admin_Structure = () => {
         <li>
           <NavLink to={"/users/updateuser"}>Update a user</NavLink>
         </li>
-        {/* <li>
-          <NavLink to={"/realtimechat"}>Open chat session</NavLink>
-        </li> */}
+
       </ul>
     </div>
   );
